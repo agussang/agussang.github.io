@@ -36,6 +36,25 @@
   --sage:#4a6741;
   --chapter-bg:#1a1510;
 }
+/* ===== MUSIC PLAYER ===== */
+.music-btn{position:fixed;bottom:28px;right:28px;z-index:999;display:flex;align-items:center;gap:10px;background:rgba(15,12,8,.85);backdrop-filter:blur(12px);border:1px solid rgba(201,168,76,.25);border-radius:50px;padding:12px 20px 12px 16px;color:var(--gold);cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:.85rem;letter-spacing:.05em;transition:all .4s ease;box-shadow:0 4px 24px rgba(0,0,0,.4)}
+.music-btn:hover{border-color:var(--gold);background:rgba(20,16,10,.95);transform:translateY(-2px);box-shadow:0 6px 32px rgba(0,0,0,.5)}
+.music-icon{display:flex;align-items:center;width:20px;height:20px}
+.music-icon svg{width:20px;height:20px;transition:opacity .3s}
+.music-btn .icon-pause{display:none}
+.music-btn.playing .icon-play{display:none}
+.music-btn.playing .icon-pause{display:block}
+.music-bars{display:flex;align-items:flex-end;gap:2px;height:16px}
+.music-bars .bar{width:3px;background:var(--gold);border-radius:2px;transition:height .2s;height:4px}
+.music-btn.playing .music-bars .bar{animation:barPulse 1.2s ease-in-out infinite}
+.music-btn.playing .music-bars .bar:nth-child(1){animation-delay:0s}
+.music-btn.playing .music-bars .bar:nth-child(2){animation-delay:.15s}
+.music-btn.playing .music-bars .bar:nth-child(3){animation-delay:.3s}
+.music-btn.playing .music-bars .bar:nth-child(4){animation-delay:.45s}
+@keyframes barPulse{0%,100%{height:4px}50%{height:16px}}
+.music-label{white-space:nowrap}
+@media(max-width:480px){.music-btn{bottom:16px;right:16px;padding:10px 14px 10px 12px;font-size:.75rem}.music-label{display:none}}
+
 html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--gold-dim) var(--bg)}
 body{background:var(--bg);color:var(--ink);font-family:'Lora',serif;line-height:1.9;overflow-x:hidden}
 
@@ -770,6 +789,22 @@ body{background:var(--bg);color:var(--ink);font-family:'Lora',serif;line-height:
 </section>
 
 <!-- ==================== COLOPHON ==================== -->
+<!-- ==================== MUSIC PLAYER ==================== -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="https://cdn.pixabay.com/audio/2024/11/28/audio_3a5e6a6a13.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicBtn" class="music-btn" aria-label="Toggle Music" title="Putar/Hentikan Musik">
+  <span class="music-icon" id="musicIcon">
+    <svg class="icon-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    <svg class="icon-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+  </span>
+  <span class="music-bars" id="musicBars">
+    <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+  </span>
+  <span class="music-label" id="musicLabel">Putar Musik</span>
+</button>
+
 <footer class="colophon">
   <div class="end-mark">&loz;</div>
   <p>S E R P I H A N &ensp; Y A N G &ensp; T E R S I S A</p>
@@ -810,6 +845,64 @@ document.getElementById('tocOverlay').addEventListener('transitionend', () => {
   const items = document.querySelectorAll('.toc-item');
   items.forEach((item, i) => { item.style.transitionDelay = (i * 0.06) + 's'; });
 });
+
+// ===== MUSIC PLAYER =====
+(() => {
+  const audio = document.getElementById('bgMusic');
+  const btn = document.getElementById('musicBtn');
+  const label = document.getElementById('musicLabel');
+  let started = false;
+
+  audio.volume = 0.35;
+
+  function fadeIn(el, targetVol, duration) {
+    el.volume = 0;
+    el.play();
+    const step = targetVol / (duration / 50);
+    const fade = setInterval(() => {
+      if (el.volume + step >= targetVol) { el.volume = targetVol; clearInterval(fade); }
+      else el.volume += step;
+    }, 50);
+  }
+
+  function toggleMusic() {
+    if (audio.paused) {
+      if (!started) { fadeIn(audio, 0.35, 2000); started = true; }
+      else audio.play();
+      btn.classList.add('playing');
+      label.textContent = 'Sedang Diputar';
+    } else {
+      audio.pause();
+      btn.classList.remove('playing');
+      label.textContent = 'Putar Musik';
+    }
+  }
+
+  btn.addEventListener('click', toggleMusic);
+
+  // Autoplay on first user interaction (scroll/click anywhere)
+  let autoStarted = false;
+  function autoStart() {
+    if (autoStarted) return;
+    autoStarted = true;
+    if (audio.paused) {
+      fadeIn(audio, 0.35, 3000);
+      btn.classList.add('playing');
+      label.textContent = 'Sedang Diputar';
+      started = true;
+    }
+    document.removeEventListener('scroll', autoStart);
+    document.removeEventListener('click', autoStartDelayed);
+    document.removeEventListener('touchstart', autoStartDelayed);
+  }
+  function autoStartDelayed(e) {
+    if (e.target.closest('#musicBtn')) return; // let button handle its own click
+    autoStart();
+  }
+  document.addEventListener('scroll', autoStart, { once: true, passive: true });
+  document.addEventListener('click', autoStartDelayed);
+  document.addEventListener('touchstart', autoStartDelayed, { passive: true });
+})();
 </script>
 
 </body>
