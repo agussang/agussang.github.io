@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serpihan yang Tersisa — Novel oleh Agus Mendo</title>
+<meta name="description" content="Sebuah novel tentang keberanian memilih diri sendiri. Terinspirasi dari kisah nyata, diperkaya puisi Jalaluddin Rumi dan Kahlil Gibran.">
+<meta name="author" content="Agus Mendo">
+<meta name="theme-color" content="#0a0a0a">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Serpihan yang Tersisa">
+<meta property="og:description" content="Sebuah novel tentang keberanian memilih diri sendiri. Terinspirasi dari kisah nyata, diperkaya puisi Jalaluddin Rumi dan Kahlil Gibran.">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="id_ID">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Serpihan yang Tersisa — Novel">
+<meta name="twitter:description" content="Sebuah novel tentang keberanian memilih diri sendiri. Oleh Agus Mendo.">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0a;
+  --paper:#f5f0e8;
+  --paper-dark:#e8e0d0;
+  --ink:#2c2420;
+  --ink-light:#5a4e44;
+  --gold:#c9a84c;
+  --gold-dim:#8a7235;
+  --rose:#8b4557;
+  --sage:#4a6741;
+  --chapter-bg:#1a1510;
+}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--gold-dim) var(--bg)}
+body{background:var(--bg);color:var(--ink);font-family:'Lora',serif;line-height:1.9;overflow-x:hidden}
+
+/* ===== PRELOADER ===== */
+.preloader{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1.2s,visibility 1.2s}
+.preloader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.preloader-ornament{width:60px;height:2px;background:var(--gold);margin-bottom:40px;animation:expandLine 2s ease-in-out infinite}
+.preloader h2{font-family:'Playfair Display',serif;color:var(--gold);font-size:1.2rem;letter-spacing:0.3em;text-transform:uppercase;font-weight:400}
+@keyframes expandLine{0%,100%{width:60px;opacity:.3}50%{width:120px;opacity:1}}
+
+/* ===== NAVIGATION ===== */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(10,10,10,.95),transparent);transition:opacity .4s}
+.nav-title{font-family:'Playfair Display',serif;color:var(--gold-dim);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;opacity:0;transition:opacity .6s}
+.nav-title.visible{opacity:1}
+.nav-progress{height:1px;background:var(--gold);position:fixed;top:0;left:0;z-index:101;transition:width .1s}
+.toc-btn{background:none;border:1px solid var(--gold-dim);color:var(--gold);font-family:'Lora',serif;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;padding:8px 20px;cursor:pointer;transition:all .3s}
+.toc-btn:hover{background:var(--gold);color:var(--bg)}
+
+/* ===== TABLE OF CONTENTS OVERLAY ===== */
+.toc-overlay{position:fixed;inset:0;z-index:200;background:rgba(10,10,10,.97);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all .5s}
+.toc-overlay.active{opacity:1;visibility:visible}
+.toc-content{text-align:center;max-width:500px}
+.toc-content h3{font-family:'Playfair Display',serif;color:var(--gold);font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:40px;font-weight:400}
+.toc-item{display:block;color:var(--paper-dark);font-family:'Cormorant Garamond',serif;font-size:1.3rem;padding:12px 0;border-bottom:1px solid rgba(201,168,76,.1);cursor:pointer;text-decoration:none;transition:all .3s;opacity:0;transform:translateY(15px)}
+.toc-overlay.active .toc-item{opacity:1;transform:translateY(0)}
+.toc-item:hover{color:var(--gold);padding-left:15px}
+.toc-close{position:absolute;top:32px;right:32px;background:none;border:none;color:var(--gold-dim);font-size:1.5rem;cursor:pointer;transition:color .3s}
+.toc-close:hover{color:var(--gold)}
+
+/* ===== HERO / COVER ===== */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 30%,#1f1a12,var(--bg))}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='%23c9a84c' stroke-width='.3' opacity='.08'/%3E%3C/svg%3E");opacity:.4}
+.hero-content{position:relative;z-index:1;padding:40px}
+.hero-ornament{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 50px}
+.hero h1{font-family:'Playfair Display',serif;color:var(--paper);font-size:clamp(2.5rem,6vw,4.5rem);font-weight:700;line-height:1.15;margin-bottom:16px;letter-spacing:.02em}
+.hero h1 span{display:block;font-style:italic;font-weight:400;font-size:.45em;color:var(--gold);letter-spacing:.1em;margin-top:16px}
+.hero-meta{color:var(--gold-dim);font-family:'Cormorant Garamond',serif;font-size:1.1rem;letter-spacing:.15em;margin-top:40px}
+.hero-quote{max-width:500px;margin:50px auto 0;padding:30px;border-top:1px solid rgba(201,168,76,.2);border-bottom:1px solid rgba(201,168,76,.2)}
+.hero-quote p{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--paper-dark);font-size:1.15rem;line-height:1.8;opacity:.8}
+.hero-quote cite{display:block;margin-top:12px;color:var(--gold-dim);font-family:'Lora',serif;font-size:.75rem;letter-spacing:.15em;font-style:normal}
+.scroll-indicator{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);color:var(--gold-dim);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;animation:fadeFloat 2.5s ease-in-out infinite}
+@keyframes fadeFloat{0%,100%{opacity:.3;transform:translateX(-50%) translateY(0)}50%{opacity:.8;transform:translateX(-50%) translateY(-8px)}}
+
+/* ===== CHAPTER SECTIONS ===== */
+.chapter{min-height:100vh;position:relative}
+.chapter-header{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px;position:relative;overflow:hidden}
+.ch-dark{background:var(--chapter-bg)}
+.ch-warm{background:linear-gradient(135deg,#1a1510,#0f1a14)}
+.ch-deep{background:linear-gradient(135deg,#1a1018,#0a0a0a)}
+.ch-light{background:linear-gradient(135deg,#1a1815,#12100a)}
+.ch-final{background:linear-gradient(135deg,#0f1a18,#0a0a0a)}
+.chapter-num{font-family:'Cormorant Garamond',serif;color:var(--gold-dim);font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;margin-bottom:24px}
+.chapter-title{font-family:'Playfair Display',serif;color:var(--paper);font-size:clamp(1.8rem,4vw,3rem);font-weight:600;margin-bottom:12px}
+.chapter-subtitle{font-family:'Cormorant Garamond',serif;color:var(--gold);font-style:italic;font-size:1.15rem;letter-spacing:.05em}
+.chapter-line{width:60px;height:1px;background:var(--gold);margin:30px auto 0;opacity:.5}
+
+/* ===== CONTENT AREA ===== */
+.content{max-width:680px;margin:0 auto;padding:60px 24px 100px;background:var(--paper);position:relative}
+.content::before{content:'';position:absolute;top:0;left:0;right:0;height:80px;background:linear-gradient(to bottom,var(--paper),transparent);z-index:1;pointer-events:none}
+
+/* ===== TYPOGRAPHY ===== */
+.content p{font-size:1.05rem;color:var(--ink);margin-bottom:1.4em;text-align:justify;text-indent:2em;hyphens:auto}
+.content p.no-indent{text-indent:0}
+.content p.center{text-align:center;text-indent:0}
+
+/* ===== EPIGRAPH (QUOTE BLOCKS) ===== */
+.epigraph{margin:3em auto;padding:2em 2.5em;max-width:520px;text-align:center;position:relative;border:none;background:transparent}
+.epigraph::before{content:'\201C';position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-family:'Playfair Display',serif;font-size:5rem;color:var(--gold);opacity:.2;line-height:1}
+.epigraph p{font-family:'Cormorant Garamond',serif !important;font-style:italic;color:var(--ink-light) !important;font-size:1.2rem !important;line-height:1.8;text-align:center !important;text-indent:0 !important;margin-bottom:.5em !important}
+.epigraph cite{display:block;font-family:'Lora',serif;font-style:normal;font-size:.8rem;color:var(--gold-dim);letter-spacing:.12em;margin-top:8px}
+.epigraph .arabic{font-family:'Noto Naskh Arabic',serif;font-style:normal;font-size:1.3rem;direction:rtl;color:var(--gold-dim);opacity:.6;margin-bottom:12px;line-height:2}
+
+/* ===== DIALOG ===== */
+.dialog{margin:1.6em 0;padding:1em 1.5em;border-left:3px solid var(--gold);background:rgba(201,168,76,.04);border-radius:0 4px 4px 0;text-indent:0 !important}
+.dialog .speaker{font-family:'Playfair Display',serif;font-weight:600;color:var(--gold-dim);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;display:block;text-indent:0}
+.dialog .speech{font-style:italic;color:var(--ink);text-indent:0}
+
+.dialog-nisa{border-left-color:var(--rose)}
+.dialog-nisa .speaker{color:var(--rose)}
+
+/* ===== SEPARATOR ===== */
+.sep{text-align:center;margin:3em 0;color:var(--gold);font-size:1.2rem;letter-spacing:1em;opacity:.4}
+
+/* ===== RUMI INTERLUDE (BETWEEN CHAPTERS) ===== */
+.rumi-interlude{min-height:40vh;display:flex;align-items:center;justify-content:center;padding:60px 24px;text-align:center;position:relative;overflow:hidden}
+.rumi-interlude.rumi-dark{background:var(--bg)}
+.rumi-interlude.rumi-warm{background:#12100a}
+.rumi-interlude.rumi-deep{background:#0d0a0f}
+.rumi-interlude .rumi-inner{max-width:560px;position:relative;z-index:1}
+.rumi-interlude .rumi-label{font-family:'Lora',serif;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:24px;opacity:.6}
+.rumi-interlude .rumi-text{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--paper-dark);font-size:clamp(1.2rem,2.5vw,1.6rem);line-height:2;opacity:.85}
+.rumi-interlude .rumi-source{font-family:'Lora',serif;font-size:.75rem;letter-spacing:.1em;color:var(--gold);margin-top:24px;font-style:normal}
+.rumi-interlude .rumi-arabic{font-family:'Noto Naskh Arabic',serif;font-size:1.4rem;direction:rtl;color:var(--gold);opacity:.25;margin-bottom:20px;line-height:2}
+
+/* ===== SPECIAL SECTIONS ===== */
+.dedication{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px;background:var(--bg)}
+.dedication p{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--paper-dark);font-size:1.2rem;line-height:2.2;opacity:.7}
+.dedication .ded-line{width:40px;height:1px;background:var(--gold);margin:24px auto;opacity:.3}
+
+/* ===== AUTHOR NOTE ===== */
+.author-note{max-width:680px;margin:0 auto;padding:60px 24px 100px;background:var(--paper)}
+.author-note h3{font-family:'Playfair Display',serif;text-align:center;font-size:1.4rem;color:var(--ink);margin-bottom:40px}
+.author-note p{font-size:1.02rem;color:var(--ink);margin-bottom:1.3em;text-align:justify;text-indent:2em}
+.author-note .sign{text-align:right;text-indent:0;margin-top:40px;color:var(--ink-light);font-style:italic}
+.author-note .sign strong{font-style:normal;color:var(--ink);display:block;margin-top:4px;font-family:'Playfair Display',serif}
+
+/* ===== COLOPHON / FOOTER ===== */
+.colophon{text-align:center;padding:80px 24px;background:var(--bg);border-top:1px solid rgba(201,168,76,.1)}
+.colophon p{font-family:'Cormorant Garamond',serif;color:var(--gold-dim);font-size:.85rem;letter-spacing:.1em;line-height:2;opacity:.5}
+.colophon .end-mark{font-family:'Playfair Display',serif;color:var(--gold);font-size:1.8rem;margin-bottom:20px;opacity:.3}
+
+/* ===== ANIMATIONS ===== */
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .content,.author-note{padding:40px 20px 80px}
+  .epigraph{padding:1.5em 1em}
+  .dialog{padding:.8em 1em}
+  .nav{padding:12px 16px}
+  .hero-quote{padding:20px;margin-top:30px}
+  .chapter-header{min-height:50vh;padding:60px 20px}
+}
+
+/* Print */
+@media print{
+  .nav,.toc-btn,.toc-overlay,.scroll-indicator,.nav-progress,.preloader{display:none !important}
+  .hero{min-height:auto;page-break-after:always}
+  .chapter-header{min-height:auto;page-break-before:always}
+  .content{max-width:100%}
+  body{background:#fff}
+}
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div class="preloader" id="preloader">
+  <div class="preloader-ornament"></div>
+  <h2>Serpihan yang Tersisa</h2>
+</div>
+
+<!-- PROGRESS BAR -->
+<div class="nav-progress" id="progress"></div>
+
+<!-- NAVIGATION -->
+<nav class="nav">
+  <span class="nav-title" id="navTitle">Serpihan yang Tersisa</span>
+  <button class="toc-btn" onclick="toggleTOC()">Daftar Isi</button>
+</nav>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc-overlay" id="tocOverlay">
+  <button class="toc-close" onclick="toggleTOC()">&times;</button>
+  <div class="toc-content">
+    <h3>Daftar Isi</h3>
+    <a class="toc-item" href="#prolog" onclick="toggleTOC()">Prolog — Malam Itu, di Balik Layar Kaca</a>
+    <a class="toc-item" href="#bab1" onclick="toggleTOC()">Bab 1 — Pertanyaan yang Tidak Sopan</a>
+    <a class="toc-item" href="#bab2" onclick="toggleTOC()">Bab 2 — Akar yang Berbeda, Tanah yang Sama</a>
+    <a class="toc-item" href="#bab3" onclick="toggleTOC()">Bab 3 — Di Balik Dinding yang Terlihat Kokoh</a>
+    <a class="toc-item" href="#bab4" onclick="toggleTOC()">Bab 4 — Kata-kata yang Tidak Cukup</a>
+    <a class="toc-item" href="#bab5" onclick="toggleTOC()">Bab 5 — Pelajaran dari Reruntuhan</a>
+    <a class="toc-item" href="#epilog" onclick="toggleTOC()">Epilog — Serpihan yang Tersisa, Keping yang Baru</a>
+    <a class="toc-item" href="#catatan" onclick="toggleTOC()">Catatan Penulis</a>
+  </div>
+</div>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-ornament"></div>
+    <h1>
+      Serpihan yang Tersisa
+      <span>Sebuah Novel Tentang Keberanian Memilih Diri Sendiri</span>
+    </h1>
+    <div class="hero-meta">Oleh &nbsp;A G U S &nbsp; M E N D O</div>
+    <div class="hero-quote">
+      <p>&ldquo;Luka adalah tempat di mana Cahaya masuk ke dalam dirimu.&rdquo;</p>
+      <cite>&mdash; Jalaluddin Rumi</cite>
+    </div>
+  </div>
+  <div class="scroll-indicator">Gulir ke bawah</div>
+</section>
+
+<!-- ==================== DEDICATION ==================== -->
+<section class="dedication">
+  <div class="fade-in">
+    <p>Untuk setiap perempuan<br>yang pernah memilih dirinya sendiri<br>ketika dunia mengatakan untuk bertahan.</p>
+    <div class="ded-line"></div>
+    <p>Dan untuk anak-anak mereka,<br>yang pantas tumbuh dalam damai.</p>
+  </div>
+</section>
+
+<!-- ==================== RUMI INTERLUDE ==================== -->
+<div class="rumi-interlude rumi-dark">
+  <div class="rumi-inner fade-in">
+    <div class="rumi-label">Jalaluddin Rumi</div>
+    <div class="rumi-arabic">لا تحزن، أي شيء تفقده يعود إليك في صورة أخرى</div>
+    <div class="rumi-text">&ldquo;Jangan bersedih. Apapun yang hilang darimu akan kembali dalam bentuk yang lain.&rdquo;</div>
+    <div class="rumi-source">&mdash; Masnavi-i Ma'navi</div>
+  </div>
+</div>
+
+<!-- ==================== PROLOG ==================== -->
+<section class="chapter" id="prolog">
+  <div class="chapter-header ch-dark fade-in">
+    <div class="chapter-num">Prolog</div>
+    <h2 class="chapter-title">Malam Itu, di Balik Layar Kaca</h2>
+    <div class="chapter-subtitle">&ldquo;Kadang yang paling berani bukan mereka yang bertahan,<br>melainkan mereka yang tahu kapan harus pergi.&rdquo;</div>
+    <div class="chapter-line"></div>
+  </div>
+  <div class="content">
+    <p class="no-indent fade-in">Malam itu hujan turun tanpa henti di kota Surabaya. Butiran air mengetuk-ngetuk jendela kamar sebuah rumah kost di kawasan Semolowaru dengan irama yang hampir menenangkan&mdash;kalau saja hati Raka tidak sedang berkecamuk.</p>
+
+    <p class="fade-in">Layar ponselnya masih menyala. Sebuah percakapan yang belum selesai. Nama di bagian atas layar tertulis: <em>Nisa.</em></p>
+
+    <p class="fade-in">Raka mengenal Nisa baru beberapa minggu terakhir lewat media sosial. Awalnya hanya komentar biasa di sebuah postingan tentang <em>parenting.</em> Lalu berlanjut ke pesan pribadi. Lalu percakapan demi percakapan yang semakin dalam, semakin jujur, semakin menyentuh tempat-tempat yang jarang dijamah oleh percakapan kasual.</p>
+
+    <p class="fade-in">Tapi malam ini berbeda. Malam ini Nisa membuka pintunya lebih lebar dari biasanya. Dan Raka, dengan segala rasa penasarannya yang kadang tidak sopan&mdash;seperti yang dia akui sendiri&mdash;berdiri di ambang pintu itu, ragu antara masuk atau mundur.</p>
+
+    <div class="epigraph fade-in">
+      <p class="arabic">مهمتك ليست أن تبحث عن الحب، بل أن تبحث وتجد كل الحواجز التي بنيتها في نفسك ضده</p>
+      <p>&ldquo;Tugasmu bukan mencari cinta, melainkan mencari dan menemukan semua dinding yang telah kau bangun di dalam dirimu untuk melawannya.&rdquo;</p>
+      <cite>&mdash; Jalaluddin Rumi</cite>
+    </div>
+
+    <div class="sep fade-in">&bull; &bull; &bull;</div>
+
+    <p class="fade-in">Novel ini adalah serpihan dari percakapan yang nyata. Sebuah dialog antara dua jiwa yang belum lama saling mengenal, namun entah bagaimana menemukan keberanian untuk berbicara tentang hal-hal yang seringkali disembunyikan di balik senyum dan status sosial media.</p>
+
+    <p class="fade-in">Ini adalah kisah tentang seorang perempuan yang memilih untuk tidak bertahan demi label &ldquo;utuh.&rdquo; Tentang seorang laki-laki yang mencoba memahami dari sudut pandang yang belum pernah ia miliki. Dan tentang keberanian yang kadang datang dalam bentuk yang paling sunyi: melepaskan.</p>
+  </div>
+</section>
+
+<!-- ==================== RUMI INTERLUDE ==================== -->
+<div class="rumi-interlude rumi-warm">
+  <div class="rumi-inner fade-in">
+    <div class="rumi-label">Jalaluddin Rumi</div>
+    <div class="rumi-text">&ldquo;Keberanian sejati adalah mengajukan pertanyaan yang tidak berani ditanyakan orang lain.&rdquo;</div>
+    <div class="rumi-source">&mdash; Diwan-i Shams-i Tabrizi</div>
+  </div>
+</div>
+
+<!-- ==================== BAB 1 ==================== -->
+<section class="chapter" id="bab1">
+  <div class="chapter-header ch-warm fade-in">
+    <div class="chapter-num">Bab Pertama</div>
+    <h2 class="chapter-title">Pertanyaan yang Tidak Sopan</h2>
+    <div class="chapter-subtitle">&ldquo;Angkatlah kata-katamu, bukan suaramu.<br>Hujan yang menumbuhkan bunga, bukan guntur.&rdquo; &mdash; Rumi</div>
+    <div class="chapter-line"></div>
+  </div>
+  <div class="content">
+    <p class="no-indent fade-in">Raka menarik napas dalam sebelum mengetik. Jemarinya ragu di atas keyboard virtual ponselnya. Pertanyaan ini sudah berputar di kepalanya selama berhari-hari, sejak pertama kali Nisa menyinggung soal statusnya sebagai <em>single parent</em> dalam sebuah percakapan ringan tentang <em>weekend routines.</em></p>
+
+    <p class="fade-in">Tapi Raka bukanlah orang yang bisa menahan rasa ingin tahunya. Bukan karena ia suka mengungkit luka orang lain, melainkan karena ada sesuatu dalam cara Nisa berbicara yang membuatnya ingin memahami lebih dalam. Ada kekuatan yang tersembunyi di balik kata-katanya, dan Raka ingin tahu dari mana kekuatan itu berasal.</p>
+
+    <div class="dialog fade-in">
+      <span class="speaker">Raka</span>
+      <span class="speech">&ldquo;Masih saling berkomunikasi, Kak? Untuk nafkah dan pendidikan anak, masih ditanggung? Itu hal yang selalu ingin kutanyakan pada orang yang telah berpisah.&rdquo;</span>
+    </div>
+
+    <p class="fade-in">Ia menunggu. Lalu menambahkan:</p>
+
+    <div class="dialog fade-in">
+      <span class="speaker">Raka</span>
+      <span class="speech">&ldquo;Dan pertanyaan untuk yang belum berpisah&mdash;apakah anak tidak menjadi sebuah tempat berpikir ulang agar tidak berpisah?&rdquo;</span>
+    </div>
+
+    <p class="fade-in">Raka tahu pertanyaan itu menusuk. Maka ia segera mengetik lagi, kali ini dengan nada yang lebih lembut&mdash;meskipun tetap dengan kejujuran yang menjadi ciri khasnya.</p>
+
+    <div class="dialog fade-in">
+      <span class="speaker">Raka</span>
+      <span class="speech">&ldquo;Aku sangat tidak sopan, dan tidak minta maaf untuk pertanyaan ini, karena aku tidak ada niatan mengingat-ingat duka kakak. Pertanyaan ini lebih ke perspektif orang tua, bukan individu.&rdquo;</span>
+    </div>
+
+    <p class="fade-in">Ponsel Raka bergetar beberapa menit kemudian.</p>
+
+    <div class="dialog dialog-nisa fade-in">
+      <span class="speaker">Nisa</span>
+      <span class="speech">&ldquo;Masih komunikasi, tiap weekend ganti shift. Hahaha. Tapi ya sewajarnya aja, seperlunya, keperluan anak.&rdquo;</span>
+    </div>
+
+    <p class="fade-in">Raka membaca ulang pesan itu. <em>Ganti shift.</em> Kata itu begitu kasual untuk mendeskripsikan sesuatu yang seharusnya menyakitkan. Atau mungkin itulah cara orang-orang yang sudah melewati badai berbicara&mdash;dengan ketenangan yang hanya bisa lahir dari penerimaan.</p>
+
+    <div class="sep fade-in">&bull; &bull; &bull;</div>
+
+    <div class="epigraph fade-in">
+      <p>&ldquo;Biarlah ada ruang di dalam kebersamaan kalian. Dan biarlah angin dari langit menari di antara kalian.&rdquo;</p>
+      <cite>&mdash; Kahlil Gibran, &ldquo;On Marriage&rdquo; &mdash; The Prophet</cite>
+    </div>
+
+    <p class="fade-in">Nisa meletakkan ponselnya di meja samping tempat tidur. Raffa, putranya yang berusia enam tahun, sudah terlelap di sampingnya. Wajah kecil itu begitu damai dalam tidurnya, tidak tahu bahwa mamanya baru saja membuka kotak kenangan yang biasanya terkunci rapat.</p>
+
+    <p class="fade-in">Pertanyaan Raka tidak membuatnya marah. Justru sebaliknya&mdash;pertanyaan itu seperti udara segar yang masuk dari jendela yang sudah lama ditutup. Orang-orang di sekitarnya selalu berhati-hati, selalu menghindari topik ini seolah-olah perceraian adalah penyakit menular. Tapi Raka bertanya dengan cara yang berbeda. Tidak menghakimi, hanya ingin tahu.</p>
+
+    <p class="fade-in">Nisa mengambil kembali ponselnya dan mulai mengetik.</p>
+
+    <div class="dialog dialog-nisa fade-in">
+      <span class="speaker">Nisa</span>
+      <span class="speech">&ldquo;Udah aku pikir baik-baik, Kak. Banyak ga baiknya kalau pertimbangannya tentang anak. Anak butuh ruang tumbuh yang baik, bukan medan perang ke dua orang tuanya.&rdquo;</span>
+    </div>
+
+    <p class="fade-in">Jemarinya berhenti sejenak. Lalu ia melanjutkan, karena sekali pintu itu terbuka, sulit untuk menutupnya kembali.</p>
+
+    <div class="dialog dialog-nisa fade-in">
+      <span class="speaker">Nisa</span>
+      <span class="speech">&ldquo;Kenapa memang, Kak? Apakah kamu anak dari orang tua yang bercerai juga?&rdquo;</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== RUMI INTERLUDE ==================== -->
+<div class="rumi-interlude rumi-deep">
+  <div class="rumi-inner fade-in">
+    <div class="rumi-label">Kahlil Gibran</div>
+    <div class="rumi-text">&ldquo;Anak-anakmu bukanlah milikmu. Mereka adalah putra-putri kehidupan yang merindukan dirinya sendiri. Mereka datang melaluimu, bukan darimu.&rdquo;</div>
+    <div class="rumi-source">&mdash; &ldquo;On Children&rdquo; &mdash; The Prophet (1923)</div>
+  </div>
+</div>
+
+<!-- ==================== BAB 2 ==================== -->
+<section class="chapter" id="bab2">
+  <div class="chapter-header ch-deep fade-in">
+    <div class="chapter-num">Bab Kedua</div>
+    <h2 class="chapter-title">Akar yang Berbeda, Tanah yang Sama</h2>
+    <div class="chapter-subtitle">&ldquo;Jiwa ini berasal dari tempat lain, aku yakin itu,<br>dan aku bermaksud kembali ke sana.&rdquo; &mdash; Rumi</div>
+    <div class="chapter-line"></div>
+  </div>
+  <div class="content">
+    <p class="no-indent fade-in">Raka tersenyum membaca pertanyaan balik dari Nisa. Ada sesuatu yang hangat dalam cara Nisa bertanya&mdash;tidak defensif, tidak menyerang balik, justru membuka ruang untuk dialog yang setara.</p>
+
+    <div class="dialog fade-in">
+      <span class="speaker">Raka</span>
+      <span class="speech">&ldquo;Alhamdulillah enggak, Kak. Kalau soal orang tua praharanya banyak. Cuman aku dari SMP kelas 1 sudah menjauh dari rumah, kost di luar kota.&rdquo;</span>
+    </div>
+
+    <p class="fade-in">Ia berhenti mengetik sejenak, memandang langit-langit kamarnya. Kenangan tentang rumah kost pertamanya di usia dua belas tahun melintas seperti film hitam putih&mdash;bau deterjen murah, suara televisi tetangga, dan rasa rindu yang ia sembunyikan di balik rajinnya belajar.</p>
+
+    <div class="dialog fade-in">
+      <span class="speaker">Raka</span>
+      <span class="speech">&ldquo;Dan sekarang juga tinggal ayah saja. Ibu sudah berpulang tujuh tahunan lalu.&rdquo;</span>
+    </div>
+
+    <div class="epigraph fade-in">
+      <p>&ldquo;Cinta tidak pernah mengenal kedalamannya sendiri sampai saat perpisahan tiba.&rdquo;</p>
+      <cite>&mdash; Kahlil Gibran</cite>
+    </div>
+
+    <p class="fade-in">Nisa membaca pesan itu dan merasakan sesuatu yang familiar: kehilangan. Mereka berdua mengenal kehilangan dengan cara yang berbeda&mdash;Raka kehilangan ibunya kepada takdir, Nisa kehilangan suaminya kepada pilihan. Tapi rasa sakitnya, entah mengapa, berbicara dalam bahasa yang sama.</p>
+
+    <div class="sep fade-in">&bull; &bull; &bull;</div>
+
+    <p class="fade-in">Raka kemudian bertanya lebih dalam. Pertanyaannya kali ini lebih spesifik, lebih personal, dan ia tahu ia sedang melangkah ke wilayah yang sensitif.</p>
+
+    <div class="dialog fade-in">
+      <span class="speaker">Raka</span>
+      <span class="speech">&ldquo;Untuk masa diskusi dan memulainya ini, apakah kakak dengan emosi atau duduk baik-baik? Dan kakak yang meminta lalu dia mengiyakan, atau ada komunikasi untuk ke arah memperbaiki?&rdquo;</span>
+    </div>
+
+    <p class="fade-in">Lalu ia menambahkan sesuatu yang mengungkapkan bahwa ia bukan sekadar bertanya untuk mengisi waktu&mdash;ia benar-benar mencoba memahami:</p>
+
+    <div class="dialog fade-in">
+      <span class="speaker">Raka</span>
+      <span class="speech">&ldquo;Soalnya aku terus bertanya dari sudut pandangku. Dalam agama kalian ini menurutku baik. Dari awal mbak ini sudah berjilbab, menutup aurat. Lalu beberapa bulan aku tahu pasangan mbak juga ibadahnya kenceng. Dan sempat bertemu, dari faktor ekonomi, dari keluarga yang sama-sama mapan...&rdquo;</span>
+    </div>
+
+    <p class="fade-in">Raka sengaja tidak menyelesaikan kalimatnya. Tapi pesannya jelas: dengan semua itu&mdash;agama, ekonomi, latar belakang&mdash;mengapa tetap tidak cukup?</p>
+
+    <div class="epigraph fade-in">
+      <p>&ldquo;Kemarin aku cerdas, maka aku ingin mengubah dunia. Hari ini aku bijak, maka aku mengubah diriku sendiri.&rdquo;</p>
+      <cite>&mdash; Jalaluddin Rumi</cite>
+    </div>
+
+    <p class="fade-in">Pertanyaan itu menggantung di udara digital antara mereka. Dan Nisa, untuk pertama kalinya dalam waktu yang lama, merasa seseorang benar-benar ingin tahu jawabannya. Bukan untuk menghakimi, bukan untuk bergosip, tapi untuk memahami.</p>
+
+    <p class="fade-in">Maka ia pun membuka pintunya selebar yang ia bisa.</p>
+  </div>
+</section>
+
+<!-- ==================== RUMI INTERLUDE ==================== -->
+<div class="rumi-interlude rumi-dark">
+  <div class="rumi-inner fade-in">
+    <div class="rumi-label">Jalaluddin Rumi</div>
+    <div class="rumi-arabic">إذا أردت الشفاء فدع نفسك تمرض</div>
+    <div class="rumi-text">&ldquo;Jika kau ingin sembuh, biarkanlah dirimu jatuh sakit terlebih dahulu.&rdquo;</div>
+    <div class="rumi-source">&mdash; Masnavi-i Ma'navi, Kitab III</div>
+  </div>
+</div>
+
+<!-- ==================== BAB 3 ==================== -->
+<section class="chapter" id="bab3">
+  <div class="chapter-header ch-light fade-in">
+    <div class="chapter-num">Bab Ketiga</div>
+    <h2 class="chapter-title">Di Balik Dinding yang Terlihat Kokoh</h2>
+    <div class="chapter-subtitle">&ldquo;Sakitmu adalah pecahnya cangkang<br>yang membungkus pemahamanmu.&rdquo; &mdash; Kahlil Gibran</div>
+    <div class="chapter-line"></div>
+  </div>
+  <div class="content">
+    <div class="epigraph fade-in">
+      <p>&ldquo;Berdirilah bersama, tetapi jangan terlalu dekat. Karena tiang-tiang kuil berdiri sendiri-sendiri, dan pohon ek serta cemara tidak tumbuh di bawah bayangan satu sama lain.&rdquo;</p>
+      <cite>&mdash; Kahlil Gibran, &ldquo;On Marriage&rdquo; &mdash; The Prophet</cite>
+    </div>
+
+    <p class="no-indent fade-in">Nisa mulai mengetik. Dan kali ini, ia tidak berhenti.</p>
+
+    <div class="dialog dialog-nisa fade-in">
+      <span class="speaker">Nisa</span>
+      <span class="speech">&ldquo;Anakku sering nanya, kenapa kok pisah. Jawabannya ya karena udah terlalu sering bertengkar, ga nyaman di dalam rumah, tanpa ada trust juga.&rdquo;</span>
+    </div>
+
+    <p class="fade-in">Jemarinya bergetar sedikit, tapi ia terus mengetik.</p>
+
+    <div class="dialog dialog-nisa fade-in">
+      <span class="speaker">Nisa</span>
+      <span class="speech">&ldquo;Nggak bisa ngajarin ke anak how to loving and be loved. Bapaknya ga bisa ngajarin anak cowoknya how to be a man, how being a man.&rdquo;</span>
+    </div>
+
+    <p class="fade-in">Setiap kata yang keluar dari jemarinya seperti batu yang diangkat dari dadanya. Berat, tapi setelah dilepaskan, ada sedikit ruang untuk bernapas.</p>
+
+    <div class="dialog dialog-nisa fade-in">
+      <span class="speaker">Nisa</span>
+      <span class="speech">&ldquo;Ngga ada figur kepemimpinan dari kepala keluarga. Ga bisa menunjukkan gimana sih menyayangi seorang istrinya ke anaknya. Kacau balau pokoknya.&rdquo;</span>
+    </div>
+
+    <div class="sep fade-in">&bull; &bull; &bull;</div>
+
+    <p class="fade-in">Raka membaca setiap kata dengan hati-hati. Ia bisa merasakan getaran di balik kata-kata itu&mdash;bukan kemarahan, bukan kebencian, tapi kekecewaan yang begitu dalam hingga sudah melampaui tahap emosional dan masuk ke tahap rasional.</p>
+
+    <p class="fade-in">Nisa melanjutkan:</p>
+
+    <div class="dialog dialog-nisa fade-in">
+      <span class="speaker">Nisa</span>
+      <span class="speech">&ldquo;Emang kalau dari luar we looks fine. Ekonomi stabil, sudah mapan kalau kata orang. Tapi hubungan pernikahan ga akan jalan tanpa ada trust, visi misi buat masa depan.&rdquo;</span>
+    </div>
+
+    <div class="epigraph fade-in">
+      <p>&ldquo;Segalanya di alam semesta ada di dalam dirimu. Mintalah semuanya dari dirimu sendiri.&rdquo;</p>
+      <cite>&mdash; Jalaluddin Rumi</cite>
+    </div>
+
+    <p class="fade-in">Kalimat itu menohok Raka dengan cara yang tidak ia duga. Selama ini ia&mdash;dan mungkin sebagian besar orang&mdash;menilai sebuah rumah tangga dari luarnya. Rumah bagus, mobil bagus, anak sekolah di tempat bagus. Sudah cukup, kan? Ternyata tidak.</p>
+
+    <div class="dialog dialog-nisa fade-in">
+      <span class="speaker">Nisa</span>
+      <span class="speech">&ldquo;Ada kebutuhan emosional yang stabil sebagai pondasi utama, yang orang-orang nggak lihat.&rdquo;</span>
+    </div>
+
+    <div class="dialog dialog-nisa fade-in">
+      <span class="speaker">Nisa</span>
+      <span class="speech">&ldquo;Ngga cukup cuman terlihat baik di depan banyak orang, tapi di rumah seperti orang lain buat aku.&rdquo;</span>
+    </div>
+
+    <p class="fade-in">Raka merasakan dadanya sesak. Ia membayangkan Nisa&mdash;perempuan yang dari luar terlihat kuat, mandiri, berpendidikan, religius&mdash;pulang ke rumah yang seharusnya menjadi tempatnya merasa aman, tapi justru menjadi tempat yang paling menyakitkan.</p>
+
+    <div class="dialog dialog-nisa fade-in">
+      <span class="speaker">Nisa</span>
+      <span class="speech">&ldquo;Apalagi sudah sampai ada pihak ketiga, Kak. Jadi buatku itu sudah fatal aja, ga ada masa depan lagi buat dipertahankan.&rdquo;</span>
+    </div>
+
+    <p class="fade-in"><em>Pihak ketiga.</em> Dua kata itu jatuh seperti palu hakim di ruang sidang yang sunyi. Semua argumen tentang &ldquo;bertahan demi anak&rdquo; runtuh dalam sekejap.</p>
+
+    <div class="dialog dialog-nisa fade-in">
+      <span class="speaker">Nisa</span>
+      <span class="speech">&ldquo;Intinya udah ga ada trust aja aku ke dia. Komitmen antara dia dan Tuhan aja ga bisa dia pegang kok.&rdquo;</span>
+    </div>
+
+    <div class="epigraph fade-in">
+      <p>&ldquo;Di luar sana, melampaui gagasan tentang salah dan benar, ada sebuah padang. Aku akan menemuimu di sana.&rdquo;</p>
+      <cite>&mdash; Jalaluddin Rumi</cite>
+    </div>
+
+    <p class="fade-in">Kalimat terakhir itu adalah yang paling tajam. Bukan sekadar tentang pengkhianatan kepada pasangan&mdash;tapi tentang pengkhianatan kepada nilai-nilai yang seharusnya menjadi fondasi dari segalanya. Jika janji kepada Tuhan saja bisa dilanggar, janji apa lagi yang bisa dipegang?</p>
+
+    <div class="sep fade-in">&bull; &bull; &bull;</div>
+
+    <p class="fade-in">Nisa menambahkan satu pesan lagi. Pesan yang merangkum keseluruhan perjalanannya dari seorang istri menjadi seorang ibu tunggal:</p>
+
+    <div class="dialog dialog-nisa fade-in">
+      <span class="speaker">Nisa</span>
+      <span class="speech">&ldquo;Jadi kalau ditimbang-timbang, dari segi agama, tanggung jawab, sifat baik buruknya, wataknya&mdash;banyakan buruknya. Jadi ya udah, aku mending udahan.&rdquo;</span>
+    </div>
+
+    <p class="fade-in"><em>Udahan.</em> Satu kata yang begitu sederhana untuk keputusan yang begitu berat. Tapi di balik kesederhanaan itu, Raka bisa mendengar suara seorang perempuan yang telah menimbang segalanya&mdash;bukan dengan emosi, tapi dengan akal sehat yang jernih, meskipun hatinya mungkin masih berdarah.</p>
+  </div>
+</section>
+
+<!-- ==================== RUMI INTERLUDE ==================== -->
+<div class="rumi-interlude rumi-warm">
+  <div class="rumi-inner fade-in">
+    <div class="rumi-label">Jalaluddin Rumi</div>
+    <div class="rumi-arabic">ارقص حين تنكسر، ارقص إن نزعت الضمادات عنك</div>
+    <div class="rumi-text">&ldquo;Menarilah saat kau hancur. Menarilah saat kau melepas perban dari lukamu. Menarilah di tengah pertempuran. Menarilah saat kau benar-benar bebas.&rdquo;</div>
+    <div class="rumi-source">&mdash; Diwan-i Shams-i Tabrizi</div>
+  </div>
+</div>
+
+<!-- ==================== BAB 4 ==================== -->
+<section class="chapter" id="bab4">
+  <div class="chapter-header ch-deep fade-in">
+    <div class="chapter-num">Bab Keempat</div>
+    <h2 class="chapter-title">Kata-kata yang Tidak Cukup</h2>
+    <div class="chapter-subtitle">&ldquo;Kau boleh memberi mereka cintamu,<br>tetapi bukan pikiranmu.&rdquo; &mdash; Kahlil Gibran</div>
+    <div class="chapter-line"></div>
+  </div>
+  <div class="content">
+    <p class="no-indent fade-in">Raka menatap layar ponselnya dengan mata yang berkaca-kaca. Bukan karena ia mengenal Nisa dengan baik&mdash;mereka bahkan belum pernah bertemu secara langsung. Tapi karena ada sesuatu yang universal dalam kisah ini, sesuatu yang melampaui batas-batas kenalan dan persahabatan.</p>
+
+    <p class="fade-in">Ia mengetik dengan jemari yang sedikit gemetar:</p>
+
+    <div class="dialog fade-in">
+      <span class="speaker">Raka</span>
+      <span class="speech">&ldquo;Speechless aku, Kak.&rdquo;</span>
+    </div>
+
+    <div class="dialog fade-in">
+      <span class="speaker">Raka</span>
+      <span class="speech">&ldquo;Gak sanggup berkata apa-apa lagi.&rdquo;</span>
+    </div>
+
+    <p class="fade-in">Raka berhenti sejenak. Ia tahu kata-kata berikutnya harus dipilih dengan sangat hati-hati. Bukan basa-basi, bukan pujian kosong, tapi pengakuan yang tulus terhadap keberanian yang baru saja ia saksikan lewat layar kecil ini.</p>
+
+    <div class="dialog fade-in">
+      <span class="speaker">Raka</span>
+      <span class="speech">&ldquo;Kamu adalah ibu yang pintar, ibu yang baik.&rdquo;</span>
+    </div>
+
+    <div class="dialog fade-in">
+      <span class="speaker">Raka</span>
+      <span class="speech">&ldquo;Dan kamu adalah wanita berpendidikan.&rdquo;</span>
+    </div>
+
+    <div class="epigraph fade-in">
+      <p>&ldquo;Ketuk, maka Dia akan membukakan pintu. Lenyaplah, maka Dia akan membuatmu bersinar bagaikan matahari. Jatuhlah, maka Dia akan mengangkatmu ke langit. Jadilah hampa, maka Dia akan mengubahmu menjadi segalanya.&rdquo;</p>
+      <cite>&mdash; Jalaluddin Rumi</cite>
+    </div>
+
+    <p class="fade-in">Kata-kata itu terasa tidak cukup. Bagaimana empat kalimat pendek bisa merangkum penghargaan terhadap seorang perempuan yang telah melewati neraka dan keluar dari sisi lain dengan kepala tegak dan anak di gendongan?</p>
+
+    <p class="fade-in">Tapi terkadang, kata-kata yang paling berarti bukanlah yang paling puitis. Terkadang, pengakuan sederhana bahwa seseorang telah <em>melihat</em> perjuanganmu&mdash;dan menghargainya&mdash;sudah lebih dari cukup.</p>
+
+    <div class="sep fade-in">&bull; &bull; &bull;</div>
+
+    <p class="fade-in">Nisa membalas dengan emoji dua tangan yang mengatup&mdash;doa. Tidak ada kata-kata. Hanya doa. Dan mungkin itu adalah respons yang paling jujur: ketika kata-kata sudah habis, yang tersisa hanyalah doa dan syukur.</p>
+
+    <p class="fade-in">Syukur bahwa ada seseorang yang mendengarkan tanpa menghakimi. Syukur bahwa ada seseorang yang bertanya bukan untuk mencari gosip, tapi untuk memahami. Syukur bahwa malam ini, di antara jutaan percakapan yang berlangsung di dunia digital, ada satu percakapan yang bermakna.</p>
+  </div>
+</section>
+
+<!-- ==================== RUMI INTERLUDE ==================== -->
+<div class="rumi-interlude rumi-deep">
+  <div class="rumi-inner fade-in">
+    <div class="rumi-label">Kahlil Gibran</div>
+    <div class="rumi-text">&ldquo;Menikah itu bukan sekadar berdiri berdampingan. Cintailah satu sama lain, tetapi janganlah menjadikan cinta sebagai belenggu. Biarlah ia menjadi lautan yang bergerak di antara pantai-pantai jiwa kalian.&rdquo;</div>
+    <div class="rumi-source">&mdash; &ldquo;On Marriage&rdquo; &mdash; The Prophet (1923)</div>
+  </div>
+</div>
+
+<!-- ==================== BAB 5 ==================== -->
+<section class="chapter" id="bab5">
+  <div class="chapter-header ch-light fade-in">
+    <div class="chapter-num">Bab Kelima</div>
+    <h2 class="chapter-title">Pelajaran dari Reruntuhan</h2>
+    <div class="chapter-subtitle">&ldquo;Jangan puas dengan kisah-kisah orang lain.<br>Bentangkanlah mitosmu sendiri.&rdquo; &mdash; Rumi</div>
+    <div class="chapter-line"></div>
+  </div>
+  <div class="content">
+    <p class="no-indent fade-in">Setelah jeda yang cukup lama&mdash;mungkin keduanya membutuhkan waktu untuk menarik napas&mdash;Raka mengetik kembali:</p>
+
+    <div class="dialog fade-in">
+      <span class="speaker">Raka</span>
+      <span class="speech">&ldquo;Terima kasih banyak buat sharingnya, Kak. Ternyata tidak semua rumah tangga yang hancur itu hanya karena faktor ekonomi saja.&rdquo;</span>
+    </div>
+
+    <p class="fade-in">Kalimat itu sederhana, tapi mengandung sebuah pergeseran perspektif yang signifikan. Selama ini, narasi umum di masyarakat selalu menghubungkan perceraian dengan kemiskinan. Suami tidak bisa memberi nafkah, rumah tangga berantakan. Tapi Nisa membuktikan bahwa rumah tangga yang mapan secara ekonomi pun bisa runtuh&mdash;karena yang rapuh bukan dompetnya, melainkan hatinya.</p>
+
+    <div class="dialog fade-in">
+      <span class="speaker">Raka</span>
+      <span class="speech">&ldquo;Banyak hal yang harus dipersiapkan sebagai lelaki.&rdquo;</span>
+    </div>
+
+    <div class="epigraph fade-in">
+      <p>&ldquo;Biarlah dirimu ditarik diam-diam oleh tarikan aneh dari apa yang benar-benar kau cintai. Ia tidak akan menyesatkanmu.&rdquo;</p>
+      <cite>&mdash; Jalaluddin Rumi</cite>
+    </div>
+
+    <p class="fade-in">Kalimat itu bukan sekadar komentar. Itu adalah janji diam-diam yang Raka buat pada dirinya sendiri: jika suatu hari ia membangun rumah tangga, ia tidak akan hanya mempersiapkan materi. Ia akan mempersiapkan hatinya, emosinya, komitmennya, dan kemampuannya untuk menjadi <em>partner</em>&mdash;bukan hanya <em>provider.</em></p>
+
+    <div class="sep fade-in">&bull; &bull; &bull;</div>
+
+    <p class="fade-in">Nisa membaca pesan Raka dan tersenyum. Senyum yang sedikit pahit, tapi juga penuh harapan.</p>
+
+    <div class="dialog dialog-nisa fade-in">
+      <span class="speaker">Nisa</span>
+      <span class="speech">&ldquo;Banyak banget poin pentingnya, Kak. Menikah ga cukup sekadar menafkahi. Anak ga sekadar cukup dibiayain.&rdquo;</span>
+    </div>
+
+    <p class="fade-in">Ia berhenti sejenak, memandang Raffa yang masih tertidur pulas. Anak laki-lakinya ini akan tumbuh tanpa figur ayah sehari-hari. Dan itu adalah beban yang Nisa tanggung setiap malam&mdash;ketakutan bahwa putranya akan tumbuh tanpa tahu bagaimana seharusnya seorang laki-laki mencintai.</p>
+
+    <p class="fade-in">Tapi bukankah lebih baik tumbuh tanpa contoh daripada tumbuh dengan contoh yang salah?</p>
+
+    <div class="dialog dialog-nisa fade-in">
+      <span class="speaker">Nisa</span>
+      <span class="speech">&ldquo;Ini kalau bahas tentang kegagalan rumah tanggaku sih bisa sampai 20 SKS. Wkwkwkwk.&rdquo;</span>
+    </div>
+
+    <p class="fade-in">Raka tertawa membaca itu. Humor di tengah luka. Itu adalah tanda seseorang yang sudah mulai berdamai dengan rasa sakitnya&mdash;tidak lagi membiarkannya mendefinisikan siapa dirinya.</p>
+
+    <div class="dialog dialog-nisa fade-in">
+      <span class="speaker">Nisa</span>
+      <span class="speech">&ldquo;Ada banyak peran yang harus dipelajari ketika menikah. Kalau ngga dipelajari sebelum menikah, pasti semua hal yang seharusnya jadi tanggung jawab cuman dianggap sebagai beban atau tuntutan.&rdquo;</span>
+    </div>
+
+    <div class="epigraph fade-in">
+      <p>&ldquo;Obat untuk rasa sakit adalah di dalam rasa sakit itu sendiri.&rdquo;</p>
+      <cite>&mdash; Jalaluddin Rumi, Masnavi</cite>
+    </div>
+
+    <p class="fade-in">Raka merenungkan kata-kata itu. Betapa banyak pernikahan yang gagal bukan karena orangnya salah, tapi karena persiapannya yang kurang. Menikah dianggap sebagai tujuan akhir, bukan awal dari perjalanan yang membutuhkan pembelajaran sepanjang hayat.</p>
+
+    <div class="dialog dialog-nisa fade-in">
+      <span class="speaker">Nisa</span>
+      <span class="speech">&ldquo;Kalau udah gitu, tinggal nunggu bom waktunya aja meledak kapan aja. Kayak aku gini.&rdquo;</span>
+    </div>
+
+    <p class="fade-in">Kalimat terakhir itu menggantung di udara digital antara mereka. <em>Bom waktu.</em> Itulah yang sebenarnya terjadi&mdash;bukan sebuah ledakan tiba-tiba, melainkan akumulasi dari retakan-retakan kecil yang diabaikan, ditutup-tutupi, dimaklumi, hingga akhirnya dinding itu tidak kuat lagi menahan.</p>
+  </div>
+</section>
+
+<!-- ==================== RUMI INTERLUDE ==================== -->
+<div class="rumi-interlude rumi-dark">
+  <div class="rumi-inner fade-in">
+    <div class="rumi-label">Jalaluddin Rumi</div>
+    <div class="rumi-arabic">الجرح هو المكان الذي يدخل فيه النور إليك</div>
+    <div class="rumi-text">&ldquo;Aku berkata: Bagaimana dengan mataku? Dia menjawab: Tetap di jalan.<br>Aku berkata: Bagaimana dengan hasratku? Dia menjawab: Biarkan tetap menyala.<br>Aku berkata: Bagaimana dengan hatiku? Dia menjawab: Katakan padaku apa yang kau simpan di dalamnya?<br>Aku berkata: Kepedihan dan kesedihan.<br>Dia menjawab: Tetaplah bersamanya. Luka adalah tempat di mana Cahaya masuk ke dalam dirimu.&rdquo;</div>
+    <div class="rumi-source">&mdash; Jalaluddin Rumi</div>
+  </div>
+</div>
+
+<!-- ==================== EPILOG ==================== -->
+<section class="chapter" id="epilog">
+  <div class="chapter-header ch-final fade-in">
+    <div class="chapter-num">Epilog</div>
+    <h2 class="chapter-title">Serpihan yang Tersisa, Keping yang Baru</h2>
+    <div class="chapter-subtitle">&ldquo;Kita tidak selalu bisa memilih apa yang terjadi pada kita,<br>tapi kita selalu bisa memilih bagaimana kita bangkit.&rdquo;</div>
+    <div class="chapter-line"></div>
+  </div>
+  <div class="content">
+    <div class="epigraph fade-in">
+      <p>&ldquo;Hidup adalah keseimbangan antara menahan dan melepaskan.&rdquo;</p>
+      <cite>&mdash; Jalaluddin Rumi</cite>
+    </div>
+
+    <p class="no-indent fade-in">Malam itu, setelah percakapan berakhir, Raka berbaring di tempat tidurnya dan menatap langit-langit kamar kostnya yang retak-retak. Hujan sudah berhenti, tapi udara masih lembap dan dingin.</p>
+
+    <p class="fade-in">Ia memikirkan Nisa. Bukan dengan cara yang romantis&mdash;setidaknya belum&mdash;tapi dengan rasa kagum yang tulus. Kagum pada keberaniannya untuk memilih dirinya sendiri di tengah masyarakat yang masih menganggap perceraian sebagai aib. Kagum pada kejernihan pikirannya dalam menimbang setiap aspek sebelum mengambil keputusan terberat dalam hidupnya. Kagum pada kemampuannya untuk tetap berdiri tegak, bahkan sambil menggendong seorang anak kecil di pundaknya.</p>
+
+    <p class="fade-in">Raka juga memikirkan dirinya sendiri. Tentang ibunya yang sudah pergi tujuh tahun lalu. Tentang ayahnya yang sekarang tinggal sendiri. Tentang hidup jauh dari rumah sejak usia dua belas tahun dan bagaimana itu membentuk cara pandangnya tentang keluarga, tentang kehadiran, tentang apa artinya &ldquo;ada.&rdquo;</p>
+
+    <div class="sep fade-in">&bull; &bull; &bull;</div>
+
+    <p class="fade-in">Di sisi lain kota, Nisa juga masih terjaga. Raffa bergerak sedikit dalam tidurnya, dan Nisa otomatis membenarkan selimutnya. Gerakan yang sudah menjadi refleks seorang ibu.</p>
+
+    <p class="fade-in">Ia memikirkan percakapan tadi malam. Sudah lama ia tidak bercerita sebebas itu. Teman-temannya tahu tentang perceraiannya, tentu saja. Tapi mereka tahu versi yang sudah disaring, yang sudah dipoles, yang sudah diterima secara sosial. Bukan versi lengkap dengan semua kekecewaan, pengkhianatan, dan keputusasaan yang menyertainya.</p>
+
+    <div class="epigraph fade-in">
+      <p>&ldquo;Perpisahan hanya ada bagi mereka yang mencintai dengan mata. Karena bagi mereka yang mencintai dengan hati dan jiwa, tidak ada yang namanya perpisahan.&rdquo;</p>
+      <cite>&mdash; Jalaluddin Rumi</cite>
+    </div>
+
+    <p class="fade-in">Tapi Raka... Raka bertanya dengan cara yang membuat Nisa merasa aman untuk jujur. Bukan karena ia sempurna dalam bertanya&mdash;ia sendiri mengaku tidak sopan&mdash;tapi karena motivasinya murni: ia ingin memahami, bukan menghakimi.</p>
+
+    <div class="sep fade-in">&bull; &bull; &bull;</div>
+
+    <p class="fade-in">Mungkin itulah yang paling dibutuhkan oleh orang-orang yang sedang terluka: bukan solusi, bukan nasihat, bukan &ldquo;sabar ya, ini ujian.&rdquo;</p>
+
+    <p class="fade-in">Tapi seseorang yang mau duduk diam, mendengarkan, dan berkata:</p>
+
+    <p class="center fade-in"><em>&ldquo;Aku melihatmu. Aku mendengarmu. Dan aku menghargai keberanianmu.&rdquo;</em></p>
+
+    <div class="sep fade-in">&bull; &bull; &bull;</div>
+
+    <p class="fade-in">Nisa tersenyum sambil menatap layar ponselnya untuk terakhir kali malam itu. Besok pagi ia akan bangun, mempersiapkan Raffa untuk sekolah, berangkat kerja, menjalani hidup sebagai perempuan mandiri yang telah memilih jalannya sendiri.</p>
+
+    <div class="epigraph fade-in">
+      <p>&ldquo;Kau terlahir dengan sayap. Mengapa kau memilih merangkak melewati hidup?&rdquo;</p>
+      <cite>&mdash; Jalaluddin Rumi</cite>
+    </div>
+
+    <p class="fade-in">Dan serpihan-serpihan dari pernikahan yang hancur itu? Mereka tidak hilang. Mereka masih ada&mdash;dalam bentuk pelajaran, dalam bentuk kekuatan, dalam bentuk kebijaksanaan yang hanya bisa didapat oleh mereka yang pernah melewati api dan keluar sebagai baja.</p>
+
+    <p class="fade-in">Nisa bukanlah korban. Ia adalah penyintas.</p>
+
+    <p class="fade-in">Dan kisahnya&mdash;kisah mereka&mdash;masih belum selesai.</p>
+
+    <p class="center fade-in" style="margin-top:3em;font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--gold-dim);letter-spacing:.1em">&mdash; TAMAT &mdash;</p>
+  </div>
+</section>
+
+<!-- ==================== CATATAN PENULIS ==================== -->
+<div class="rumi-interlude rumi-warm" id="catatan">
+  <div class="rumi-inner fade-in">
+    <div class="rumi-label">Jalaluddin Rumi</div>
+    <div class="rumi-text">&ldquo;Ketika kau melakukan sesuatu dari jiwamu, kau merasakan sebuah sungai bergerak di dalam dirimu, sebuah sukacita.&rdquo;</div>
+    <div class="rumi-source">&mdash; Masnavi-i Ma'navi</div>
+  </div>
+</div>
+
+<section>
+  <div class="author-note">
+    <h3>Catatan Penulis</h3>
+
+    <p class="no-indent">Novel ini ditulis berdasarkan percakapan nyata yang terjadi pada suatu malam antara dua orang yang baru saling mengenal. Nama-nama dan beberapa detail telah diubah untuk menghormati privasi, namun esensi dari percakapan&mdash;kejujurannya, kerentanannya, dan keberaniannya&mdash;dipertahankan seutuhnya.</p>
+
+    <p>Saya menulis ini bukan sebagai seseorang yang menghakimi keputusan siapa pun&mdash;baik yang memilih bertahan maupun yang memilih pergi. Setiap rumah tangga memiliki dinamikanya sendiri, dan tidak ada yang benar-benar tahu apa yang terjadi di balik pintu tertutup kecuali mereka yang tinggal di dalamnya.</p>
+
+    <p>Yang saya tahu adalah ini: dibutuhkan keberanian yang luar biasa bagi seorang perempuan di Indonesia untuk memilih berpisah. Bukan karena hukumnya yang sulit, tapi karena stigma sosialnya yang masih sangat kuat. Label &ldquo;janda,&rdquo; bisikan tetangga, pandangan miring di arisan&mdash;semua itu adalah harga yang harus dibayar oleh perempuan yang berani mengatakan &ldquo;cukup.&rdquo;</p>
+
+    <p>Tapi ada harga yang lebih mahal dari itu semua: harga dari tetap bertahan di lingkungan yang meracuni, harga dari anak-anak yang tumbuh menyaksikan pertengkaran dan ketidakpercayaan, harga dari kehilangan diri sendiri demi label &ldquo;keluarga utuh.&rdquo;</p>
+
+    <p>Seperti yang Rumi katakan, <em>&ldquo;Luka adalah tempat di mana Cahaya masuk ke dalam dirimu.&rdquo;</em> Mungkin dari setiap luka yang terbuka, ada cahaya yang menunggu untuk masuk. Dan mungkin dari setiap rumah tangga yang runtuh, ada fondasi baru yang lebih kuat yang siap dibangun.</p>
+
+    <p>Untuk Nisa&mdash;dan untuk semua perempuan yang pernah berdiri di persimpangan itu&mdash;saya ingin kalian tahu bahwa pilihan kalian terlihat. Keberanian kalian terlihat. Dan kalian layak mendapat lebih dari sekadar bertahan.</p>
+
+    <p>Kalian layak bahagia.</p>
+
+    <p class="sign">
+      Surabaya, Maret 2026
+      <strong>Agus Mendo</strong>
+    </p>
+  </div>
+</section>
+
+<!-- ==================== COLOPHON ==================== -->
+<footer class="colophon">
+  <div class="end-mark">&loz;</div>
+  <p>S E R P I H A N &ensp; Y A N G &ensp; T E R S I S A</p>
+  <p style="margin-top:8px;font-size:.75rem">Terinspirasi dari kisah nyata &middot; 2026</p>
+  <p style="margin-top:4px;font-size:.7rem">Puisi oleh Jalaluddin Rumi &amp; Kahlil Gibran</p>
+</footer>
+
+<script>
+// Preloader
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 1500);
+});
+
+// Scroll progress
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  document.getElementById('progress').style.width = pct + '%';
+  // Nav title visibility
+  document.getElementById('navTitle').classList.toggle('visible', window.scrollY > window.innerHeight * 0.8);
+});
+
+// Intersection Observer for fade-in
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+// TOC
+function toggleTOC() {
+  const o = document.getElementById('tocOverlay');
+  o.classList.toggle('active');
+  document.body.style.overflow = o.classList.contains('active') ? 'hidden' : '';
+}
+
+// TOC items stagger
+document.getElementById('tocOverlay').addEventListener('transitionend', () => {
+  const items = document.querySelectorAll('.toc-item');
+  items.forEach((item, i) => { item.style.transitionDelay = (i * 0.06) + 's'; });
+});
+</script>
+
+</body>
+</html>
