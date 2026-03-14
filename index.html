@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Serpihan yang Tersisa — Novel oleh Agus Mendo</title>
+<title>Serpihan yang Tersisa — Novel oleh masgus</title>
 <meta name="description" content="Sebuah novel tentang keberanian memilih diri sendiri. Terinspirasi dari kisah nyata, diperkaya puisi Jalaluddin Rumi dan Kahlil Gibran.">
-<meta name="author" content="Agus Mendo">
+<meta name="author" content="masgus">
 <meta name="theme-color" content="#0a0a0a">
 
 <!-- Open Graph -->
@@ -17,7 +17,7 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Serpihan yang Tersisa — Novel">
-<meta name="twitter:description" content="Sebuah novel tentang keberanian memilih diri sendiri. Oleh Agus Mendo.">
+<meta name="twitter:description" content="Sebuah novel tentang keberanian memilih diri sendiri. Oleh masgus.">
 
 <!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href="./favicon.svg">
@@ -783,7 +783,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Lora',serif;line-height:
 
     <p class="sign">
       Surabaya, Maret 2026
-      <strong>Agus Mendo</strong>
+      <strong>masgus</strong>
     </p>
   </div>
 </section>
@@ -791,7 +791,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Lora',serif;line-height:
 <!-- ==================== COLOPHON ==================== -->
 <!-- ==================== MUSIC PLAYER ==================== -->
 <audio id="bgMusic" loop preload="auto">
-  <source src="https://cdn.pixabay.com/audio/2024/11/28/audio_3a5e6a6a13.mp3" type="audio/mpeg">
+  <source src="https://archive.org/download/PianoBackgroundMusic/09%20Sadness.mp3" type="audio/mpeg">
 </audio>
 
 <button id="musicBtn" class="music-btn" aria-label="Toggle Music" title="Putar/Hentikan Musik">
@@ -851,57 +851,55 @@ document.getElementById('tocOverlay').addEventListener('transitionend', () => {
   const audio = document.getElementById('bgMusic');
   const btn = document.getElementById('musicBtn');
   const label = document.getElementById('musicLabel');
-  let started = false;
+  const TARGET_VOL = 0.35;
 
-  audio.volume = 0.35;
+  audio.volume = 0;
 
-  function fadeIn(el, targetVol, duration) {
-    el.volume = 0;
-    el.play();
-    const step = targetVol / (duration / 50);
-    const fade = setInterval(() => {
-      if (el.volume + step >= targetVol) { el.volume = targetVol; clearInterval(fade); }
-      else el.volume += step;
-    }, 50);
+  function fadeIn(duration) {
+    audio.volume = 0;
+    audio.play().then(() => {
+      const step = TARGET_VOL / (duration / 50);
+      const fade = setInterval(() => {
+        if (audio.volume + step >= TARGET_VOL) { audio.volume = TARGET_VOL; clearInterval(fade); }
+        else audio.volume += step;
+      }, 50);
+      setPlaying(true);
+    }).catch(() => {
+      // Browser blocked - wait for next interaction
+      setPlaying(false);
+    });
+  }
+
+  function setPlaying(isPlaying) {
+    btn.classList.toggle('playing', isPlaying);
+    label.textContent = isPlaying ? 'Sedang Diputar' : 'Putar Musik';
   }
 
   function toggleMusic() {
     if (audio.paused) {
-      if (!started) { fadeIn(audio, 0.35, 2000); started = true; }
-      else audio.play();
-      btn.classList.add('playing');
-      label.textContent = 'Sedang Diputar';
+      fadeIn(2000);
     } else {
       audio.pause();
-      btn.classList.remove('playing');
-      label.textContent = 'Putar Musik';
+      setPlaying(false);
     }
   }
 
   btn.addEventListener('click', toggleMusic);
 
-  // Autoplay on first user interaction (scroll/click anywhere)
+  // Auto-play on first real user gesture (click/touch only, NOT scroll)
   let autoStarted = false;
-  function autoStart() {
-    if (autoStarted) return;
+  function autoStart(e) {
+    if (autoStarted || e.target.closest('#musicBtn')) return;
     autoStarted = true;
-    if (audio.paused) {
-      fadeIn(audio, 0.35, 3000);
-      btn.classList.add('playing');
-      label.textContent = 'Sedang Diputar';
-      started = true;
-    }
-    document.removeEventListener('scroll', autoStart);
-    document.removeEventListener('click', autoStartDelayed);
-    document.removeEventListener('touchstart', autoStartDelayed);
+    if (audio.paused) fadeIn(3000);
+    cleanup();
   }
-  function autoStartDelayed(e) {
-    if (e.target.closest('#musicBtn')) return; // let button handle its own click
-    autoStart();
+  function cleanup() {
+    document.removeEventListener('click', autoStart);
+    document.removeEventListener('touchstart', autoStart);
   }
-  document.addEventListener('scroll', autoStart, { once: true, passive: true });
-  document.addEventListener('click', autoStartDelayed);
-  document.addEventListener('touchstart', autoStartDelayed, { passive: true });
+  document.addEventListener('click', autoStart);
+  document.addEventListener('touchstart', autoStart, { passive: true });
 })();
 </script>
 
