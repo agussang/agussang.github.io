@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>KISAH SI HEKER SIAL — Honeypot Intelligence Report</title>
 <meta name="description" content="Komik investigasi honeypot: rekonstruksi 7 hari serangan dari fingerprint, timeline, dan jejak digital seorang attacker yang gagal.">
 <meta name="author" content="masgus">
@@ -1701,24 +1704,50 @@ document.querySelectorAll('.recon-bar').forEach(function(el) {
   reconObserver.observe(el);
 });
 
-// ===== MUSIC PLAYER (battle-tested pattern) =====
+// ===== MUSIC PLAYER v3 (verbose, with visible error state) =====
 (function(){
+  // Wipe any stale state from previous broken version
+  try { sessionStorage.removeItem('ostPaused'); } catch(e){}
+
   var audio = document.getElementById('bgMusic');
   var btn = document.getElementById('musicBtn');
   var label = document.getElementById('musicLabel');
-  if(!audio || !btn) return;
+  if(!audio || !btn){ return; }
 
   var TARGET_VOL = 0.45;
   audio.volume = 0;
 
-  function setPlaying(p){
-    btn.classList.toggle('playing', p);
-    if(label) label.textContent = p ? 'Playing' : 'Play OST';
+  function setLabel(text, isPlaying, isError){
+    if(label) label.textContent = text;
+    btn.classList.toggle('playing', !!isPlaying);
+    btn.style.borderColor = isError ? '#ffaa00' : '';
+    btn.style.color = isError ? '#ffaa00' : '';
   }
+
+  // Track which source actually loaded
+  audio.addEventListener('loadedmetadata', function(){
+    if(audio.paused) setLabel('Play OST');
+  });
+
+  // If ALL sources fail, show that state
+  audio.addEventListener('error', function(e){
+    var src = audio.currentSrc || '(no source)';
+    // Only flag as error if no more sources to try
+    if(audio.networkState === 3 /* NETWORK_NO_SOURCE */){
+      setLabel('OST Unavailable', false, true);
+    }
+  });
 
   function fadeIn(duration){
     audio.volume = 0;
-    audio.play().then(function(){
+    var p = audio.play();
+    if(!p || !p.then){
+      // Old browser without promise — assume started
+      setLabel('Playing', true);
+      audio.volume = TARGET_VOL;
+      return;
+    }
+    p.then(function(){
       var step = TARGET_VOL / (duration / 50);
       var fade = setInterval(function(){
         if(audio.volume + step >= TARGET_VOL){
@@ -1728,9 +1757,16 @@ document.querySelectorAll('.recon-bar').forEach(function(el) {
           audio.volume = Math.min(TARGET_VOL, audio.volume + step);
         }
       }, 50);
-      setPlaying(true);
-    }).catch(function(){
-      setPlaying(false);
+      setLabel('Playing', true);
+    }).catch(function(err){
+      // Most common: NotAllowedError (autoplay blocked) — wait for user click
+      if(err && err.name === 'NotAllowedError'){
+        setLabel('Tap to Play OST');
+      } else if(err && err.name === 'NotSupportedError'){
+        setLabel('OST Unavailable', false, true);
+      } else {
+        setLabel('Play OST');
+      }
     });
   }
 
@@ -1739,7 +1775,7 @@ document.querySelectorAll('.recon-bar').forEach(function(el) {
       fadeIn(1200);
     } else {
       audio.pause();
-      setPlaying(false);
+      setLabel('Play OST');
     }
   }
 
@@ -1748,17 +1784,21 @@ document.querySelectorAll('.recon-bar').forEach(function(el) {
   // Try autoplay immediately
   fadeIn(2500);
 
-  // Auto-start on first real user gesture (click/touch) if blocked
+  // Auto-start on first user gesture (click/touch) anywhere if still blocked
   var autoStarted = false;
   function autoStart(e){
-    if(autoStarted || (e.target && e.target.closest && e.target.closest('#musicBtn'))) return;
+    if(autoStarted) return;
+    if(e && e.target && e.target.closest && e.target.closest('#musicBtn')) return;
     autoStarted = true;
     if(audio.paused) fadeIn(2500);
-    document.removeEventListener('click', autoStart);
-    document.removeEventListener('touchstart', autoStart);
+    document.removeEventListener('click', autoStart, true);
+    document.removeEventListener('touchstart', autoStart, true);
+    document.removeEventListener('pointerdown', autoStart, true);
   }
-  document.addEventListener('click', autoStart);
-  document.addEventListener('touchstart', autoStart, { passive: true });
+  // Capture phase, so we catch clicks even if the loading screen is on top
+  document.addEventListener('click', autoStart, true);
+  document.addEventListener('touchstart', autoStart, { capture:true, passive:true });
+  document.addEventListener('pointerdown', autoStart, true);
 })();
 </script>
 
