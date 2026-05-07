@@ -1701,95 +1701,73 @@ document.querySelectorAll('.recon-bar').forEach(function(el) {
   reconObserver.observe(el);
 });
 
-// ===== MUSIC PLAYER (with soft-autoplay) =====
+// ===== MUSIC PLAYER (battle-tested pattern) =====
 (function(){
   var audio = document.getElementById('bgMusic');
   var btn = document.getElementById('musicBtn');
   var label = document.getElementById('musicLabel');
   if(!audio || !btn) return;
 
-  var sources = [
-    'https://archive.org/download/jamendo-593973/01-2233691-AlexZavesa-Dark%20Cyberpunk%20Electro%20_Short%20Version_.mp3',
-    'https://archive.org/download/jamendo-566866/01-2171330-AlexZavesa-Cyberpunk%20Electro%20_Main%20Version_.mp3',
-    'https://archive.org/download/CyberpunkMoonlightSonata/Cyberpunk%20Moonlight%20Sonata.mp3'
-  ];
-  var idx = 0;
-  audio.src = sources[idx];
-  audio.volume = 0.5;
-  audio.preload = 'auto';
-
-  // user opted out (persisted across reloads)
-  var userPaused = sessionStorage.getItem('ostPaused') === '1';
-
-  audio.addEventListener('error', function(){
-    idx++;
-    if(idx < sources.length){
-      audio.src = sources[idx];
-      audio.load();
-      if(btn.classList.contains('playing')) audio.play().catch(function(){});
-    }
-  });
+  var TARGET_VOL = 0.45;
+  audio.volume = 0;
 
   function setPlaying(p){
     btn.classList.toggle('playing', p);
     if(label) label.textContent = p ? 'Playing' : 'Play OST';
   }
 
-  function tryPlay(){
-    if(userPaused) return Promise.reject();
-    return audio.play().then(function(){
+  function fadeIn(duration){
+    audio.volume = 0;
+    audio.play().then(function(){
+      var step = TARGET_VOL / (duration / 50);
+      var fade = setInterval(function(){
+        if(audio.volume + step >= TARGET_VOL){
+          audio.volume = TARGET_VOL;
+          clearInterval(fade);
+        } else {
+          audio.volume = Math.min(TARGET_VOL, audio.volume + step);
+        }
+      }, 50);
       setPlaying(true);
-    }).catch(function(err){
+    }).catch(function(){
       setPlaying(false);
-      throw err;
     });
   }
 
-  // 1) Try autoplay immediately
-  tryPlay().catch(function(){
-    // 2) Blocked — arm one-shot listeners on first user gesture
-    var armed = true;
-    function gestureHandler(){
-      if(!armed) return;
-      armed = false;
-      tryPlay().catch(function(){});
-      cleanup();
-    }
-    function cleanup(){
-      ['click','touchstart','keydown','scroll','pointerdown'].forEach(function(ev){
-        window.removeEventListener(ev, gestureHandler);
-      });
-    }
-    ['click','touchstart','keydown','scroll','pointerdown'].forEach(function(ev){
-      window.addEventListener(ev, gestureHandler, { once:false, passive:true });
-    });
-  });
-
-  // Manual toggle via button
-  btn.addEventListener('click', function(e){
-    e.stopPropagation();
+  function toggleMusic(){
     if(audio.paused){
-      userPaused = false;
-      sessionStorage.removeItem('ostPaused');
-      tryPlay().catch(function(){});
+      fadeIn(1200);
     } else {
-      userPaused = true;
-      sessionStorage.setItem('ostPaused','1');
       audio.pause();
       setPlaying(false);
     }
-  });
+  }
 
-  audio.addEventListener('play', function(){ setPlaying(true); });
-  audio.addEventListener('pause', function(){
-    // only reflect pause from user — autoplay-block won't trigger pause event
-    if(!audio.ended) setPlaying(false);
-  });
+  btn.addEventListener('click', toggleMusic);
+
+  // Try autoplay immediately
+  fadeIn(2500);
+
+  // Auto-start on first real user gesture (click/touch) if blocked
+  var autoStarted = false;
+  function autoStart(e){
+    if(autoStarted || (e.target && e.target.closest && e.target.closest('#musicBtn'))) return;
+    autoStarted = true;
+    if(audio.paused) fadeIn(2500);
+    document.removeEventListener('click', autoStart);
+    document.removeEventListener('touchstart', autoStart);
+  }
+  document.addEventListener('click', autoStart);
+  document.addEventListener('touchstart', autoStart, { passive: true });
 })();
 </script>
 
 <!-- ==================== MUSIC PLAYER ==================== -->
-<audio id="bgMusic" loop preload="none"></audio>
+<audio id="bgMusic" loop preload="auto">
+  <source src="https://archive.org/download/jamendo-593973/01-2233691-AlexZavesa-Dark%20Cyberpunk%20Electro%20_Short%20Version_.mp3" type="audio/mpeg">
+  <source src="https://archive.org/download/jamendo-566866/01-2171330-AlexZavesa-Cyberpunk%20Electro%20_Main%20Version_.mp3" type="audio/mpeg">
+  <source src="https://archive.org/download/CyberpunkMoonlightSonata/Cyberpunk%20Moonlight%20Sonata.mp3" type="audio/mpeg">
+</audio>
 <button id="musicBtn" class="music-btn" aria-label="Toggle background music" title="Putar/Hentikan musik">
   <span class="m-led"></span>
   <span class="m-icon" aria-hidden="true">
