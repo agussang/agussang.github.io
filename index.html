@@ -482,6 +482,64 @@ body::before{
   font-family:'JetBrains Mono',monospace;font-size:.75rem;color:#aaa;margin-top:6px;line-height:1.7;
 }
 
+/* ========== ENTER OVERLAY ========== */
+#enter-overlay{
+  position:fixed;inset:0;z-index:99999;
+  background:#0a0a14;
+  background-image:
+    radial-gradient(ellipse at center,rgba(0,255,136,.08) 0%,transparent 60%),
+    radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:auto,16px 16px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:24px;
+  transition:opacity .8s,visibility .8s;
+}
+#enter-overlay.hide{opacity:0;visibility:hidden;pointer-events:none}
+.enter-warn{
+  font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#ff3355;
+  letter-spacing:.2em;margin-bottom:16px;
+  animation:blink 1.2s steps(2) infinite;
+}
+.enter-title{
+  font-family:'Bangers',cursive;
+  font-size:clamp(2rem,7vw,4.2rem);
+  color:#ff3355;letter-spacing:3px;line-height:1.1;
+  text-shadow:3px 3px 0 #000,0 0 30px rgba(255,51,85,.4);
+  margin-bottom:8px;
+  animation:glitch 1s infinite alternate;
+}
+.enter-sub{
+  font-family:'Comic Neue',cursive;color:#aaa;
+  font-size:clamp(.85rem,2vw,1.1rem);
+  margin-bottom:36px;
+}
+.enter-btn{
+  background:#00ff88;color:#0a0a14;
+  font-family:'Bangers',cursive;
+  font-size:clamp(1.1rem,3vw,1.6rem);
+  letter-spacing:3px;
+  border:none;border-radius:6px;
+  padding:16px 38px;
+  cursor:pointer;
+  box-shadow:0 0 30px rgba(0,255,136,.5),4px 4px 0 #000;
+  transition:transform .15s,box-shadow .25s;
+  -webkit-tap-highlight-color:transparent;
+}
+.enter-btn:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(0,255,136,.8),5px 5px 0 #000}
+.enter-btn:active{transform:translateY(1px)}
+.enter-btn:focus{outline:2px solid #00ff88;outline-offset:4px}
+.enter-skip{
+  margin-top:18px;background:none;border:none;
+  font-family:'JetBrains Mono',monospace;color:#666;font-size:.75rem;
+  cursor:pointer;letter-spacing:.1em;
+  text-decoration:underline;text-underline-offset:4px;
+}
+.enter-skip:hover{color:#aaa}
+.enter-status{
+  font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#ffaa00;
+  margin-top:14px;min-height:1em;letter-spacing:.05em;
+}
+
 /* ========== MUSIC PLAYER (CYBERPUNK) ========== */
 .music-btn{
   position:fixed;bottom:20px;right:20px;z-index:9000;
@@ -595,6 +653,16 @@ img,svg{max-width:100%;height:auto}
 </style>
 </head>
 <body>
+
+<!-- ==================== ENTER OVERLAY (mandatory user gesture) ==================== -->
+<div id="enter-overlay">
+  <div class="enter-warn">⚠ HONEYPOT INTELLIGENCE BRIEFING</div>
+  <h1 class="enter-title">KISAH SI HEKER SIAL</h1>
+  <p class="enter-sub">Rekonstruksi 7 hari serangan, lengkap dengan jejak digital pelaku.<br>Tap tombol di bawah untuk masuk.</p>
+  <button class="enter-btn" id="enterBtn" type="button">▶ ENTER &amp; PLAY OST</button>
+  <button class="enter-skip" id="enterSkip" type="button">masuk tanpa musik</button>
+  <div class="enter-status" id="enterStatus"></div>
+</div>
 
 <!-- ==================== LOADING SCREEN ==================== -->
 <div id="loading-screen">
@@ -1704,101 +1772,88 @@ document.querySelectorAll('.recon-bar').forEach(function(el) {
   reconObserver.observe(el);
 });
 
-// ===== MUSIC PLAYER v3 (verbose, with visible error state) =====
+// ===== MUSIC PLAYER v4 (mandatory enter gesture) =====
 (function(){
-  // Wipe any stale state from previous broken version
   try { sessionStorage.removeItem('ostPaused'); } catch(e){}
 
   var audio = document.getElementById('bgMusic');
   var btn = document.getElementById('musicBtn');
   var label = document.getElementById('musicLabel');
-  if(!audio || !btn){ return; }
+  var overlay = document.getElementById('enter-overlay');
+  var enterBtn = document.getElementById('enterBtn');
+  var enterSkip = document.getElementById('enterSkip');
+  var enterStatus = document.getElementById('enterStatus');
+  if(!audio || !btn || !overlay || !enterBtn) return;
 
   var TARGET_VOL = 0.45;
-  audio.volume = 0;
 
-  function setLabel(text, isPlaying, isError){
+  function setLabel(text, isPlaying){
     if(label) label.textContent = text;
     btn.classList.toggle('playing', !!isPlaying);
-    btn.style.borderColor = isError ? '#ffaa00' : '';
-    btn.style.color = isError ? '#ffaa00' : '';
   }
 
-  // Track which source actually loaded
-  audio.addEventListener('loadedmetadata', function(){
-    if(audio.paused) setLabel('Play OST');
-  });
+  function dismissOverlay(){
+    overlay.classList.add('hide');
+    setTimeout(function(){ overlay.style.display = 'none'; }, 900);
+  }
 
-  // If ALL sources fail, show that state
-  audio.addEventListener('error', function(e){
-    var src = audio.currentSrc || '(no source)';
-    // Only flag as error if no more sources to try
-    if(audio.networkState === 3 /* NETWORK_NO_SOURCE */){
-      setLabel('OST Unavailable', false, true);
-    }
-  });
-
-  function fadeIn(duration){
-    audio.volume = 0;
+  function startMusic(){
+    audio.volume = TARGET_VOL;
+    audio.muted = false;
+    if(enterStatus) enterStatus.textContent = '> loading audio...';
     var p = audio.play();
-    if(!p || !p.then){
-      // Old browser without promise — assume started
-      setLabel('Playing', true);
-      audio.volume = TARGET_VOL;
-      return;
-    }
-    p.then(function(){
-      var step = TARGET_VOL / (duration / 50);
-      var fade = setInterval(function(){
-        if(audio.volume + step >= TARGET_VOL){
-          audio.volume = TARGET_VOL;
-          clearInterval(fade);
-        } else {
-          audio.volume = Math.min(TARGET_VOL, audio.volume + step);
+    if(p && p.then){
+      p.then(function(){
+        if(enterStatus) enterStatus.textContent = '> ost: playing';
+        setLabel('Playing', true);
+        setTimeout(dismissOverlay, 250);
+      }).catch(function(err){
+        // Synchronous user click → this should NOT happen, but just in case
+        if(enterStatus){
+          enterStatus.textContent = '> error: ' + (err.name || 'unknown') + ' — tap PLAY OST after entering';
         }
-      }, 50);
-      setLabel('Playing', true);
-    }).catch(function(err){
-      // Most common: NotAllowedError (autoplay blocked) — wait for user click
-      if(err && err.name === 'NotAllowedError'){
-        setLabel('Tap to Play OST');
-      } else if(err && err.name === 'NotSupportedError'){
-        setLabel('OST Unavailable', false, true);
-      } else {
         setLabel('Play OST');
-      }
-    });
+        setTimeout(dismissOverlay, 1500);
+      });
+    } else {
+      setLabel('Playing', true);
+      dismissOverlay();
+    }
   }
 
-  function toggleMusic(){
+  // ENTER button: start music + dismiss overlay (synchronous user gesture)
+  enterBtn.addEventListener('click', startMusic);
+  enterBtn.addEventListener('touchend', function(e){
+    e.preventDefault();
+    startMusic();
+  }, { passive: false });
+
+  // SKIP button: just dismiss overlay, no music
+  enterSkip.addEventListener('click', function(){
+    setLabel('Play OST');
+    dismissOverlay();
+  });
+
+  // Floating button: pause/resume after entering
+  btn.addEventListener('click', function(){
     if(audio.paused){
-      fadeIn(1200);
+      audio.volume = TARGET_VOL;
+      audio.play().then(function(){ setLabel('Playing', true); }).catch(function(){
+        setLabel('Play OST');
+      });
     } else {
       audio.pause();
       setLabel('Play OST');
     }
-  }
+  });
 
-  btn.addEventListener('click', toggleMusic);
-
-  // Try autoplay immediately
-  fadeIn(2500);
-
-  // Auto-start on first user gesture (click/touch) anywhere if still blocked
-  var autoStarted = false;
-  function autoStart(e){
-    if(autoStarted) return;
-    if(e && e.target && e.target.closest && e.target.closest('#musicBtn')) return;
-    autoStarted = true;
-    if(audio.paused) fadeIn(2500);
-    document.removeEventListener('click', autoStart, true);
-    document.removeEventListener('touchstart', autoStart, true);
-    document.removeEventListener('pointerdown', autoStart, true);
-  }
-  // Capture phase, so we catch clicks even if the loading screen is on top
-  document.addEventListener('click', autoStart, true);
-  document.addEventListener('touchstart', autoStart, { capture:true, passive:true });
-  document.addEventListener('pointerdown', autoStart, true);
+  audio.addEventListener('play', function(){ setLabel('Playing', true); });
+  audio.addEventListener('pause', function(){ if(!audio.ended) setLabel('Play OST'); });
+  audio.addEventListener('error', function(){
+    if(audio.networkState === 3 && enterStatus){
+      enterStatus.textContent = '> error: all audio sources failed';
+    }
+  });
 })();
 </script>
 
