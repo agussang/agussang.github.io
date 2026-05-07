@@ -2,906 +2,1725 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Serpihan yang Tersisa — Novel oleh masgus</title>
-<meta name="description" content="Sebuah novel tentang keberanian memilih diri sendiri. Terinspirasi dari kisah nyata, diperkaya puisi Jalaluddin Rumi dan Kahlil Gibran.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>KISAH SI HEKER SIAL — Honeypot Intelligence Report</title>
+<meta name="description" content="Komik investigasi honeypot: rekonstruksi 7 hari serangan dari fingerprint, timeline, dan jejak digital seorang attacker yang gagal.">
 <meta name="author" content="masgus">
-<meta name="theme-color" content="#0a0a0a">
-
-<!-- Open Graph -->
-<meta property="og:title" content="Serpihan yang Tersisa">
-<meta property="og:description" content="Sebuah novel tentang keberanian memilih diri sendiri. Terinspirasi dari kisah nyata, diperkaya puisi Jalaluddin Rumi dan Kahlil Gibran.">
+<meta name="theme-color" content="#0a0a14">
+<meta property="og:title" content="KISAH SI HEKER SIAL — Honeypot Intelligence Report">
+<meta property="og:description" content="Rekonstruksi serangan dari data honeypot — fingerprint, jam serang, dan ironi seorang heker yang ketahuan sendiri.">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="id_ID">
-
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Serpihan yang Tersisa — Novel">
-<meta name="twitter:description" content="Sebuah novel tentang keberanian memilih diri sendiri. Oleh masgus.">
-
-<!-- Favicon -->
-<link rel="icon" type="image/svg+xml" href="./favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%230a0a14'/><text x='32' y='44' font-family='monospace' font-size='38' font-weight='900' text-anchor='middle' fill='%2300ff88'>%26gt;_</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#0a0a0a;
-  --paper:#f5f0e8;
-  --paper-dark:#e8e0d0;
-  --ink:#2c2420;
-  --ink-light:#5a4e44;
-  --gold:#c9a84c;
-  --gold-dim:#8a7235;
-  --rose:#8b4557;
-  --sage:#4a6741;
-  --chapter-bg:#1a1510;
-}
-/* ===== MUSIC PLAYER ===== */
-.music-btn{position:fixed;bottom:28px;right:28px;z-index:999;display:flex;align-items:center;gap:10px;background:rgba(15,12,8,.85);backdrop-filter:blur(12px);border:1px solid rgba(201,168,76,.25);border-radius:50px;padding:12px 20px 12px 16px;color:var(--gold);cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:.85rem;letter-spacing:.05em;transition:all .4s ease;box-shadow:0 4px 24px rgba(0,0,0,.4)}
-.music-btn:hover{border-color:var(--gold);background:rgba(20,16,10,.95);transform:translateY(-2px);box-shadow:0 6px 32px rgba(0,0,0,.5)}
-.music-icon{display:flex;align-items:center;width:20px;height:20px}
-.music-icon svg{width:20px;height:20px;transition:opacity .3s}
-.music-btn .icon-pause{display:none}
-.music-btn.playing .icon-play{display:none}
-.music-btn.playing .icon-pause{display:block}
-.music-bars{display:flex;align-items:flex-end;gap:2px;height:16px}
-.music-bars .bar{width:3px;background:var(--gold);border-radius:2px;transition:height .2s;height:4px}
-.music-btn.playing .music-bars .bar{animation:barPulse 1.2s ease-in-out infinite}
-.music-btn.playing .music-bars .bar:nth-child(1){animation-delay:0s}
-.music-btn.playing .music-bars .bar:nth-child(2){animation-delay:.15s}
-.music-btn.playing .music-bars .bar:nth-child(3){animation-delay:.3s}
-.music-btn.playing .music-bars .bar:nth-child(4){animation-delay:.45s}
-@keyframes barPulse{0%,100%{height:4px}50%{height:16px}}
-.music-label{white-space:nowrap}
-@media(max-width:480px){.music-btn{bottom:16px;right:16px;padding:10px 14px 10px 12px;font-size:.75rem}.music-label{display:none}}
-
-html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--gold-dim) var(--bg)}
-body{background:var(--bg);color:var(--ink);font-family:'Lora',serif;line-height:1.9;overflow-x:hidden}
-
-/* ===== PRELOADER ===== */
-.preloader{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1.2s,visibility 1.2s}
-.preloader.hidden{opacity:0;visibility:hidden;pointer-events:none}
-.preloader-ornament{width:60px;height:2px;background:var(--gold);margin-bottom:40px;animation:expandLine 2s ease-in-out infinite}
-.preloader h2{font-family:'Playfair Display',serif;color:var(--gold);font-size:1.2rem;letter-spacing:0.3em;text-transform:uppercase;font-weight:400}
-@keyframes expandLine{0%,100%{width:60px;opacity:.3}50%{width:120px;opacity:1}}
-
-/* ===== NAVIGATION ===== */
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(10,10,10,.95),transparent);transition:opacity .4s}
-.nav-title{font-family:'Playfair Display',serif;color:var(--gold-dim);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;opacity:0;transition:opacity .6s}
-.nav-title.visible{opacity:1}
-.nav-progress{height:1px;background:var(--gold);position:fixed;top:0;left:0;z-index:101;transition:width .1s}
-.toc-btn{background:none;border:1px solid var(--gold-dim);color:var(--gold);font-family:'Lora',serif;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;padding:8px 20px;cursor:pointer;transition:all .3s}
-.toc-btn:hover{background:var(--gold);color:var(--bg)}
-
-/* ===== TABLE OF CONTENTS OVERLAY ===== */
-.toc-overlay{position:fixed;inset:0;z-index:200;background:rgba(10,10,10,.97);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all .5s}
-.toc-overlay.active{opacity:1;visibility:visible}
-.toc-content{text-align:center;max-width:500px}
-.toc-content h3{font-family:'Playfair Display',serif;color:var(--gold);font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:40px;font-weight:400}
-.toc-item{display:block;color:var(--paper-dark);font-family:'Cormorant Garamond',serif;font-size:1.3rem;padding:12px 0;border-bottom:1px solid rgba(201,168,76,.1);cursor:pointer;text-decoration:none;transition:all .3s;opacity:0;transform:translateY(15px)}
-.toc-overlay.active .toc-item{opacity:1;transform:translateY(0)}
-.toc-item:hover{color:var(--gold);padding-left:15px}
-.toc-close{position:absolute;top:32px;right:32px;background:none;border:none;color:var(--gold-dim);font-size:1.5rem;cursor:pointer;transition:color .3s}
-.toc-close:hover{color:var(--gold)}
-
-/* ===== HERO / COVER ===== */
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 30%,#1f1a12,var(--bg))}
-.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='%23c9a84c' stroke-width='.3' opacity='.08'/%3E%3C/svg%3E");opacity:.4}
-.hero-content{position:relative;z-index:1;padding:40px}
-.hero-ornament{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 50px}
-.hero h1{font-family:'Playfair Display',serif;color:var(--paper);font-size:clamp(2.5rem,6vw,4.5rem);font-weight:700;line-height:1.15;margin-bottom:16px;letter-spacing:.02em}
-.hero h1 span{display:block;font-style:italic;font-weight:400;font-size:.45em;color:var(--gold);letter-spacing:.1em;margin-top:16px}
-.hero-meta{color:var(--gold-dim);font-family:'Cormorant Garamond',serif;font-size:1.1rem;letter-spacing:.15em;margin-top:40px}
-.hero-quote{max-width:500px;margin:50px auto 0;padding:30px;border-top:1px solid rgba(201,168,76,.2);border-bottom:1px solid rgba(201,168,76,.2)}
-.hero-quote p{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--paper-dark);font-size:1.15rem;line-height:1.8;opacity:.8}
-.hero-quote cite{display:block;margin-top:12px;color:var(--gold-dim);font-family:'Lora',serif;font-size:.75rem;letter-spacing:.15em;font-style:normal}
-.scroll-indicator{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);color:var(--gold-dim);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;animation:fadeFloat 2.5s ease-in-out infinite}
-@keyframes fadeFloat{0%,100%{opacity:.3;transform:translateX(-50%) translateY(0)}50%{opacity:.8;transform:translateX(-50%) translateY(-8px)}}
-
-/* ===== CHAPTER SECTIONS ===== */
-.chapter{min-height:100vh;position:relative}
-.chapter-header{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px;position:relative;overflow:hidden}
-.ch-dark{background:var(--chapter-bg)}
-.ch-warm{background:linear-gradient(135deg,#1a1510,#0f1a14)}
-.ch-deep{background:linear-gradient(135deg,#1a1018,#0a0a0a)}
-.ch-light{background:linear-gradient(135deg,#1a1815,#12100a)}
-.ch-final{background:linear-gradient(135deg,#0f1a18,#0a0a0a)}
-.chapter-num{font-family:'Cormorant Garamond',serif;color:var(--gold-dim);font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;margin-bottom:24px}
-.chapter-title{font-family:'Playfair Display',serif;color:var(--paper);font-size:clamp(1.8rem,4vw,3rem);font-weight:600;margin-bottom:12px}
-.chapter-subtitle{font-family:'Cormorant Garamond',serif;color:var(--gold);font-style:italic;font-size:1.15rem;letter-spacing:.05em}
-.chapter-line{width:60px;height:1px;background:var(--gold);margin:30px auto 0;opacity:.5}
-
-/* ===== CONTENT AREA ===== */
-.content{max-width:680px;margin:0 auto;padding:60px 24px 100px;background:var(--paper);position:relative}
-.content::before{content:'';position:absolute;top:0;left:0;right:0;height:80px;background:linear-gradient(to bottom,var(--paper),transparent);z-index:1;pointer-events:none}
-
-/* ===== TYPOGRAPHY ===== */
-.content p{font-size:1.05rem;color:var(--ink);margin-bottom:1.4em;text-align:justify;text-indent:2em;hyphens:auto}
-.content p.no-indent{text-indent:0}
-.content p.center{text-align:center;text-indent:0}
-
-/* ===== EPIGRAPH (QUOTE BLOCKS) ===== */
-.epigraph{margin:3em auto;padding:2em 2.5em;max-width:520px;text-align:center;position:relative;border:none;background:transparent}
-.epigraph::before{content:'\201C';position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-family:'Playfair Display',serif;font-size:5rem;color:var(--gold);opacity:.2;line-height:1}
-.epigraph p{font-family:'Cormorant Garamond',serif !important;font-style:italic;color:var(--ink-light) !important;font-size:1.2rem !important;line-height:1.8;text-align:center !important;text-indent:0 !important;margin-bottom:.5em !important}
-.epigraph cite{display:block;font-family:'Lora',serif;font-style:normal;font-size:.8rem;color:var(--gold-dim);letter-spacing:.12em;margin-top:8px}
-.epigraph .arabic{font-family:'Noto Naskh Arabic',serif;font-style:normal;font-size:1.3rem;direction:rtl;color:var(--gold-dim);opacity:.6;margin-bottom:12px;line-height:2}
-
-/* ===== DIALOG ===== */
-.dialog{margin:1.6em 0;padding:1em 1.5em;border-left:3px solid var(--gold);background:rgba(201,168,76,.04);border-radius:0 4px 4px 0;text-indent:0 !important}
-.dialog .speaker{font-family:'Playfair Display',serif;font-weight:600;color:var(--gold-dim);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;display:block;text-indent:0}
-.dialog .speech{font-style:italic;color:var(--ink);text-indent:0}
-
-.dialog-nisa{border-left-color:var(--rose)}
-.dialog-nisa .speaker{color:var(--rose)}
-
-/* ===== SEPARATOR ===== */
-.sep{text-align:center;margin:3em 0;color:var(--gold);font-size:1.2rem;letter-spacing:1em;opacity:.4}
-
-/* ===== RUMI INTERLUDE (BETWEEN CHAPTERS) ===== */
-.rumi-interlude{min-height:40vh;display:flex;align-items:center;justify-content:center;padding:60px 24px;text-align:center;position:relative;overflow:hidden}
-.rumi-interlude.rumi-dark{background:var(--bg)}
-.rumi-interlude.rumi-warm{background:#12100a}
-.rumi-interlude.rumi-deep{background:#0d0a0f}
-.rumi-interlude .rumi-inner{max-width:560px;position:relative;z-index:1}
-.rumi-interlude .rumi-label{font-family:'Lora',serif;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:24px;opacity:.6}
-.rumi-interlude .rumi-text{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--paper-dark);font-size:clamp(1.2rem,2.5vw,1.6rem);line-height:2;opacity:.85}
-.rumi-interlude .rumi-source{font-family:'Lora',serif;font-size:.75rem;letter-spacing:.1em;color:var(--gold);margin-top:24px;font-style:normal}
-.rumi-interlude .rumi-arabic{font-family:'Noto Naskh Arabic',serif;font-size:1.4rem;direction:rtl;color:var(--gold);opacity:.25;margin-bottom:20px;line-height:2}
-
-/* ===== SPECIAL SECTIONS ===== */
-.dedication{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px;background:var(--bg)}
-.dedication p{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--paper-dark);font-size:1.2rem;line-height:2.2;opacity:.7}
-.dedication .ded-line{width:40px;height:1px;background:var(--gold);margin:24px auto;opacity:.3}
-
-/* ===== AUTHOR NOTE ===== */
-.author-note{max-width:680px;margin:0 auto;padding:60px 24px 100px;background:var(--paper)}
-.author-note h3{font-family:'Playfair Display',serif;text-align:center;font-size:1.4rem;color:var(--ink);margin-bottom:40px}
-.author-note p{font-size:1.02rem;color:var(--ink);margin-bottom:1.3em;text-align:justify;text-indent:2em}
-.author-note .sign{text-align:right;text-indent:0;margin-top:40px;color:var(--ink-light);font-style:italic}
-.author-note .sign strong{font-style:normal;color:var(--ink);display:block;margin-top:4px;font-family:'Playfair Display',serif}
-
-/* ===== COLOPHON / FOOTER ===== */
-.colophon{text-align:center;padding:80px 24px;background:var(--bg);border-top:1px solid rgba(201,168,76,.1)}
-.colophon p{font-family:'Cormorant Garamond',serif;color:var(--gold-dim);font-size:.85rem;letter-spacing:.1em;line-height:2;opacity:.5}
-.colophon .end-mark{font-family:'Playfair Display',serif;color:var(--gold);font-size:1.8rem;margin-bottom:20px;opacity:.3}
-
-/* ===== ANIMATIONS ===== */
-.fade-in{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
-.fade-in.visible{opacity:1;transform:translateY(0)}
-
-/* ===== RESPONSIVE ===== */
-@media(max-width:768px){
-  .content,.author-note{padding:40px 20px 80px}
-  .epigraph{padding:1.5em 1em}
-  .dialog{padding:.8em 1em}
-  .nav{padding:12px 16px}
-  .hero-quote{padding:20px;margin-top:30px}
-  .chapter-header{min-height:50vh;padding:60px 20px}
+/* ========== RESET & BASE ========== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:#0a0a14;
+  color:#e0e0e0;
+  font-family:'Comic Neue',cursive,sans-serif;
+  overflow-x:hidden;
+  min-height:100vh;
 }
 
-/* Print */
-@media print{
-  .nav,.toc-btn,.toc-overlay,.scroll-indicator,.nav-progress,.preloader{display:none !important}
-  .hero{min-height:auto;page-break-after:always}
-  .chapter-header{min-height:auto;page-break-before:always}
-  .content{max-width:100%}
-  body{background:#fff}
+/* ========== LOADING SCREEN ========== */
+#loading-screen{
+  position:fixed;inset:0;z-index:9999;
+  background:#0a0a14;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity .6s,visibility .6s;
+}
+#loading-screen.hide{opacity:0;visibility:hidden;pointer-events:none}
+.loading-title{
+  font-family:'Bangers',cursive;font-size:clamp(1.6rem,4vw,3rem);
+  color:#ff3355;letter-spacing:2px;
+  animation:glitch .8s infinite alternate;
+}
+.loading-sub{
+  font-family:'JetBrains Mono',monospace;font-size:clamp(.7rem,1.5vw,1rem);
+  color:#00ff88;margin-top:12px;
+  animation:blink 1s steps(2) infinite;
+}
+.loading-bar-wrap{
+  width:min(320px,80vw);height:6px;background:#1a1a2e;border-radius:3px;margin-top:24px;overflow:hidden;
+}
+.loading-bar{
+  height:100%;width:0;background:linear-gradient(90deg,#00ff88,#ffaa00,#ff3355);
+  border-radius:3px;animation:load-progress 2.2s ease-in-out forwards;
+}
+@keyframes load-progress{0%{width:0}40%{width:55%}70%{width:78%}100%{width:100%}}
+@keyframes glitch{0%{text-shadow:2px 0 #00ff88,-2px 0 #ff3355}100%{text-shadow:-1px 0 #ffaa00,1px 0 #00aaff}}
+@keyframes blink{50%{opacity:0}}
+
+/* ========== HALFTONE BG ========== */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:16px 16px;
+}
+
+/* ========== MAIN CONTAINER ========== */
+.comic-container{
+  position:relative;z-index:1;
+  max-width:860px;margin:0 auto;padding:20px 12px 80px;
+}
+
+/* ========== TIMELINE LINE ========== */
+.comic-container::before{
+  content:'';position:absolute;left:28px;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,transparent,#ffaa00 5%,#ffaa00 95%,transparent);
+  z-index:0;
+}
+@media(max-width:600px){.comic-container::before{left:10px;width:2px}}
+
+/* ========== PANEL ========== */
+.panel{
+  position:relative;
+  background:#12121f;
+  border:3px solid #2a2a44;
+  border-radius:12px;
+  margin:40px 0 40px 48px;
+  padding:28px 24px;
+  box-shadow:6px 6px 0 #000,0 0 30px rgba(0,0,0,.5);
+  opacity:0;transform:translateY(60px);
+  transition:opacity .7s ease,transform .7s ease;
+}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel::before{
+  content:'';position:absolute;left:-32px;top:30px;
+  width:16px;height:16px;border-radius:50%;
+  background:#ffaa00;border:3px solid #0a0a14;
+  z-index:2;
+}
+@media(max-width:600px){
+  .panel{margin-left:28px;padding:18px 14px}
+  .panel::before{left:-22px;width:12px;height:12px}
+}
+
+/* ========== PANEL TITLE ========== */
+.panel-title{
+  font-family:'Bangers',cursive;
+  font-size:clamp(1.4rem,3.5vw,2.2rem);
+  color:#ffaa00;
+  text-shadow:2px 2px 0 #000;
+  margin-bottom:16px;
+  border-bottom:2px dashed #2a2a44;
+  padding-bottom:10px;
+}
+.panel-title.red{color:#ff3355}
+.panel-title.green{color:#00ff88}
+.panel-title.cyan{color:#00ddff}
+
+/* ========== COVER PANEL ========== */
+.cover-panel{
+  text-align:center;
+  background:linear-gradient(180deg,#0d0d1a 0%,#1a0a20 50%,#0d0d1a 100%);
+  border:4px solid #ff3355;
+  box-shadow:6px 6px 0 #000,0 0 60px rgba(255,51,85,.15);
+  padding:40px 24px;
+}
+.cover-title{
+  font-family:'Bangers',cursive;
+  font-size:clamp(2.2rem,6vw,4rem);
+  color:#ff3355;
+  text-shadow:3px 3px 0 #000,0 0 20px rgba(255,51,85,.4);
+  letter-spacing:3px;
+  line-height:1.1;
+}
+.cover-subtitle{
+  font-family:'Comic Neue',cursive;font-size:clamp(.9rem,2vw,1.3rem);
+  color:#aaa;margin-top:8px;
+}
+.cover-meta{
+  font-family:'JetBrains Mono',monospace;font-size:clamp(.65rem,1.2vw,.85rem);
+  color:#ffaa00;margin-top:16px;line-height:1.8;
+}
+.stamp{
+  display:inline-block;
+  border:3px solid #ff3355;
+  color:#ff3355;
+  font-family:'Bangers',cursive;
+  font-size:clamp(.8rem,1.8vw,1.1rem);
+  padding:6px 18px;
+  transform:rotate(-8deg);
+  margin-top:20px;
+  opacity:.8;
+  letter-spacing:2px;
+}
+
+/* ========== SCENE (SVG + TEXT AREA) ========== */
+.scene{
+  display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;
+  margin-bottom:18px;
+}
+.scene svg{flex-shrink:0}
+@media(max-width:600px){
+  .scene{flex-direction:column;align-items:center}
+  .scene svg{width:100%!important;max-width:340px}
+}
+
+/* ========== SPEECH & THOUGHT BUBBLES ========== */
+.bubble{
+  position:relative;
+  background:#1e1e33;
+  border:2px solid #3a3a55;
+  border-radius:18px;
+  padding:12px 16px;
+  margin:10px 0;
+  font-size:clamp(.85rem,1.6vw,1rem);
+  line-height:1.5;
+  max-width:520px;
+}
+.bubble::after{
+  content:'';position:absolute;bottom:-12px;left:30px;
+  border:8px solid transparent;border-top-color:#3a3a55;
+}
+.bubble.heker{border-color:#00ff88;background:#0d1a15}
+.bubble.heker::after{border-top-color:#00ff88}
+.bubble.honeypot{border-color:#ffaa00;background:#1a1508}
+.bubble.honeypot::after{border-top-color:#ffaa00}
+.bubble.soc{border-color:#00aaff;background:#0a1520}
+.bubble.soc::after{border-top-color:#00aaff}
+.bubble.thought{
+  border-radius:50%;padding:14px 20px;border-style:dashed;
+}
+.bubble.thought::after{
+  border:none;bottom:-18px;left:24px;
+  width:8px;height:8px;border-radius:50%;
+  background:#3a3a55;
+  box-shadow:8px 6px 0 4px #3a3a55;
+}
+.bubble .speaker{
+  font-family:'Bangers',cursive;font-size:.85rem;
+  display:block;margin-bottom:4px;
+}
+.bubble.heker .speaker{color:#00ff88}
+.bubble.honeypot .speaker{color:#ffaa00}
+.bubble.soc .speaker{color:#00aaff}
+
+/* ========== TERMINAL / DATA BOX ========== */
+.terminal{
+  background:#0a0a14;
+  border:1px solid #1a3a1a;
+  border-radius:8px;
+  padding:14px 16px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:clamp(.65rem,1.2vw,.82rem);
+  color:#00ff88;
+  line-height:1.7;
+  margin:14px 0;
+  overflow-x:auto;
+  white-space:pre-wrap;
+  word-break:break-all;
+}
+.terminal .highlight{color:#ffaa00}
+.terminal .red{color:#ff3355}
+.terminal .cyan{color:#00ddff}
+.terminal .dim{color:#555}
+
+/* ========== DEVICE CARDS ========== */
+.device-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px;margin:14px 0;
+}
+.device-card{
+  background:#0f0f1e;
+  border-left:4px solid #00aaff;
+  border-radius:6px;
+  padding:12px 14px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:clamp(.6rem,1.1vw,.73rem);
+  line-height:1.6;
+  color:#bbb;
+}
+.device-card .device-name{
+  font-family:'Bangers',cursive;font-size:1rem;
+  margin-bottom:6px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+}
+.device-card.vm{border-left-color:#ff3355}
+.device-card.vm .device-name{color:#ff3355}
+.device-card.privacy{border-left-color:#ffaa00}
+.device-card.privacy .device-name{color:#ffaa00}
+.device-card.touch{border-left-color:#00ddff}
+.device-card.touch .device-name{color:#00ddff}
+.device-card.chrome{border-left-color:#00ff88}
+.device-card.chrome .device-name{color:#00ff88}
+.badge{
+  display:inline-block;font-family:'JetBrains Mono',monospace;
+  font-size:.55rem;padding:2px 6px;border-radius:3px;
+  color:#fff;font-weight:700;vertical-align:middle;
+}
+.badge.red{background:#ff3355}
+.badge.amber{background:#cc8800}
+.badge.cyan{background:#0099aa}
+
+/* ========== SOUND EFFECTS ========== */
+.sfx{
+  font-family:'Bangers',cursive;
+  display:inline-block;
+  font-size:clamp(1.4rem,3vw,2.4rem);
+  -webkit-text-stroke:2px #000;
+  text-shadow:3px 3px 0 #000;
+  margin:8px;
+}
+.sfx.green{color:#00ff88}
+.sfx.red{color:#ff3355}
+.sfx.yellow{color:#ffaa00}
+.sfx.cyan{color:#00ddff}
+.sfx.rotate{transform:rotate(-12deg)}
+.sfx.rotate-r{transform:rotate(8deg)}
+
+/* ========== NARRATION ========== */
+.narration{
+  background:linear-gradient(90deg,#1a1a2e,transparent);
+  border-left:3px solid #ffaa00;
+  padding:10px 16px;
+  margin:12px 0;
+  font-style:italic;
+  font-size:clamp(.8rem,1.4vw,.95rem);
+  color:#ccc;
+}
+
+/* ========== BAR CHART ========== */
+.bar-chart{
+  display:flex;align-items:flex-end;gap:6px;
+  height:120px;margin:16px 0;padding:0 4px;
+}
+.bar-col{
+  display:flex;flex-direction:column;align-items:center;flex:1;height:100%;justify-content:flex-end;
+}
+.bar{
+  width:100%;max-width:50px;
+  background:linear-gradient(180deg,#00ff88,#008844);
+  border-radius:4px 4px 0 0;
+  transition:height 1s ease;
+  position:relative;
+  min-height:2px;
+}
+.bar.peak{background:linear-gradient(180deg,#ff3355,#aa0022)}
+.bar-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.6rem;color:#888;margin-top:4px;
+}
+.bar-value{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.55rem;color:#00ff88;margin-bottom:2px;
+}
+
+/* ========== EVIDENCE GRID ========== */
+.evidence-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:14px;margin:16px 0;
+}
+.evidence-card{
+  background:#0f0f1e;
+  border:1px solid #2a2a44;
+  border-radius:8px;
+  padding:14px;
+}
+.evidence-card h4{
+  font-family:'Bangers',cursive;font-size:1.1rem;
+  margin-bottom:8px;
+}
+.evidence-card ul{
+  list-style:none;padding:0;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;line-height:1.8;color:#aaa;
+}
+.evidence-card li::before{content:'> ';color:#ffaa00}
+
+/* ========== SCOREBOARD ========== */
+.scoreboard{
+  background:linear-gradient(135deg,#1a0a20,#0d1a25);
+  border:3px solid #ffaa00;
+  border-radius:12px;
+  padding:24px;
+  text-align:center;
+  margin:20px auto;
+  max-width:400px;
+}
+.scoreboard .score-line{
+  font-family:'Bangers',cursive;
+  font-size:clamp(1.6rem,4vw,2.6rem);
+  line-height:1.6;
+}
+.score-heker{color:#ff3355}
+.score-honey{color:#00ff88}
+
+/* ========== MORAL BOX ========== */
+.moral{
+  background:linear-gradient(135deg,#1a1508,#0d1a15);
+  border:2px solid #ffaa00;
+  border-radius:10px;
+  padding:20px;
+  text-align:center;
+  margin:20px 0;
+  font-size:clamp(.9rem,1.8vw,1.15rem);
+  line-height:1.7;
+  color:#ffdd88;
+}
+.moral strong{color:#ff3355}
+
+/* ========== FOOTER ========== */
+.comic-footer{
+  text-align:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;
+  color:#555;
+  margin-top:30px;
+  line-height:1.8;
+}
+
+/* ========== DATA APPENDIX ========== */
+.appendix{
+  background:#0d0d1a;
+  border:2px solid #2a2a44;
+  border-radius:12px;
+  padding:28px 24px;
+  margin:40px 0 40px 48px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:clamp(.6rem,1.1vw,.75rem);
+  line-height:1.8;
+  color:#aaa;
+  opacity:0;transform:translateY(60px);
+  transition:opacity .7s ease,transform .7s ease;
+}
+.appendix.visible{opacity:1;transform:translateY(0)}
+@media(max-width:600px){.appendix{margin-left:28px;padding:18px 14px}}
+.appendix h2{
+  font-family:'Bangers',cursive;font-size:1.8rem;
+  color:#ff3355;margin-bottom:16px;
+  text-shadow:2px 2px 0 #000;
+}
+.appendix h3{
+  font-family:'Bangers',cursive;font-size:1.2rem;
+  color:#ffaa00;margin:18px 0 8px;
+}
+.appendix table{
+  width:100%;border-collapse:collapse;margin:8px 0 16px;
+  display:block;overflow-x:auto;
+}
+.appendix th,.appendix td{
+  border:1px solid #1a1a2e;padding:6px 10px;text-align:left;white-space:nowrap;
+}
+.appendix th{background:#1a1a2e;color:#ffaa00}
+.appendix td{color:#bbb}
+.appendix .tag{
+  display:inline-block;padding:1px 6px;border-radius:3px;
+  font-size:.6rem;margin:1px;
+}
+.appendix .tag.red{background:#3a0a15;color:#ff3355;border:1px solid #ff3355}
+.appendix .tag.green{background:#0a2a15;color:#00ff88;border:1px solid #00ff88}
+.appendix .tag.yellow{background:#2a1a05;color:#ffaa00;border:1px solid #ffaa00}
+
+/* ========== RECEIPT ========== */
+.receipt{
+  background:#fefef0;color:#222;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;line-height:1.8;
+  padding:16px;border-radius:2px;
+  max-width:300px;margin:12px 0;
+  border:1px dashed #999;
+  box-shadow:0 4px 12px rgba(0,0,0,.3);
+}
+.receipt h5{text-align:center;font-size:.9rem;margin-bottom:6px;border-bottom:1px dashed #999;padding-bottom:4px}
+.receipt .line{display:flex;justify-content:space-between;gap:8px}
+
+/* ========== RECON MAP ========== */
+.recon-bar{
+  display:flex;align-items:center;gap:8px;margin:4px 0;
+  font-family:'JetBrains Mono',monospace;font-size:.7rem;
+}
+.recon-bar .path{color:#ffaa00;min-width:140px}
+.recon-bar .bar-h{
+  height:14px;background:linear-gradient(90deg,#ff3355,#ff6688);
+  border-radius:2px;transition:width 1s ease;
+}
+.recon-bar .count{color:#aaa;min-width:40px}
+
+/* ========== ANIMATIONS ========== */
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.float{animation:float 3s ease-in-out infinite}
+.pulse{animation:pulse 2s ease-in-out infinite}
+.shake{animation:shake .4s ease-in-out infinite}
+
+/* ========== ATTACK HIGHLIGHT BOX ========== */
+.attack-box{
+  margin:16px 0;padding:12px 16px;
+  border:2px solid #ff3355;border-radius:8px;
+  background:#1a0a15;
+}
+.attack-box .attack-title{
+  font-family:'Bangers',cursive;color:#ff3355;font-size:1.1rem;margin-bottom:6px;
+}
+
+/* ========== INFO BOX ========== */
+.info-box{
+  margin:12px 0;padding:10px 14px;border-radius:6px;
+  font-family:'JetBrains Mono',monospace;font-size:.72rem;line-height:1.7;
+}
+.info-box.blue{background:#0a1520;border:1px solid #00ddff;color:#00ddff}
+.info-box.green{background:#0a1a15;border:1px solid #00ff88;color:#00ff88}
+.info-box.red{background:#1a0a15;border:1px solid #ff3355;color:#ff3355}
+
+/* ========== CAMERA BOX ========== */
+.camera-box{
+  margin:14px 0;padding:12px;background:#1a0a15;border:1px solid #ff3355;border-radius:6px;
+}
+.camera-box .cam-title{
+  font-family:'Bangers',cursive;color:#ff3355;font-size:1rem;
+}
+.camera-box .cam-body{
+  font-family:'JetBrains Mono',monospace;font-size:.75rem;color:#aaa;margin-top:6px;line-height:1.7;
+}
+
+/* ========== MUSIC PLAYER (CYBERPUNK) ========== */
+.music-btn{
+  position:fixed;bottom:20px;right:20px;z-index:9000;
+  display:flex;align-items:center;gap:10px;
+  background:rgba(10,10,20,.92);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border:2px solid #00ff88;
+  border-radius:6px;
+  padding:10px 16px 10px 12px;
+  color:#00ff88;
+  cursor:pointer;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  box-shadow:0 0 20px rgba(0,255,136,.25),3px 3px 0 #000;
+  transition:all .25s ease;
+  user-select:none;
+}
+.music-btn:hover{
+  background:rgba(0,255,136,.08);
+  box-shadow:0 0 30px rgba(0,255,136,.5),3px 3px 0 #000;
+  transform:translateY(-2px);
+}
+.music-btn.playing{
+  border-color:#ff3355;color:#ff3355;
+  box-shadow:0 0 25px rgba(255,51,85,.4),3px 3px 0 #000;
+  animation:musicPulse 2s ease-in-out infinite;
+}
+@keyframes musicPulse{
+  0%,100%{box-shadow:0 0 25px rgba(255,51,85,.4),3px 3px 0 #000}
+  50%{box-shadow:0 0 35px rgba(255,51,85,.7),3px 3px 0 #000}
+}
+.music-btn .m-led{
+  width:8px;height:8px;border-radius:50%;
+  background:#00ff88;box-shadow:0 0 8px #00ff88;
+  flex-shrink:0;
+}
+.music-btn.playing .m-led{
+  background:#ff3355;box-shadow:0 0 12px #ff3355;
+  animation:ledBlink .8s steps(2) infinite;
+}
+@keyframes ledBlink{50%{opacity:.3}}
+.music-btn .m-bars{
+  display:none;align-items:flex-end;gap:2px;height:14px;
+}
+.music-btn.playing .m-bars{display:flex}
+.music-btn.playing .m-icon{display:none}
+.music-btn .m-bars span{
+  width:3px;background:#ff3355;border-radius:1px;height:4px;
+  animation:barJump 1s ease-in-out infinite;
+}
+.music-btn .m-bars span:nth-child(2){animation-delay:.15s}
+.music-btn .m-bars span:nth-child(3){animation-delay:.3s}
+.music-btn .m-bars span:nth-child(4){animation-delay:.45s}
+@keyframes barJump{0%,100%{height:4px}50%{height:14px}}
+.music-btn .m-icon{
+  width:14px;height:14px;
+  display:flex;align-items:center;justify-content:center;
+}
+.music-btn .m-icon svg{width:100%;height:100%}
+@media(max-width:600px){
+  .music-btn{bottom:14px;right:14px;padding:8px 12px 8px 10px;font-size:.7rem;gap:8px}
+}
+@media(max-width:380px){
+  .music-btn .m-label{display:none}
+}
+
+/* ========== EXTRA RESPONSIVE TWEAKS ========== */
+@media(max-width:480px){
+  .comic-container{padding:14px 8px 90px}
+}
+@media(max-width:380px){
+  .comic-container{padding:12px 6px 100px}
+  .panel{margin-left:24px;padding:14px 12px}
+  .panel::before{left:-20px;width:10px;height:10px}
 }
 </style>
 </head>
 <body>
 
-<!-- PRELOADER -->
-<div class="preloader" id="preloader">
-  <div class="preloader-ornament"></div>
-  <h2>Serpihan yang Tersisa</h2>
+<!-- ==================== LOADING SCREEN ==================== -->
+<div id="loading-screen">
+  <div class="loading-title">&#9888; MEMBUKA FILE RAHASIA...</div>
+  <div class="loading-sub">decrypting honeypot_report_mei2026.enc</div>
+  <div class="loading-bar-wrap"><div class="loading-bar"></div></div>
 </div>
 
-<!-- PROGRESS BAR -->
-<div class="nav-progress" id="progress"></div>
+<!-- ==================== COMIC CONTAINER ==================== -->
+<div class="comic-container" id="comic">
 
-<!-- NAVIGATION -->
-<nav class="nav">
-  <span class="nav-title" id="navTitle">Serpihan yang Tersisa</span>
-  <button class="toc-btn" onclick="toggleTOC()">Daftar Isi</button>
-</nav>
-
-<!-- TABLE OF CONTENTS -->
-<div class="toc-overlay" id="tocOverlay">
-  <button class="toc-close" onclick="toggleTOC()">&times;</button>
-  <div class="toc-content">
-    <h3>Daftar Isi</h3>
-    <a class="toc-item" href="#prolog" onclick="toggleTOC()">Prolog — Malam Itu, di Balik Layar Kaca</a>
-    <a class="toc-item" href="#bab1" onclick="toggleTOC()">Bab 1 — Pertanyaan yang Tidak Sopan</a>
-    <a class="toc-item" href="#bab2" onclick="toggleTOC()">Bab 2 — Akar yang Berbeda, Tanah yang Sama</a>
-    <a class="toc-item" href="#bab3" onclick="toggleTOC()">Bab 3 — Di Balik Dinding yang Terlihat Kokoh</a>
-    <a class="toc-item" href="#bab4" onclick="toggleTOC()">Bab 4 — Kata-kata yang Tidak Cukup</a>
-    <a class="toc-item" href="#bab5" onclick="toggleTOC()">Bab 5 — Pelajaran dari Reruntuhan</a>
-    <a class="toc-item" href="#epilog" onclick="toggleTOC()">Epilog — Serpihan yang Tersisa, Keping yang Baru</a>
-    <a class="toc-item" href="#catatan" onclick="toggleTOC()">Catatan Penulis</a>
+<!-- ========================================================================
+     PANEL 0: COVER
+     ======================================================================== -->
+<div class="panel cover-panel visible" style="margin-left:0;border-color:#ff3355">
+  <svg viewBox="0 0 600 280" width="100%" style="max-width:600px;margin:0 auto;display:block">
+    <defs>
+      <radialGradient id="spot" cx="50%" cy="0%" r="70%">
+        <stop offset="0%" stop-color="#ffaa00" stop-opacity=".12"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+    </defs>
+    <rect width="600" height="280" fill="#0a0a14" rx="8"/>
+    <ellipse cx="300" cy="280" rx="180" ry="200" fill="url(#spot)"/>
+    <!-- hooded silhouette in spotlight -->
+    <g transform="translate(260,60)">
+      <path d="M40,0 Q0,30 10,100 L70,100 Q80,30 40,0Z" fill="#111" stroke="#222" stroke-width="1"/>
+      <ellipse cx="40" cy="50" rx="22" ry="18" fill="#0a0a0a"/>
+      <circle cx="32" cy="48" r="3" fill="#00ff88" opacity=".9">
+        <animate attributeName="opacity" values=".9;.3;.9" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="48" cy="48" r="3" fill="#00ff88" opacity=".9">
+        <animate attributeName="opacity" values=".9;.3;.9" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <rect x="5" y="95" width="70" height="5" rx="2" fill="#333"/>
+      <rect x="15" y="70" width="50" height="28" rx="2" fill="#1a1a2e" stroke="#333" stroke-width="1"/>
+      <rect x="18" y="73" width="44" height="22" rx="1" fill="#0d1a15"/>
+      <text x="40" y="87" text-anchor="middle" font-family="JetBrains Mono" font-size="5" fill="#00ff88">$ nmap ...</text>
+    </g>
+    <!-- honeypot jar lurking in shadows -->
+    <g transform="translate(450,140)" class="float">
+      <ellipse cx="30" cy="45" rx="28" ry="22" fill="#ffaa00" opacity=".8"/>
+      <rect x="12" y="25" width="36" height="25" rx="4" fill="#ffaa00"/>
+      <rect x="18" y="18" width="24" height="12" rx="3" fill="#cc8800"/>
+      <text x="30" y="42" text-anchor="middle" font-size="16">&#128520;</text>
+    </g>
+  </svg>
+  <div class="cover-title">KISAH SI HEKER SIAL</div>
+  <div class="cover-subtitle">Laporan Insiden Honeypot &mdash; event.kemenpar.go.id</div>
+  <div class="cover-meta">
+    Mei 2026 &nbsp;|&nbsp; Durasi: 2 Hari &nbsp;|&nbsp; IP: 103.140.36.10<br>
+    Total Evidence: 2.145 entries &nbsp;|&nbsp; 7 devices &nbsp;|&nbsp; 9+ jam
   </div>
+  <div class="stamp">CLASSIFIED &mdash; INTERNAL USE ONLY</div>
 </div>
 
-<!-- ==================== HERO ==================== -->
-<section class="hero" id="hero">
-  <div class="hero-content">
-    <div class="hero-ornament"></div>
-    <h1>
-      Serpihan yang Tersisa
-      <span>Sebuah Novel Tentang Keberanian Memilih Diri Sendiri</span>
-    </h1>
-    <div class="hero-meta">Oleh &nbsp;A G U S &nbsp; M E N D O</div>
-    <div class="hero-quote">
-      <p>&ldquo;Luka adalah tempat di mana Cahaya masuk ke dalam dirimu.&rdquo;</p>
-      <cite>&mdash; Jalaluddin Rumi</cite>
+<!-- ========================================================================
+     PANEL 1: HARI PERTAMA
+     ======================================================================== -->
+<div class="panel">
+  <div class="panel-title">PANEL 1: HARI PERTAMA &mdash; 6 Mei 2026</div>
+
+  <div class="scene">
+    <svg viewBox="0 0 320 220" width="320">
+      <rect width="320" height="220" fill="#0d0d1a" rx="6"/>
+      <!-- STP Bandung sign -->
+      <rect x="10" y="10" width="140" height="22" rx="4" fill="#1a1a2e" stroke="#2a2a44"/>
+      <text x="80" y="26" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#ffaa00">STP BANDUNG</text>
+      <!-- clock -->
+      <circle cx="285" cy="25" r="14" fill="#1a1a2e" stroke="#2a2a44"/>
+      <text x="285" y="29" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#00ff88">09:19</text>
+      <!-- hacker with hoodie (smug) -->
+      <g transform="translate(100,50)">
+        <path d="M40,10 Q5,35 15,110 L65,110 Q75,35 40,10Z" fill="#1a1a2e" stroke="#2a2a44" stroke-width="1"/>
+        <circle cx="40" cy="20" r="18" fill="#1a1a2e" stroke="#2a2a44"/>
+        <path d="M22,18 Q40,-2 58,18" fill="#1a1a2e" stroke="#2a2a44"/>
+        <!-- smug eyes -->
+        <circle cx="34" cy="22" r="3" fill="#00ff88">
+          <animate attributeName="r" values="3;2;3" dur="4s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="46" cy="22" r="3" fill="#00ff88">
+          <animate attributeName="r" values="3;2;3" dur="4s" repeatCount="indefinite"/>
+        </circle>
+        <!-- smug grin -->
+        <path d="M33,32 Q40,38 47,32" fill="none" stroke="#00ff88" stroke-width="1.5"/>
+      </g>
+      <!-- two monitors -->
+      <rect x="30" y="145" width="65" height="45" rx="3" fill="#0d1a15" stroke="#00ff88" stroke-width="1"/>
+      <text x="62" y="170" text-anchor="middle" font-family="JetBrains Mono" font-size="5" fill="#00ff88">VM #1</text>
+      <rect x="105" y="148" width="55" height="40" rx="3" fill="#0d1a15" stroke="#00ff88" stroke-width="1"/>
+      <text x="132" y="170" text-anchor="middle" font-family="JetBrains Mono" font-size="5" fill="#00ff88">VM #2</text>
+      <!-- desk -->
+      <rect x="20" y="190" width="170" height="6" rx="2" fill="#333"/>
+      <rect x="60" y="196" width="60" height="14" rx="2" fill="#222" stroke="#333"/>
+    </svg>
+  </div>
+
+  <div class="bubble heker">
+    <span class="speaker">Si Heker:</span>
+    "Hmm... event.kemenpar.go.id, coba kita scan..."
+  </div>
+
+  <div class="terminal"><span class="highlight">&#128197;</span> 6 Mei 2026 | 09:19 ~ 13:44 WIB <span class="dim">(4 jam 25 menit)</span>
+<span class="highlight">&#128205;</span> Cimahi, Jawa Barat &mdash; Sekolah Tinggi Pariwisata Bandung
+<span class="highlight">&#128421;</span> 2 Device terdeteksi (keduanya Virtual Machine!)</div>
+
+  <div class="device-grid">
+    <div class="device-card vm">
+      <div class="device-name">&#128421; VM #1 <span class="badge red">VM DETECTED</span></div>
+      Linux x86_64 | 1920&times;1080<br>
+      GPU: llvmpipe (VIRTUAL MACHINE!)<br>
+      Firefox 128 | TZ: America/New_York <span style="color:#ff3355">(PALSU!)</span><br>
+      audioFP: 35.749972 | dnt: 1<br>
+      <strong style="color:#ffaa00">624 entries</strong>
+    </div>
+    <div class="device-card vm">
+      <div class="device-name">&#128421; VM #2 <span class="badge red">VM DETECTED</span></div>
+      Linux x86_64 | 1543&times;874<br>
+      GPU: llvmpipe (VIRTUAL MACHINE!)<br>
+      Firefox 128 | TZ: America/New_York<br>
+      audioFP: 35.749972<br>
+      <strong style="color:#ffaa00">58 entries</strong>
     </div>
   </div>
-  <div class="scroll-indicator">Gulir ke bawah</div>
-</section>
 
-<!-- ==================== DEDICATION ==================== -->
-<section class="dedication">
-  <div class="fade-in">
-    <p>Untuk setiap perempuan<br>yang pernah memilih dirinya sendiri<br>ketika dunia mengatakan untuk bertahan.</p>
-    <div class="ded-line"></div>
-    <p>Dan untuk anak-anak mereka,<br>yang pantas tumbuh dalam damai.</p>
+  <div class="bubble thought honeypot">
+    <span class="speaker">Si Honeypot:</span>
+    "Pakai Virtual Machine dan timezone palsu... lucu~"
   </div>
-</section>
 
-<!-- ==================== RUMI INTERLUDE ==================== -->
-<div class="rumi-interlude rumi-dark">
-  <div class="rumi-inner fade-in">
-    <div class="rumi-label">Jalaluddin Rumi</div>
-    <div class="rumi-arabic">لا تحزن، أي شيء تفقده يعود إليك في صورة أخرى</div>
-    <div class="rumi-text">&ldquo;Jangan bersedih. Apapun yang hilang darimu akan kembali dalam bentuk yang lain.&rdquo;</div>
-    <div class="rumi-source">&mdash; Masnavi-i Ma'navi</div>
-  </div>
-</div>
+  <div class="narration">Si Heker pakai VM Linux dengan timezone America/New_York. Tapi IP-nya tetap dari Bandung &#128517;</div>
 
-<!-- ==================== PROLOG ==================== -->
-<section class="chapter" id="prolog">
-  <div class="chapter-header ch-dark fade-in">
-    <div class="chapter-num">Prolog</div>
-    <h2 class="chapter-title">Malam Itu, di Balik Layar Kaca</h2>
-    <div class="chapter-subtitle">&ldquo;Kadang yang paling berani bukan mereka yang bertahan,<br>melainkan mereka yang tahu kapan harus pergi.&rdquo;</div>
-    <div class="chapter-line"></div>
-  </div>
-  <div class="content">
-    <p class="no-indent fade-in">Malam itu hujan turun tanpa henti di kota Surabaya. Butiran air mengetuk-ngetuk jendela kamar sebuah rumah kost di kawasan Semolowaru dengan irama yang hampir menenangkan&mdash;kalau saja hati Raka tidak sedang berkecamuk.</p>
-
-    <p class="fade-in">Layar ponselnya masih menyala. Sebuah percakapan yang belum selesai. Nama di bagian atas layar tertulis: <em>Nisa.</em></p>
-
-    <p class="fade-in">Raka mengenal Nisa baru beberapa minggu terakhir lewat media sosial. Awalnya hanya komentar biasa di sebuah postingan tentang <em>parenting.</em> Lalu berlanjut ke pesan pribadi. Lalu percakapan demi percakapan yang semakin dalam, semakin jujur, semakin menyentuh tempat-tempat yang jarang dijamah oleh percakapan kasual.</p>
-
-    <p class="fade-in">Tapi malam ini berbeda. Malam ini Nisa membuka pintunya lebih lebar dari biasanya. Dan Raka, dengan segala rasa penasarannya yang kadang tidak sopan&mdash;seperti yang dia akui sendiri&mdash;berdiri di ambang pintu itu, ragu antara masuk atau mundur.</p>
-
-    <div class="epigraph fade-in">
-      <p class="arabic">مهمتك ليست أن تبحث عن الحب، بل أن تبحث وتجد كل الحواجز التي بنيتها في نفسك ضده</p>
-      <p>&ldquo;Tugasmu bukan mencari cinta, melainkan mencari dan menemukan semua dinding yang telah kau bangun di dalam dirimu untuk melawannya.&rdquo;</p>
-      <cite>&mdash; Jalaluddin Rumi</cite>
-    </div>
-
-    <div class="sep fade-in">&bull; &bull; &bull;</div>
-
-    <p class="fade-in">Novel ini adalah serpihan dari percakapan yang nyata. Sebuah dialog antara dua jiwa yang belum lama saling mengenal, namun entah bagaimana menemukan keberanian untuk berbicara tentang hal-hal yang seringkali disembunyikan di balik senyum dan status sosial media.</p>
-
-    <p class="fade-in">Ini adalah kisah tentang seorang perempuan yang memilih untuk tidak bertahan demi label &ldquo;utuh.&rdquo; Tentang seorang laki-laki yang mencoba memahami dari sudut pandang yang belum pernah ia miliki. Dan tentang keberanian yang kadang datang dalam bentuk yang paling sunyi: melepaskan.</p>
-  </div>
-</section>
-
-<!-- ==================== RUMI INTERLUDE ==================== -->
-<div class="rumi-interlude rumi-warm">
-  <div class="rumi-inner fade-in">
-    <div class="rumi-label">Jalaluddin Rumi</div>
-    <div class="rumi-text">&ldquo;Keberanian sejati adalah mengajukan pertanyaan yang tidak berani ditanyakan orang lain.&rdquo;</div>
-    <div class="rumi-source">&mdash; Diwan-i Shams-i Tabrizi</div>
-  </div>
-</div>
-
-<!-- ==================== BAB 1 ==================== -->
-<section class="chapter" id="bab1">
-  <div class="chapter-header ch-warm fade-in">
-    <div class="chapter-num">Bab Pertama</div>
-    <h2 class="chapter-title">Pertanyaan yang Tidak Sopan</h2>
-    <div class="chapter-subtitle">&ldquo;Angkatlah kata-katamu, bukan suaramu.<br>Hujan yang menumbuhkan bunga, bukan guntur.&rdquo; &mdash; Rumi</div>
-    <div class="chapter-line"></div>
-  </div>
-  <div class="content">
-    <p class="no-indent fade-in">Raka menarik napas dalam sebelum mengetik. Jemarinya ragu di atas keyboard virtual ponselnya. Pertanyaan ini sudah berputar di kepalanya selama berhari-hari, sejak pertama kali Nisa menyinggung soal statusnya sebagai <em>single parent</em> dalam sebuah percakapan ringan tentang <em>weekend routines.</em></p>
-
-    <p class="fade-in">Tapi Raka bukanlah orang yang bisa menahan rasa ingin tahunya. Bukan karena ia suka mengungkit luka orang lain, melainkan karena ada sesuatu dalam cara Nisa berbicara yang membuatnya ingin memahami lebih dalam. Ada kekuatan yang tersembunyi di balik kata-katanya, dan Raka ingin tahu dari mana kekuatan itu berasal.</p>
-
-    <div class="dialog fade-in">
-      <span class="speaker">Raka</span>
-      <span class="speech">&ldquo;Masih saling berkomunikasi, Kak? Untuk nafkah dan pendidikan anak, masih ditanggung? Itu hal yang selalu ingin kutanyakan pada orang yang telah berpisah.&rdquo;</span>
-    </div>
-
-    <p class="fade-in">Ia menunggu. Lalu menambahkan:</p>
-
-    <div class="dialog fade-in">
-      <span class="speaker">Raka</span>
-      <span class="speech">&ldquo;Dan pertanyaan untuk yang belum berpisah&mdash;apakah anak tidak menjadi sebuah tempat berpikir ulang agar tidak berpisah?&rdquo;</span>
-    </div>
-
-    <p class="fade-in">Raka tahu pertanyaan itu menusuk. Maka ia segera mengetik lagi, kali ini dengan nada yang lebih lembut&mdash;meskipun tetap dengan kejujuran yang menjadi ciri khasnya.</p>
-
-    <div class="dialog fade-in">
-      <span class="speaker">Raka</span>
-      <span class="speech">&ldquo;Aku sangat tidak sopan, dan tidak minta maaf untuk pertanyaan ini, karena aku tidak ada niatan mengingat-ingat duka kakak. Pertanyaan ini lebih ke perspektif orang tua, bukan individu.&rdquo;</span>
-    </div>
-
-    <p class="fade-in">Ponsel Raka bergetar beberapa menit kemudian.</p>
-
-    <div class="dialog dialog-nisa fade-in">
-      <span class="speaker">Nisa</span>
-      <span class="speech">&ldquo;Masih komunikasi, tiap weekend ganti shift. Hahaha. Tapi ya sewajarnya aja, seperlunya, keperluan anak.&rdquo;</span>
-    </div>
-
-    <p class="fade-in">Raka membaca ulang pesan itu. <em>Ganti shift.</em> Kata itu begitu kasual untuk mendeskripsikan sesuatu yang seharusnya menyakitkan. Atau mungkin itulah cara orang-orang yang sudah melewati badai berbicara&mdash;dengan ketenangan yang hanya bisa lahir dari penerimaan.</p>
-
-    <div class="sep fade-in">&bull; &bull; &bull;</div>
-
-    <div class="epigraph fade-in">
-      <p>&ldquo;Biarlah ada ruang di dalam kebersamaan kalian. Dan biarlah angin dari langit menari di antara kalian.&rdquo;</p>
-      <cite>&mdash; Kahlil Gibran, &ldquo;On Marriage&rdquo; &mdash; The Prophet</cite>
-    </div>
-
-    <p class="fade-in">Nisa meletakkan ponselnya di meja samping tempat tidur. Raffa, putranya yang berusia enam tahun, sudah terlelap di sampingnya. Wajah kecil itu begitu damai dalam tidurnya, tidak tahu bahwa mamanya baru saja membuka kotak kenangan yang biasanya terkunci rapat.</p>
-
-    <p class="fade-in">Pertanyaan Raka tidak membuatnya marah. Justru sebaliknya&mdash;pertanyaan itu seperti udara segar yang masuk dari jendela yang sudah lama ditutup. Orang-orang di sekitarnya selalu berhati-hati, selalu menghindari topik ini seolah-olah perceraian adalah penyakit menular. Tapi Raka bertanya dengan cara yang berbeda. Tidak menghakimi, hanya ingin tahu.</p>
-
-    <p class="fade-in">Nisa mengambil kembali ponselnya dan mulai mengetik.</p>
-
-    <div class="dialog dialog-nisa fade-in">
-      <span class="speaker">Nisa</span>
-      <span class="speech">&ldquo;Udah aku pikir baik-baik, Kak. Banyak ga baiknya kalau pertimbangannya tentang anak. Anak butuh ruang tumbuh yang baik, bukan medan perang ke dua orang tuanya.&rdquo;</span>
-    </div>
-
-    <p class="fade-in">Jemarinya berhenti sejenak. Lalu ia melanjutkan, karena sekali pintu itu terbuka, sulit untuk menutupnya kembali.</p>
-
-    <div class="dialog dialog-nisa fade-in">
-      <span class="speaker">Nisa</span>
-      <span class="speech">&ldquo;Kenapa memang, Kak? Apakah kamu anak dari orang tua yang bercerai juga?&rdquo;</span>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== RUMI INTERLUDE ==================== -->
-<div class="rumi-interlude rumi-deep">
-  <div class="rumi-inner fade-in">
-    <div class="rumi-label">Kahlil Gibran</div>
-    <div class="rumi-text">&ldquo;Anak-anakmu bukanlah milikmu. Mereka adalah putra-putri kehidupan yang merindukan dirinya sendiri. Mereka datang melaluimu, bukan darimu.&rdquo;</div>
-    <div class="rumi-source">&mdash; &ldquo;On Children&rdquo; &mdash; The Prophet (1923)</div>
+  <div style="font-family:'Bangers',cursive;color:#ffaa00;font-size:1rem;margin-top:14px">AKTIVITAS PER JAM</div>
+  <div class="bar-chart">
+    <div class="bar-col"><div class="bar-value">79</div><div class="bar" style="height:22%"></div><div class="bar-label">09</div></div>
+    <div class="bar-col"><div class="bar-value" style="color:#ff3355">346</div><div class="bar peak" style="height:100%"></div><div class="bar-label">10</div></div>
+    <div class="bar-col"><div class="bar-value">222</div><div class="bar" style="height:64%"></div><div class="bar-label">11</div></div>
+    <div class="bar-col"><div class="bar-value">30</div><div class="bar" style="height:8%"></div><div class="bar-label">12</div></div>
+    <div class="bar-col"><div class="bar-value">5</div><div class="bar" style="height:2%"></div><div class="bar-label">13</div></div>
   </div>
 </div>
 
-<!-- ==================== BAB 2 ==================== -->
-<section class="chapter" id="bab2">
-  <div class="chapter-header ch-deep fade-in">
-    <div class="chapter-num">Bab Kedua</div>
-    <h2 class="chapter-title">Akar yang Berbeda, Tanah yang Sama</h2>
-    <div class="chapter-subtitle">&ldquo;Jiwa ini berasal dari tempat lain, aku yakin itu,<br>dan aku bermaksud kembali ke sana.&rdquo; &mdash; Rumi</div>
-    <div class="chapter-line"></div>
+<!-- ========================================================================
+     PANEL 2: HARI KEDUA — FULL ARSENAL
+     ======================================================================== -->
+<div class="panel">
+  <div class="panel-title red">PANEL 2: HARI KEDUA &mdash; 7 Mei 2026, FULL ARSENAL</div>
+
+  <div class="scene">
+    <svg viewBox="0 0 400 200" width="100%" style="max-width:400px">
+      <rect width="400" height="200" fill="#0d0d1a" rx="6"/>
+      <circle cx="360" cy="25" r="14" fill="#1a1a2e" stroke="#2a2a44"/>
+      <text x="360" y="29" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#ff3355">09:26</text>
+      <!-- hacker center, excited -->
+      <g transform="translate(165,40)">
+        <path d="M35,10 Q5,30 12,85 L58,85 Q65,30 35,10Z" fill="#1a1a2e" stroke="#ff3355" stroke-width="1"/>
+        <circle cx="35" cy="18" r="14" fill="#1a1a2e" stroke="#ff3355"/>
+        <path d="M21,16 Q35,2 49,16" fill="#1a1a2e" stroke="#ff3355"/>
+        <circle cx="30" cy="20" r="3.5" fill="#00ff88"/>
+        <circle cx="40" cy="20" r="3.5" fill="#00ff88"/>
+        <!-- excited grin -->
+        <path d="M27,28 Q35,36 43,28" fill="none" stroke="#00ff88" stroke-width="1.5"/>
+      </g>
+      <!-- 5 monitors fanned around -->
+      <rect x="15" y="100" width="50" height="35" rx="2" fill="#0d1a15" stroke="#00ff88" stroke-width="1"/>
+      <text x="40" y="120" text-anchor="middle" font-family="JetBrains Mono" font-size="5" fill="#00ff88">D1</text>
+      <rect x="80" y="90" width="50" height="35" rx="2" fill="#0d1a15" stroke="#ffaa00" stroke-width="1"/>
+      <text x="105" y="110" text-anchor="middle" font-family="JetBrains Mono" font-size="5" fill="#ffaa00">D2</text>
+      <rect x="175" y="85" width="50" height="35" rx="2" fill="#0d1a15" stroke="#00ddff" stroke-width="1"/>
+      <text x="200" y="105" text-anchor="middle" font-family="JetBrains Mono" font-size="5" fill="#00ddff">D3</text>
+      <rect x="270" y="90" width="50" height="35" rx="2" fill="#0d1a15" stroke="#ff3355" stroke-width="1"/>
+      <text x="295" y="110" text-anchor="middle" font-family="JetBrains Mono" font-size="5" fill="#ff3355">D4</text>
+      <rect x="335" y="100" width="50" height="35" rx="2" fill="#0d1a15" stroke="#aa55ff" stroke-width="1"/>
+      <text x="360" y="120" text-anchor="middle" font-family="JetBrains Mono" font-size="5" fill="#aa55ff">D5</text>
+      <rect x="10" y="145" width="380" height="6" rx="2" fill="#333"/>
+      <text x="200" y="175" text-anchor="middle" font-family="Bangers" font-size="14" fill="#ff3355">5 DEVICE SEKALIGUS!</text>
+    </svg>
   </div>
-  <div class="content">
-    <p class="no-indent fade-in">Raka tersenyum membaca pertanyaan balik dari Nisa. Ada sesuatu yang hangat dalam cara Nisa bertanya&mdash;tidak defensif, tidak menyerang balik, justru membuka ruang untuk dialog yang setara.</p>
 
-    <div class="dialog fade-in">
-      <span class="speaker">Raka</span>
-      <span class="speech">&ldquo;Alhamdulillah enggak, Kak. Kalau soal orang tua praharanya banyak. Cuman aku dari SMP kelas 1 sudah menjauh dari rumah, kost di luar kota.&rdquo;</span>
-    </div>
-
-    <p class="fade-in">Ia berhenti mengetik sejenak, memandang langit-langit kamarnya. Kenangan tentang rumah kost pertamanya di usia dua belas tahun melintas seperti film hitam putih&mdash;bau deterjen murah, suara televisi tetangga, dan rasa rindu yang ia sembunyikan di balik rajinnya belajar.</p>
-
-    <div class="dialog fade-in">
-      <span class="speaker">Raka</span>
-      <span class="speech">&ldquo;Dan sekarang juga tinggal ayah saja. Ibu sudah berpulang tujuh tahunan lalu.&rdquo;</span>
-    </div>
-
-    <div class="epigraph fade-in">
-      <p>&ldquo;Cinta tidak pernah mengenal kedalamannya sendiri sampai saat perpisahan tiba.&rdquo;</p>
-      <cite>&mdash; Kahlil Gibran</cite>
-    </div>
-
-    <p class="fade-in">Nisa membaca pesan itu dan merasakan sesuatu yang familiar: kehilangan. Mereka berdua mengenal kehilangan dengan cara yang berbeda&mdash;Raka kehilangan ibunya kepada takdir, Nisa kehilangan suaminya kepada pilihan. Tapi rasa sakitnya, entah mengapa, berbicara dalam bahasa yang sama.</p>
-
-    <div class="sep fade-in">&bull; &bull; &bull;</div>
-
-    <p class="fade-in">Raka kemudian bertanya lebih dalam. Pertanyaannya kali ini lebih spesifik, lebih personal, dan ia tahu ia sedang melangkah ke wilayah yang sensitif.</p>
-
-    <div class="dialog fade-in">
-      <span class="speaker">Raka</span>
-      <span class="speech">&ldquo;Untuk masa diskusi dan memulainya ini, apakah kakak dengan emosi atau duduk baik-baik? Dan kakak yang meminta lalu dia mengiyakan, atau ada komunikasi untuk ke arah memperbaiki?&rdquo;</span>
-    </div>
-
-    <p class="fade-in">Lalu ia menambahkan sesuatu yang mengungkapkan bahwa ia bukan sekadar bertanya untuk mengisi waktu&mdash;ia benar-benar mencoba memahami:</p>
-
-    <div class="dialog fade-in">
-      <span class="speaker">Raka</span>
-      <span class="speech">&ldquo;Soalnya aku terus bertanya dari sudut pandangku. Dalam agama kalian ini menurutku baik. Dari awal mbak ini sudah berjilbab, menutup aurat. Lalu beberapa bulan aku tahu pasangan mbak juga ibadahnya kenceng. Dan sempat bertemu, dari faktor ekonomi, dari keluarga yang sama-sama mapan...&rdquo;</span>
-    </div>
-
-    <p class="fade-in">Raka sengaja tidak menyelesaikan kalimatnya. Tapi pesannya jelas: dengan semua itu&mdash;agama, ekonomi, latar belakang&mdash;mengapa tetap tidak cukup?</p>
-
-    <div class="epigraph fade-in">
-      <p>&ldquo;Kemarin aku cerdas, maka aku ingin mengubah dunia. Hari ini aku bijak, maka aku mengubah diriku sendiri.&rdquo;</p>
-      <cite>&mdash; Jalaluddin Rumi</cite>
-    </div>
-
-    <p class="fade-in">Pertanyaan itu menggantung di udara digital antara mereka. Dan Nisa, untuk pertama kalinya dalam waktu yang lama, merasa seseorang benar-benar ingin tahu jawabannya. Bukan untuk menghakimi, bukan untuk bergosip, tapi untuk memahami.</p>
-
-    <p class="fade-in">Maka ia pun membuka pintunya selebar yang ia bisa.</p>
+  <div class="bubble heker">
+    <span class="speaker">Si Heker:</span>
+    "Hari ini serius! Siapkan semua device!"
   </div>
-</section>
 
-<!-- ==================== RUMI INTERLUDE ==================== -->
-<div class="rumi-interlude rumi-dark">
-  <div class="rumi-inner fade-in">
-    <div class="rumi-label">Jalaluddin Rumi</div>
-    <div class="rumi-arabic">إذا أردت الشفاء فدع نفسك تمرض</div>
-    <div class="rumi-text">&ldquo;Jika kau ingin sembuh, biarkanlah dirimu jatuh sakit terlebih dahulu.&rdquo;</div>
-    <div class="rumi-source">&mdash; Masnavi-i Ma'navi, Kitab III</div>
+  <div class="terminal"><span class="highlight">&#128197;</span> 7 Mei 2026 | 09:26 ~ 14:09 WIB <span class="dim">(4 jam 43 menit!)</span>
+<span class="highlight">&#128205;</span> Masih dari STP Bandung (103.140.36.10)
+<span class="highlight">&#128421;</span> 5 Device sekaligus! | <span class="red">1.463 entries total</span></div>
+
+  <div class="device-grid">
+    <div class="device-card chrome">
+      <div class="device-name">&#128421; Device 1 &mdash; "Si Windows Besar"</div>
+      Win32 | 1536&times;864 | Intel UHD Graphics (A721)<br>
+      12 cores | 16GB RAM | Chrome 147<br>
+      TZ: Asia/Jakarta | audioFP: 124.043475<br>
+      Battery: 77% (discharging)<br>
+      Active: 09:26 ~ 10:59
+    </div>
+    <div class="device-card privacy">
+      <div class="device-name">&#128421; Device 2 &mdash; "Si Privacy Browser" <span class="badge amber">PRIVACY</span></div>
+      Win64 | 1366&times;768 | GPU: ERROR (blocked!)<br>
+      4 cores | 0 RAM detected<br>
+      <strong style="color:#ffaa00">CYBERFOX 52.9.1</strong> (privacy browser fork!)<br>
+      TZ: Asia/Jakarta | audioFP: 35.738330<br>
+      DNT: unspecified | Active: 09:42 ~ 13:19
+    </div>
+    <div class="device-card chrome">
+      <div class="device-name">&#128421; Device 3 &mdash; "Si Pekerja Keras"</div>
+      Win32 | 1366&times;768 | Intel HD 520<br>
+      4 cores | 16GB RAM | Chrome 147<br>
+      Lang: en-GB | audioFP: 124.043475<br>
+      Battery: 58% (charging)<br>
+      Active: 09:43 ~ 14:09 | <strong style="color:#ff3355">448 entries!</strong>
+    </div>
+    <div class="device-card vm">
+      <div class="device-name">&#128421; Device 4 &mdash; "Si Virtual Machine" <span class="badge red">VM DETECTED</span></div>
+      Linux x86_64 | 1920&times;1080 | llvmpipe (VM!)<br>
+      4 cores | Firefox 128<br>
+      TZ: America/New_York <span style="color:#ff3355">(PALSU!)</span><br>
+      audioFP: 35.749972 | No webcam, No battery<br>
+      Active: 10:24 ~ 10:51 | <em style="color:#aaa">Same VM dari kemarin!</em>
+    </div>
+    <div class="device-card touch">
+      <div class="device-name">&#128421; Device 5 &mdash; "Si Touchscreen" <span class="badge cyan">WEBRTC LEAKED</span></div>
+      Win32 | 1024&times;641 | Intel Iris Xe<br>
+      16 cores | 16GB RAM | Chrome 147<br>
+      Touch: 10 points (laptop layar sentuh!)<br>
+      audioFP: 124.043475<br>
+      <strong style="color:#00ddff">WebRTC Real IP: 103.140.36.37</strong><br>
+      Service Worker: REGISTERED<br>
+      Active: 10:27 ~ 10:29 <span style="color:#ff3355">(hanya 2 menit!)</span>
+    </div>
+  </div>
+
+  <div class="narration">Lima device dari satu IP kampus... ini satu orang atau satu tim? &#129300;</div>
+</div>
+
+<!-- ========================================================================
+     PANEL 3: MASUK JEBAKAN PERTAMA
+     ======================================================================== -->
+<div class="panel">
+  <div class="panel-title">PANEL 3: 09:26 &mdash; MASUK JEBAKAN PERTAMA</div>
+
+  <div class="scene">
+    <svg viewBox="0 0 360 200" width="100%" style="max-width:360px">
+      <rect width="360" height="200" fill="#0d0d1a" rx="6"/>
+      <!-- monitor with /wp-admin -->
+      <rect x="80" y="15" width="200" height="120" rx="4" fill="#0d1a15" stroke="#00ff88"/>
+      <text x="180" y="50" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#00ff88">GET /wp-admin</text>
+      <text x="180" y="68" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#555">Loading WordPress Admin...</text>
+      <!-- fingerprint scanner animation -->
+      <g transform="translate(130,80)">
+        <rect x="0" y="0" width="100" height="40" rx="4" fill="#1a1a2e" stroke="#ffaa00" stroke-dasharray="4">
+          <animate attributeName="stroke-dashoffset" values="0;80" dur="2s" repeatCount="indefinite"/>
+        </rect>
+        <text x="50" y="16" text-anchor="middle" font-family="JetBrains Mono" font-size="6" fill="#ffaa00">FINGERPRINTING...</text>
+        <text x="50" y="32" text-anchor="middle" font-size="14">&#128270;</text>
+      </g>
+      <!-- giant honey jar behind monitor -->
+      <g transform="translate(295,35)" class="float">
+        <ellipse cx="22" cy="38" rx="22" ry="18" fill="#ffaa00" opacity=".6"/>
+        <rect x="6" y="20" width="32" height="22" rx="4" fill="#ffaa00" opacity=".6"/>
+        <rect x="10" y="12" width="24" height="12" rx="3" fill="#cc8800" opacity=".6"/>
+        <text x="22" y="35" text-anchor="middle" font-size="16">&#128520;</text>
+      </g>
+      <!-- hacker hands on keyboard -->
+      <rect x="110" y="148" width="140" height="12" rx="2" fill="#222" stroke="#333"/>
+      <rect x="80" y="162" width="200" height="5" rx="2" fill="#333"/>
+    </svg>
+  </div>
+
+  <span class="sfx green rotate">KLIK!</span>
+
+  <div class="bubble heker">
+    <span class="speaker">Si Heker:</span>
+    "Cek WordPress dulu... biasa admin lupa update &#128527;"
+  </div>
+  <div class="bubble honeypot">
+    <span class="speaker">Si Honeypot:</span>
+    "Selamat datang! Fingerprint captured &#10024;"
+  </div>
+
+  <div class="receipt">
+    <h5>&#128424; FINGERPRINT RECEIPT</h5>
+    <div class="line"><span>Platform</span><span>Win32</span></div>
+    <div class="line"><span>GPU</span><span>Intel UHD (A721)</span></div>
+    <div class="line"><span>Cores</span><span>12</span></div>
+    <div class="line"><span>RAM</span><span>16GB</span></div>
+    <div class="line"><span>Screen</span><span>1536&times;864</span></div>
+    <div class="line"><span>Battery</span><span>77% discharging</span></div>
+    <div class="line"><span>Fonts</span><span>15+ detected</span></div>
+    <div class="line"><span>Camera</span><span>1 webcam detected</span></div>
+    <br>
+    <div style="text-align:center;color:#999;font-size:.6rem">Thank you for your data! &#128525;</div>
   </div>
 </div>
 
-<!-- ==================== BAB 3 ==================== -->
-<section class="chapter" id="bab3">
-  <div class="chapter-header ch-light fade-in">
-    <div class="chapter-num">Bab Ketiga</div>
-    <h2 class="chapter-title">Di Balik Dinding yang Terlihat Kokoh</h2>
-    <div class="chapter-subtitle">&ldquo;Sakitmu adalah pecahnya cangkang<br>yang membungkus pemahamanmu.&rdquo; &mdash; Kahlil Gibran</div>
-    <div class="chapter-line"></div>
+<!-- ========================================================================
+     PANEL 4: SCANNING HABIS-HABISAN
+     ======================================================================== -->
+<div class="panel">
+  <div class="panel-title">PANEL 4: 09:33&ndash;09:53 &mdash; SCANNING HABIS-HABISAN</div>
+
+  <div class="scene">
+    <svg viewBox="0 0 360 140" width="100%" style="max-width:360px">
+      <rect width="360" height="140" fill="#0d0d1a" rx="6"/>
+      <!-- spider web catching tabs -->
+      <g transform="translate(180,70)">
+        <!-- web lines -->
+        <line x1="0" y1="-55" x2="0" y2="55" stroke="#ffaa00" stroke-width=".5" opacity=".4"/>
+        <line x1="-70" y1="0" x2="70" y2="0" stroke="#ffaa00" stroke-width=".5" opacity=".4"/>
+        <line x1="-50" y1="-50" x2="50" y2="50" stroke="#ffaa00" stroke-width=".5" opacity=".4"/>
+        <line x1="50" y1="-50" x2="-50" y2="50" stroke="#ffaa00" stroke-width=".5" opacity=".4"/>
+        <!-- web rings -->
+        <circle cx="0" cy="0" r="20" fill="none" stroke="#ffaa00" stroke-width=".4" opacity=".3"/>
+        <circle cx="0" cy="0" r="40" fill="none" stroke="#ffaa00" stroke-width=".4" opacity=".3"/>
+        <circle cx="0" cy="0" r="60" fill="none" stroke="#ffaa00" stroke-width=".3" opacity=".2"/>
+        <!-- caught items -->
+        <text x="-30" y="-25" font-family="JetBrains Mono" font-size="5" fill="#ff3355">.env</text>
+        <text x="15" y="-15" font-family="JetBrains Mono" font-size="5" fill="#ff3355">wp-login</text>
+        <text x="-20" y="15" font-family="JetBrains Mono" font-size="5" fill="#ff3355">wp-admin</text>
+        <text x="10" y="30" font-family="JetBrains Mono" font-size="5" fill="#ff3355">/mice</text>
+        <!-- honeypot spider -->
+        <g transform="translate(-5,-5)">
+          <ellipse cx="5" cy="5" rx="8" ry="6" fill="#ffaa00"/>
+          <text x="5" y="9" text-anchor="middle" font-size="8">&#128520;</text>
+        </g>
+      </g>
+      <!-- tabs flying in like butterflies -->
+      <rect x="15" y="15" width="60" height="20" rx="3" fill="#1a0a15" stroke="#ff3355" transform="rotate(-8,45,25)"/>
+      <text x="45" y="29" text-anchor="middle" font-family="JetBrains Mono" font-size="5" fill="#ff3355" transform="rotate(-8,45,29)">/blogs/.env</text>
+      <rect x="285" y="20" width="55" height="20" rx="3" fill="#1a0a15" stroke="#ff3355" transform="rotate(5,312,30)"/>
+      <text x="312" y="34" text-anchor="middle" font-family="JetBrains Mono" font-size="5" fill="#ff3355" transform="rotate(5,312,34)">clipboard</text>
+    </svg>
   </div>
-  <div class="content">
-    <div class="epigraph fade-in">
-      <p>&ldquo;Berdirilah bersama, tetapi jangan terlalu dekat. Karena tiang-tiang kuil berdiri sendiri-sendiri, dan pohon ek serta cemara tidak tumbuh di bawah bayangan satu sama lain.&rdquo;</p>
-      <cite>&mdash; Kahlil Gibran, &ldquo;On Marriage&rdquo; &mdash; The Prophet</cite>
-    </div>
 
-    <p class="no-indent fade-in">Nisa mulai mengetik. Dan kali ini, ia tidak berhenti.</p>
+  <div class="terminal"><span class="dim">09:33</span> &mdash; Browse <span class="cyan">/mice</span> (halaman asli MICE)
+<span class="dim">09:42</span> &mdash; Device 2 (Cyberfox) muncul!
+<span class="dim">09:43</span> &mdash; Probe <span class="red">/blogs/.env</span> &times; 5 kali berturut!
+<span class="dim">09:44</span> &mdash; <span class="highlight">COPY clipboard</span>: "Sistem Informasi Kepariwisataan..."
+<span class="dim">09:44</span> &mdash; Probe <span class="red">/wp-login</span>
+<span class="dim">09:45</span> &mdash; Kembali ke <span class="red">/wp-admin</span> &times; 3</div>
 
-    <div class="dialog dialog-nisa fade-in">
-      <span class="speaker">Nisa</span>
-      <span class="speech">&ldquo;Anakku sering nanya, kenapa kok pisah. Jawabannya ya karena udah terlalu sering bertengkar, ga nyaman di dalam rumah, tanpa ada trust juga.&rdquo;</span>
-    </div>
-
-    <p class="fade-in">Jemarinya bergetar sedikit, tapi ia terus mengetik.</p>
-
-    <div class="dialog dialog-nisa fade-in">
-      <span class="speaker">Nisa</span>
-      <span class="speech">&ldquo;Nggak bisa ngajarin ke anak how to loving and be loved. Bapaknya ga bisa ngajarin anak cowoknya how to be a man, how being a man.&rdquo;</span>
-    </div>
-
-    <p class="fade-in">Setiap kata yang keluar dari jemarinya seperti batu yang diangkat dari dadanya. Berat, tapi setelah dilepaskan, ada sedikit ruang untuk bernapas.</p>
-
-    <div class="dialog dialog-nisa fade-in">
-      <span class="speaker">Nisa</span>
-      <span class="speech">&ldquo;Ngga ada figur kepemimpinan dari kepala keluarga. Ga bisa menunjukkan gimana sih menyayangi seorang istrinya ke anaknya. Kacau balau pokoknya.&rdquo;</span>
-    </div>
-
-    <div class="sep fade-in">&bull; &bull; &bull;</div>
-
-    <p class="fade-in">Raka membaca setiap kata dengan hati-hati. Ia bisa merasakan getaran di balik kata-kata itu&mdash;bukan kemarahan, bukan kebencian, tapi kekecewaan yang begitu dalam hingga sudah melampaui tahap emosional dan masuk ke tahap rasional.</p>
-
-    <p class="fade-in">Nisa melanjutkan:</p>
-
-    <div class="dialog dialog-nisa fade-in">
-      <span class="speaker">Nisa</span>
-      <span class="speech">&ldquo;Emang kalau dari luar we looks fine. Ekonomi stabil, sudah mapan kalau kata orang. Tapi hubungan pernikahan ga akan jalan tanpa ada trust, visi misi buat masa depan.&rdquo;</span>
-    </div>
-
-    <div class="epigraph fade-in">
-      <p>&ldquo;Segalanya di alam semesta ada di dalam dirimu. Mintalah semuanya dari dirimu sendiri.&rdquo;</p>
-      <cite>&mdash; Jalaluddin Rumi</cite>
-    </div>
-
-    <p class="fade-in">Kalimat itu menohok Raka dengan cara yang tidak ia duga. Selama ini ia&mdash;dan mungkin sebagian besar orang&mdash;menilai sebuah rumah tangga dari luarnya. Rumah bagus, mobil bagus, anak sekolah di tempat bagus. Sudah cukup, kan? Ternyata tidak.</p>
-
-    <div class="dialog dialog-nisa fade-in">
-      <span class="speaker">Nisa</span>
-      <span class="speech">&ldquo;Ada kebutuhan emosional yang stabil sebagai pondasi utama, yang orang-orang nggak lihat.&rdquo;</span>
-    </div>
-
-    <div class="dialog dialog-nisa fade-in">
-      <span class="speaker">Nisa</span>
-      <span class="speech">&ldquo;Ngga cukup cuman terlihat baik di depan banyak orang, tapi di rumah seperti orang lain buat aku.&rdquo;</span>
-    </div>
-
-    <p class="fade-in">Raka merasakan dadanya sesak. Ia membayangkan Nisa&mdash;perempuan yang dari luar terlihat kuat, mandiri, berpendidikan, religius&mdash;pulang ke rumah yang seharusnya menjadi tempatnya merasa aman, tapi justru menjadi tempat yang paling menyakitkan.</p>
-
-    <div class="dialog dialog-nisa fade-in">
-      <span class="speaker">Nisa</span>
-      <span class="speech">&ldquo;Apalagi sudah sampai ada pihak ketiga, Kak. Jadi buatku itu sudah fatal aja, ga ada masa depan lagi buat dipertahankan.&rdquo;</span>
-    </div>
-
-    <p class="fade-in"><em>Pihak ketiga.</em> Dua kata itu jatuh seperti palu hakim di ruang sidang yang sunyi. Semua argumen tentang &ldquo;bertahan demi anak&rdquo; runtuh dalam sekejap.</p>
-
-    <div class="dialog dialog-nisa fade-in">
-      <span class="speaker">Nisa</span>
-      <span class="speech">&ldquo;Intinya udah ga ada trust aja aku ke dia. Komitmen antara dia dan Tuhan aja ga bisa dia pegang kok.&rdquo;</span>
-    </div>
-
-    <div class="epigraph fade-in">
-      <p>&ldquo;Di luar sana, melampaui gagasan tentang salah dan benar, ada sebuah padang. Aku akan menemuimu di sana.&rdquo;</p>
-      <cite>&mdash; Jalaluddin Rumi</cite>
-    </div>
-
-    <p class="fade-in">Kalimat terakhir itu adalah yang paling tajam. Bukan sekadar tentang pengkhianatan kepada pasangan&mdash;tapi tentang pengkhianatan kepada nilai-nilai yang seharusnya menjadi fondasi dari segalanya. Jika janji kepada Tuhan saja bisa dilanggar, janji apa lagi yang bisa dipegang?</p>
-
-    <div class="sep fade-in">&bull; &bull; &bull;</div>
-
-    <p class="fade-in">Nisa menambahkan satu pesan lagi. Pesan yang merangkum keseluruhan perjalanannya dari seorang istri menjadi seorang ibu tunggal:</p>
-
-    <div class="dialog dialog-nisa fade-in">
-      <span class="speaker">Nisa</span>
-      <span class="speech">&ldquo;Jadi kalau ditimbang-timbang, dari segi agama, tanggung jawab, sifat baik buruknya, wataknya&mdash;banyakan buruknya. Jadi ya udah, aku mending udahan.&rdquo;</span>
-    </div>
-
-    <p class="fade-in"><em>Udahan.</em> Satu kata yang begitu sederhana untuk keputusan yang begitu berat. Tapi di balik kesederhanaan itu, Raka bisa mendengar suara seorang perempuan yang telah menimbang segalanya&mdash;bukan dengan emosi, tapi dengan akal sehat yang jernih, meskipun hatinya mungkin masih berdarah.</p>
+  <div class="bubble heker">
+    <span class="speaker">Si Heker:</span>
+    "Wah ada .env! Copy dulu datanya..."
   </div>
-</section>
+  <div class="bubble honeypot">
+    <span class="speaker">Si Honeypot (Clipboard Monitor):</span>
+    "Terima kasih! Sudah dikirim ke server kami~ &#128203;"
+  </div>
 
-<!-- ==================== RUMI INTERLUDE ==================== -->
-<div class="rumi-interlude rumi-warm">
-  <div class="rumi-inner fade-in">
-    <div class="rumi-label">Jalaluddin Rumi</div>
-    <div class="rumi-arabic">ارقص حين تنكسر، ارقص إن نزعت الضمادات عنك</div>
-    <div class="rumi-text">&ldquo;Menarilah saat kau hancur. Menarilah saat kau melepas perban dari lukamu. Menarilah di tengah pertempuran. Menarilah saat kau benar-benar bebas.&rdquo;</div>
-    <div class="rumi-source">&mdash; Diwan-i Shams-i Tabrizi</div>
+  <!-- XSS PROBE BIG MOMENT -->
+  <div class="attack-box">
+    <div class="attack-title">&#128680; 09:53 &mdash; XSS PROBE!</div>
+    <div class="terminal" style="margin:8px 0"><span class="red">/promosi?s=&lt;i&gt;CSIRT Kemenpar&lt;/i&gt;'KEMENPAR</span></div>
+    <div class="scene" style="justify-content:center">
+      <svg viewBox="0 0 280 100" width="280">
+        <rect width="280" height="100" fill="transparent"/>
+        <!-- brick wall -->
+        <rect x="100" y="10" width="80" height="80" rx="4" fill="#332211" stroke="#554433" stroke-width="2"/>
+        <line x1="100" y1="30" x2="180" y2="30" stroke="#221100"/>
+        <line x1="100" y1="50" x2="180" y2="50" stroke="#221100"/>
+        <line x1="100" y1="70" x2="180" y2="70" stroke="#221100"/>
+        <line x1="140" y1="10" x2="140" y2="30" stroke="#221100"/>
+        <line x1="120" y1="30" x2="120" y2="50" stroke="#221100"/>
+        <line x1="160" y1="50" x2="160" y2="70" stroke="#221100"/>
+        <text x="140" y="55" text-anchor="middle" font-family="Comic Neue" font-size="10" fill="#ffaa00">Nice try &#128527;</text>
+        <!-- XSS code bouncing -->
+        <text x="45" y="45" font-family="JetBrains Mono" font-size="7" fill="#ff3355" transform="rotate(-15,45,45)">&lt;script&gt;</text>
+        <text x="220" y="55" font-family="JetBrains Mono" font-size="7" fill="#ff3355" transform="rotate(12,220,55)">&lt;script&gt;</text>
+        <defs><marker id="arrowR" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6Z" fill="#ff3355"/></marker></defs>
+        <path d="M75,42 L98,42" stroke="#ff3355" stroke-width="1.5" marker-end="url(#arrowR)"/>
+        <path d="M182,50 L210,55" stroke="#ff3355" stroke-width="1.5" marker-end="url(#arrowR)"/>
+      </svg>
+    </div>
+    <span class="sfx red rotate">MENTAL!</span>
+    <div class="bubble heker" style="margin-top:4px">
+      <span class="speaker">Si Heker:</span>
+      "Inject XSS dulu... eh?!"
+    </div>
   </div>
 </div>
 
-<!-- ==================== BAB 4 ==================== -->
-<section class="chapter" id="bab4">
-  <div class="chapter-header ch-deep fade-in">
-    <div class="chapter-num">Bab Keempat</div>
-    <h2 class="chapter-title">Kata-kata yang Tidak Cukup</h2>
-    <div class="chapter-subtitle">&ldquo;Kau boleh memberi mereka cintamu,<br>tetapi bukan pikiranmu.&rdquo; &mdash; Kahlil Gibran</div>
-    <div class="chapter-line"></div>
+<!-- ========================================================================
+     PANEL 5: JEBAKAN PHPINFO
+     ======================================================================== -->
+<div class="panel">
+  <div class="panel-title" style="color:#ffaa00">PANEL 5: 10:25 &mdash; JEBAKAN PHPINFO</div>
+
+  <div class="terminal"><span class="dim">10:25</span> &mdash; Masuk <span class="red">/phpinfo.php</span> trap
+<span class="dim">10:26</span> &mdash; <span class="red">&#128680; Null byte injection</span>: /hubungi?name=i%00admin</div>
+
+  <div class="scene">
+    <svg viewBox="0 0 340 190" width="100%" style="max-width:340px">
+      <rect width="340" height="190" fill="#0d0d1a" rx="6"/>
+      <!-- phpinfo page mock -->
+      <rect x="20" y="10" width="300" height="140" rx="4" fill="#fff" stroke="#333"/>
+      <!-- purple phpinfo header -->
+      <rect x="20" y="10" width="300" height="24" rx="4" fill="#4F5B93"/>
+      <text x="170" y="27" text-anchor="middle" font-family="Arial" font-size="11" fill="#fff" font-weight="bold">PHP Version 8.2.14</text>
+      <!-- fake data rows -->
+      <rect x="24" y="40" width="292" height="14" fill="#e8e8f0"/>
+      <text x="30" y="50" font-family="JetBrains Mono" font-size="6" fill="#333">SERVER_NAME</text>
+      <text x="200" y="50" font-family="JetBrains Mono" font-size="6" fill="#4F5B93">api-sipar.kemenpar.go.id</text>
+      <rect x="24" y="58" width="292" height="14" fill="#f4f4f8"/>
+      <text x="30" y="68" font-family="JetBrains Mono" font-size="6" fill="#333">DB_HOST</text>
+      <text x="200" y="68" font-family="JetBrains Mono" font-size="6" fill="#cc0000">10.20.30.41</text>
+      <rect x="24" y="76" width="292" height="14" fill="#e8e8f0"/>
+      <text x="30" y="86" font-family="JetBrains Mono" font-size="6" fill="#333">DB_DATABASE</text>
+      <text x="200" y="86" font-family="JetBrains Mono" font-size="6" fill="#cc0000">sipar_production</text>
+      <rect x="24" y="94" width="292" height="14" fill="#f4f4f8"/>
+      <text x="30" y="104" font-family="JetBrains Mono" font-size="6" fill="#333">APP_KEY</text>
+      <text x="200" y="104" font-family="JetBrains Mono" font-size="6" fill="#cc0000">base64:fAk3K3yN0tR34L...</text>
+      <!-- session expired cage -->
+      <rect x="50" y="115" width="240" height="30" rx="4" fill="rgba(0,0,0,.88)" stroke="#ff3355" stroke-width="2">
+        <animate attributeName="y" values="190;115" dur=".8s" fill="freeze"/>
+      </rect>
+      <text x="170" y="134" text-anchor="middle" font-family="Bangers" font-size="11" fill="#ff3355">
+        &#128274; SESSION EXPIRED &mdash; RE-LOGIN REQUIRED
+        <animate attributeName="y" values="209;134" dur=".8s" fill="freeze"/>
+      </text>
+      <!-- FAKE watermark -->
+      <text x="280" y="95" font-family="Bangers" font-size="22" fill="#ff3355" opacity=".25" transform="rotate(-30,280,95)">FAKE!</text>
+    </svg>
   </div>
-  <div class="content">
-    <p class="no-indent fade-in">Raka menatap layar ponselnya dengan mata yang berkaca-kaca. Bukan karena ia mengenal Nisa dengan baik&mdash;mereka bahkan belum pernah bertemu secara langsung. Tapi karena ada sesuatu yang universal dalam kisah ini, sesuatu yang melampaui batas-batas kenalan dan persahabatan.</p>
 
-    <p class="fade-in">Ia mengetik dengan jemari yang sedikit gemetar:</p>
-
-    <div class="dialog fade-in">
-      <span class="speaker">Raka</span>
-      <span class="speech">&ldquo;Speechless aku, Kak.&rdquo;</span>
-    </div>
-
-    <div class="dialog fade-in">
-      <span class="speaker">Raka</span>
-      <span class="speech">&ldquo;Gak sanggup berkata apa-apa lagi.&rdquo;</span>
-    </div>
-
-    <p class="fade-in">Raka berhenti sejenak. Ia tahu kata-kata berikutnya harus dipilih dengan sangat hati-hati. Bukan basa-basi, bukan pujian kosong, tapi pengakuan yang tulus terhadap keberanian yang baru saja ia saksikan lewat layar kecil ini.</p>
-
-    <div class="dialog fade-in">
-      <span class="speaker">Raka</span>
-      <span class="speech">&ldquo;Kamu adalah ibu yang pintar, ibu yang baik.&rdquo;</span>
-    </div>
-
-    <div class="dialog fade-in">
-      <span class="speaker">Raka</span>
-      <span class="speech">&ldquo;Dan kamu adalah wanita berpendidikan.&rdquo;</span>
-    </div>
-
-    <div class="epigraph fade-in">
-      <p>&ldquo;Ketuk, maka Dia akan membukakan pintu. Lenyaplah, maka Dia akan membuatmu bersinar bagaikan matahari. Jatuhlah, maka Dia akan mengangkatmu ke langit. Jadilah hampa, maka Dia akan mengubahmu menjadi segalanya.&rdquo;</p>
-      <cite>&mdash; Jalaluddin Rumi</cite>
-    </div>
-
-    <p class="fade-in">Kata-kata itu terasa tidak cukup. Bagaimana empat kalimat pendek bisa merangkum penghargaan terhadap seorang perempuan yang telah melewati neraka dan keluar dari sisi lain dengan kepala tegak dan anak di gendongan?</p>
-
-    <p class="fade-in">Tapi terkadang, kata-kata yang paling berarti bukanlah yang paling puitis. Terkadang, pengakuan sederhana bahwa seseorang telah <em>melihat</em> perjuanganmu&mdash;dan menghargainya&mdash;sudah lebih dari cukup.</p>
-
-    <div class="sep fade-in">&bull; &bull; &bull;</div>
-
-    <p class="fade-in">Nisa membalas dengan emoji dua tangan yang mengatup&mdash;doa. Tidak ada kata-kata. Hanya doa. Dan mungkin itu adalah respons yang paling jujur: ketika kata-kata sudah habis, yang tersisa hanyalah doa dan syukur.</p>
-
-    <p class="fade-in">Syukur bahwa ada seseorang yang mendengarkan tanpa menghakimi. Syukur bahwa ada seseorang yang bertanya bukan untuk mencari gosip, tapi untuk memahami. Syukur bahwa malam ini, di antara jutaan percakapan yang berlangsung di dunia digital, ada satu percakapan yang bermakna.</p>
+  <div class="bubble heker" style="max-width:440px">
+    <span class="speaker">Si Heker:</span>
+    "JACKPOT! Ada phpinfo production! DB host, app config... ini ceroboh banget!"
   </div>
-</section>
+  <div class="bubble thought honeypot">
+    <span class="speaker">Si Honeypot:</span>
+    "Itu semua palsu sayanggg~ &#127855;"
+  </div>
 
-<!-- ==================== RUMI INTERLUDE ==================== -->
-<div class="rumi-interlude rumi-deep">
-  <div class="rumi-inner fade-in">
-    <div class="rumi-label">Kahlil Gibran</div>
-    <div class="rumi-text">&ldquo;Menikah itu bukan sekadar berdiri berdampingan. Cintailah satu sama lain, tetapi janganlah menjadikan cinta sebagai belenggu. Biarlah ia menjadi lautan yang bergerak di antara pantai-pantai jiwa kalian.&rdquo;</div>
-    <div class="rumi-source">&mdash; &ldquo;On Marriage&rdquo; &mdash; The Prophet (1923)</div>
+  <div class="camera-box">
+    <div class="cam-title">&#128247; CAMERA ATTEMPTS</div>
+    <div class="cam-body">
+      Popup: "Biometric Verification Required"<br>
+      Camera attempt: 1... 5... 50... 100... <span style="color:#ff3355">200+ &#10060;</span><br>
+      <span style="color:#00ff88">ALL DENIED!</span> Si Heker menutupi webcam.
+    </div>
+    <div class="bubble heker" style="max-width:300px;margin-top:8px">
+      <span class="speaker">Si Heker (menutupi webcam):</span>
+      "Hampir kena! Websitenya minta akses kamera?! Mencurigakan..."
+    </div>
+  </div>
+
+  <div class="narration">Ironisnya, dia curiga soal kamera tapi tetap lanjut browsing. Honeypot sudah punya fingerprint-nya lengkap.</div>
+</div>
+
+<!-- ========================================================================
+     PANEL 6: MAKAN UMPAN CREDENTIAL
+     ======================================================================== -->
+<div class="panel" style="border-color:#ff3355;box-shadow:6px 6px 0 #000,0 0 40px rgba(255,51,85,.15)">
+  <div class="panel-title red">PANEL 6: 10:28 &mdash; MAKAN UMPAN CREDENTIAL</div>
+
+  <div class="scene">
+    <svg viewBox="0 0 380 190" width="100%" style="max-width:380px">
+      <rect width="380" height="190" fill="#0d0d1a" rx="6"/>
+      <!-- login form on screen -->
+      <rect x="90" y="10" width="200" height="135" rx="4" fill="#1a1a2e" stroke="#ff3355" stroke-width="2"/>
+      <text x="190" y="30" text-anchor="middle" font-family="Bangers" font-size="10" fill="#ff3355">&#128274; SESSION EXPIRED</text>
+      <text x="190" y="42" text-anchor="middle" font-family="JetBrains Mono" font-size="5" fill="#888">Please re-enter credentials</text>
+      <!-- email field -->
+      <rect x="105" y="50" width="170" height="18" rx="3" fill="#0a0a14" stroke="#333"/>
+      <text x="112" y="62" font-family="JetBrains Mono" font-size="5.5" fill="#00ff88">karokap669@inraud.com</text>
+      <!-- password field -->
+      <rect x="105" y="74" width="170" height="18" rx="3" fill="#0a0a14" stroke="#333"/>
+      <text x="112" y="86" font-family="JetBrains Mono" font-size="5.5" fill="#00ff88">ber#651gfDhya@jhf</text>
+      <!-- OTP field empty -->
+      <rect x="105" y="98" width="170" height="18" rx="3" fill="#0a0a14" stroke="#333"/>
+      <text x="112" y="110" font-family="JetBrains Mono" font-size="5.5" fill="#555">OTP code (optional)</text>
+      <!-- submit button -->
+      <rect x="140" y="122" width="100" height="18" rx="4" fill="#ff3355"/>
+      <text x="190" y="134" text-anchor="middle" font-family="Comic Neue" font-size="8" fill="#fff" font-weight="bold">LOGIN</text>
+      <!-- fishing hook from above -->
+      <g transform="translate(310,0)" class="float">
+        <line x1="20" y1="0" x2="20" y2="70" stroke="#888" stroke-width="1.5"/>
+        <path d="M20,70 Q20,85 10,82 Q5,80 8,72" fill="none" stroke="#888" stroke-width="1.5"/>
+        <circle cx="8" cy="72" r="2.5" fill="#ff3355"/>
+      </g>
+      <!-- hacker nervous, sweating -->
+      <g transform="translate(15,55)">
+        <circle cx="28" cy="18" r="16" fill="#1a1a2e" stroke="#2a2a44"/>
+        <path d="M14,16 Q28,0 42,16" fill="#1a1a2e" stroke="#2a2a44"/>
+        <!-- nervous small eyes -->
+        <circle cx="22" cy="18" r="2.5" fill="#00ff88"/>
+        <circle cx="34" cy="18" r="2.5" fill="#00ff88"/>
+        <!-- sweat drops -->
+        <ellipse cx="46" cy="12" rx="2" ry="3" fill="#00aaff" opacity=".6">
+          <animate attributeName="cy" values="12;22;12" dur="1.5s" repeatCount="indefinite"/>
+        </ellipse>
+        <ellipse cx="48" cy="22" rx="1.5" ry="2.5" fill="#00aaff" opacity=".4">
+          <animate attributeName="cy" values="22;32;22" dur="1.8s" repeatCount="indefinite"/>
+        </ellipse>
+        <!-- worried mouth -->
+        <path d="M22,28 Q28,24 34,28" fill="none" stroke="#ff3355" stroke-width="1"/>
+      </g>
+      <!-- Auth Failed text -->
+      <text x="190" y="160" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#ff3355">&#10060; Authentication Failed</text>
+      <text x="190" y="175" text-anchor="middle" font-family="JetBrains Mono" font-size="6" fill="#555">Attempt 3 of 3</text>
+    </svg>
+  </div>
+
+  <span class="sfx red">GOTCHA!</span>
+  <span class="sfx yellow rotate">GOTCHA!</span>
+  <span class="sfx red rotate-r">GOTCHA!</span>
+
+  <div class="terminal"><span class="dim">10:28:01</span> &mdash; <span class="red">&#128273; Attempt 1</span>: karokap669@inraud.com / ber#651gfDhya@jhf
+<span class="dim">10:28:17</span> &mdash; <span class="red">&#128273; Attempt 2</span>: (same credentials)
+<span class="dim">10:28:25</span> &mdash; <span class="red">&#128273; Attempt 3</span>: (same credentials, desperate)</div>
+
+  <div class="bubble heker">
+    <span class="speaker">Si Heker:</span>
+    "Pakai email disposable biar aman... coba login..."
+  </div>
+  <div class="bubble heker">
+    <span class="speaker">Si Heker:</span>
+    "Gagal? Coba lagi!"
+  </div>
+  <div class="bubble heker">
+    <span class="speaker">Si Heker:</span>
+    "Sekali lagi!! Pasti server-nya lag..."
+  </div>
+
+  <div class="bubble honeypot">
+    <span class="speaker">Si Honeypot (mencatat dengan rapi):</span>
+    "3x percobaan, semua terekam &#128221;"
+  </div>
+
+  <div class="receipt">
+    <h5>&#128273; CREDENTIAL CAPTURED</h5>
+    <div class="line"><span>Email</span><span style="color:#ff3355">karokap669@inraud.com</span></div>
+    <div class="line"><span>Domain</span><span style="color:#ffaa00">inraud.com (disposable!)</span></div>
+    <div class="line"><span>Password</span><span style="color:#ff3355">ber#651gfDhya@jhf</span></div>
+    <div class="line"><span>OTP</span><span style="color:#888">(tidak diisi)</span></div>
+    <div class="line"><span>Attempts</span><span>3x dalam 24 detik</span></div>
+  </div>
+
+  <div class="info-box blue">
+    &#127760; <strong>Sementara itu, Device 5 membocorkan WebRTC:</strong><br>
+    Real IP <strong>103.140.36.37</strong> (tidak pakai VPN!)
   </div>
 </div>
 
-<!-- ==================== BAB 5 ==================== -->
-<section class="chapter" id="bab5">
-  <div class="chapter-header ch-light fade-in">
-    <div class="chapter-num">Bab Kelima</div>
-    <h2 class="chapter-title">Pelajaran dari Reruntuhan</h2>
-    <div class="chapter-subtitle">&ldquo;Jangan puas dengan kisah-kisah orang lain.<br>Bentangkanlah mitosmu sendiri.&rdquo; &mdash; Rumi</div>
-    <div class="chapter-line"></div>
+<!-- ========================================================================
+     PANEL 7: MASIH BELUM MENYERAH
+     ======================================================================== -->
+<div class="panel">
+  <div class="panel-title">PANEL 7: 10:50 &mdash; MASIH BELUM MENYERAH</div>
+
+  <div class="scene">
+    <svg viewBox="0 0 380 170" width="100%" style="max-width:380px">
+      <rect width="380" height="170" fill="#0d0d1a" rx="6"/>
+      <!-- tired hacker center -->
+      <g transform="translate(155,10)">
+        <circle cx="35" cy="20" r="16" fill="#1a1a2e" stroke="#2a2a44"/>
+        <path d="M19,18 Q35,2 51,18" fill="#1a1a2e" stroke="#2a2a44"/>
+        <!-- tired half-closed eyes -->
+        <line x1="27" y1="20" x2="33" y2="20" stroke="#00ff88" stroke-width="2" stroke-linecap="round"/>
+        <line x1="37" y1="20" x2="43" y2="20" stroke="#00ff88" stroke-width="2" stroke-linecap="round"/>
+        <!-- flat mouth -->
+        <line x1="29" y1="28" x2="41" y2="28" stroke="#888" stroke-width="1"/>
+        <!-- body -->
+        <path d="M35,36 Q10,50 18,80 L52,80 Q60,50 35,36Z" fill="#1a1a2e" stroke="#2a2a44"/>
+      </g>
+      <!-- 4 trap doors -->
+      <g transform="translate(15,80)">
+        <rect width="75" height="55" rx="4" fill="#332211" stroke="#554433" stroke-width="1.5"/>
+        <text x="37" y="20" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#ffaa00">/manager</text>
+        <text x="37" y="38" text-anchor="middle" font-size="16">&#128682;</text>
+        <text x="37" y="52" text-anchor="middle" font-family="Bangers" font-size="9" fill="#ff3355">NOPE</text>
+      </g>
+      <g transform="translate(100,80)">
+        <rect width="75" height="55" rx="4" fill="#332211" stroke="#554433" stroke-width="1.5"/>
+        <text x="37" y="20" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#ffaa00">/info.php</text>
+        <text x="37" y="38" text-anchor="middle" font-size="16">&#128682;</text>
+        <text x="37" y="52" text-anchor="middle" font-family="Bangers" font-size="9" fill="#ff3355">NOPE</text>
+      </g>
+      <g transform="translate(190,80)">
+        <rect width="75" height="55" rx="4" fill="#332211" stroke="#554433" stroke-width="1.5"/>
+        <text x="37" y="20" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#ffaa00">/hyper</text>
+        <text x="37" y="38" text-anchor="middle" font-size="16">&#128682;</text>
+        <text x="37" y="52" text-anchor="middle" font-family="Bangers" font-size="9" fill="#ff3355">NOPE</text>
+      </g>
+      <g transform="translate(280,80)">
+        <rect width="75" height="55" rx="4" fill="#332211" stroke="#554433" stroke-width="1.5"/>
+        <text x="37" y="20" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#ffaa00">/cpanel</text>
+        <text x="37" y="38" text-anchor="middle" font-size="16">&#128682;</text>
+        <text x="37" y="52" text-anchor="middle" font-family="Bangers" font-size="9" fill="#ff3355">NOPE</text>
+      </g>
+    </svg>
   </div>
-  <div class="content">
-    <p class="no-indent fade-in">Setelah jeda yang cukup lama&mdash;mungkin keduanya membutuhkan waktu untuk menarik napas&mdash;Raka mengetik kembali:</p>
 
-    <div class="dialog fade-in">
-      <span class="speaker">Raka</span>
-      <span class="speech">&ldquo;Terima kasih banyak buat sharingnya, Kak. Ternyata tidak semua rumah tangga yang hancur itu hanya karena faktor ekonomi saja.&rdquo;</span>
-    </div>
+  <div class="terminal"><span class="dim">10:50</span> &mdash; Probe <span class="red">/manager</span> &#8594; Trap! Camera denied &#8594; Leave (2 min)
+<span class="dim">10:50</span> &mdash; Probe <span class="red">/info.php</span>
+<span class="dim">10:50</span> &mdash; Probe <span class="red">/hyper</span>, <span class="red">/en/hyper</span>
+<span class="dim">10:51</span> &mdash; Probe <span class="red">/cpanel</span> &#8594; Trap! Camera denied &#8594; Leave immediately</div>
 
-    <p class="fade-in">Kalimat itu sederhana, tapi mengandung sebuah pergeseran perspektif yang signifikan. Selama ini, narasi umum di masyarakat selalu menghubungkan perceraian dengan kemiskinan. Suami tidak bisa memberi nafkah, rumah tangga berantakan. Tapi Nisa membuktikan bahwa rumah tangga yang mapan secara ekonomi pun bisa runtuh&mdash;karena yang rapuh bukan dompetnya, melainkan hatinya.</p>
-
-    <div class="dialog fade-in">
-      <span class="speaker">Raka</span>
-      <span class="speech">&ldquo;Banyak hal yang harus dipersiapkan sebagai lelaki.&rdquo;</span>
-    </div>
-
-    <div class="epigraph fade-in">
-      <p>&ldquo;Biarlah dirimu ditarik diam-diam oleh tarikan aneh dari apa yang benar-benar kau cintai. Ia tidak akan menyesatkanmu.&rdquo;</p>
-      <cite>&mdash; Jalaluddin Rumi</cite>
-    </div>
-
-    <p class="fade-in">Kalimat itu bukan sekadar komentar. Itu adalah janji diam-diam yang Raka buat pada dirinya sendiri: jika suatu hari ia membangun rumah tangga, ia tidak akan hanya mempersiapkan materi. Ia akan mempersiapkan hatinya, emosinya, komitmennya, dan kemampuannya untuk menjadi <em>partner</em>&mdash;bukan hanya <em>provider.</em></p>
-
-    <div class="sep fade-in">&bull; &bull; &bull;</div>
-
-    <p class="fade-in">Nisa membaca pesan Raka dan tersenyum. Senyum yang sedikit pahit, tapi juga penuh harapan.</p>
-
-    <div class="dialog dialog-nisa fade-in">
-      <span class="speaker">Nisa</span>
-      <span class="speech">&ldquo;Banyak banget poin pentingnya, Kak. Menikah ga cukup sekadar menafkahi. Anak ga sekadar cukup dibiayain.&rdquo;</span>
-    </div>
-
-    <p class="fade-in">Ia berhenti sejenak, memandang Raffa yang masih tertidur pulas. Anak laki-lakinya ini akan tumbuh tanpa figur ayah sehari-hari. Dan itu adalah beban yang Nisa tanggung setiap malam&mdash;ketakutan bahwa putranya akan tumbuh tanpa tahu bagaimana seharusnya seorang laki-laki mencintai.</p>
-
-    <p class="fade-in">Tapi bukankah lebih baik tumbuh tanpa contoh daripada tumbuh dengan contoh yang salah?</p>
-
-    <div class="dialog dialog-nisa fade-in">
-      <span class="speaker">Nisa</span>
-      <span class="speech">&ldquo;Ini kalau bahas tentang kegagalan rumah tanggaku sih bisa sampai 20 SKS. Wkwkwkwk.&rdquo;</span>
-    </div>
-
-    <p class="fade-in">Raka tertawa membaca itu. Humor di tengah luka. Itu adalah tanda seseorang yang sudah mulai berdamai dengan rasa sakitnya&mdash;tidak lagi membiarkannya mendefinisikan siapa dirinya.</p>
-
-    <div class="dialog dialog-nisa fade-in">
-      <span class="speaker">Nisa</span>
-      <span class="speech">&ldquo;Ada banyak peran yang harus dipelajari ketika menikah. Kalau ngga dipelajari sebelum menikah, pasti semua hal yang seharusnya jadi tanggung jawab cuman dianggap sebagai beban atau tuntutan.&rdquo;</span>
-    </div>
-
-    <div class="epigraph fade-in">
-      <p>&ldquo;Obat untuk rasa sakit adalah di dalam rasa sakit itu sendiri.&rdquo;</p>
-      <cite>&mdash; Jalaluddin Rumi, Masnavi</cite>
-    </div>
-
-    <p class="fade-in">Raka merenungkan kata-kata itu. Betapa banyak pernikahan yang gagal bukan karena orangnya salah, tapi karena persiapannya yang kurang. Menikah dianggap sebagai tujuan akhir, bukan awal dari perjalanan yang membutuhkan pembelajaran sepanjang hayat.</p>
-
-    <div class="dialog dialog-nisa fade-in">
-      <span class="speaker">Nisa</span>
-      <span class="speech">&ldquo;Kalau udah gitu, tinggal nunggu bom waktunya aja meledak kapan aja. Kayak aku gini.&rdquo;</span>
-    </div>
-
-    <p class="fade-in">Kalimat terakhir itu menggantung di udara digital antara mereka. <em>Bom waktu.</em> Itulah yang sebenarnya terjadi&mdash;bukan sebuah ledakan tiba-tiba, melainkan akumulasi dari retakan-retakan kecil yang diabaikan, ditutup-tutupi, dimaklumi, hingga akhirnya dinding itu tidak kuat lagi menahan.</p>
+  <div class="bubble heker">
+    <span class="speaker">Si Heker:</span>
+    "Tomcat manager? cPanel? Pasti ada yang terbuka..."
   </div>
-</section>
 
-<!-- ==================== RUMI INTERLUDE ==================== -->
-<div class="rumi-interlude rumi-dark">
-  <div class="rumi-inner fade-in">
-    <div class="rumi-label">Jalaluddin Rumi</div>
-    <div class="rumi-arabic">الجرح هو المكان الذي يدخل فيه النور إليك</div>
-    <div class="rumi-text">&ldquo;Aku berkata: Bagaimana dengan mataku? Dia menjawab: Tetap di jalan.<br>Aku berkata: Bagaimana dengan hasratku? Dia menjawab: Biarkan tetap menyala.<br>Aku berkata: Bagaimana dengan hatiku? Dia menjawab: Katakan padaku apa yang kau simpan di dalamnya?<br>Aku berkata: Kepedihan dan kesedihan.<br>Dia menjawab: Tetaplah bersamanya. Luka adalah tempat di mana Cahaya masuk ke dalam dirimu.&rdquo;</div>
-    <div class="rumi-source">&mdash; Jalaluddin Rumi</div>
+  <span class="sfx yellow">NANI?!</span>
+
+  <div class="narration">Semua pintu dikunci rapat. Setiap pintu yang dibuka hanyalah jebakan baru yang menambah koleksi fingerprint kami.</div>
+</div>
+
+<!-- ========================================================================
+     PANEL 8: ZOMBI HEARTBEAT
+     ======================================================================== -->
+<div class="panel">
+  <div class="panel-title cyan">PANEL 8: 11:00&ndash;14:09 &mdash; SI ZOMBI HEARTBEAT</div>
+
+  <div class="scene">
+    <svg viewBox="0 0 380 210" width="100%" style="max-width:380px">
+      <rect width="380" height="210" fill="#0d0d1a" rx="6"/>
+      <!-- sleeping hacker slumped on desk -->
+      <g transform="translate(20,55)">
+        <circle cx="35" cy="18" r="18" fill="#1a1a2e" stroke="#2a2a44"/>
+        <path d="M17,16 Q35,0 53,16" fill="#1a1a2e" stroke="#2a2a44"/>
+        <!-- closed eyes -->
+        <line x1="27" y1="20" x2="33" y2="20" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+        <line x1="37" y1="20" x2="43" y2="20" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+        <!-- sleeping mouth O -->
+        <ellipse cx="35" cy="28" rx="4" ry="3" fill="#222" stroke="#555"/>
+        <!-- body slumped forward -->
+        <path d="M35,36 Q5,55 18,95 L52,95 Q65,55 35,36Z" fill="#1a1a2e" stroke="#2a2a44"/>
+        <!-- Zzz floating up -->
+        <text x="62" y="5" font-family="Bangers" font-size="16" fill="#00aaff" opacity=".6">
+          Z<animate attributeName="opacity" values=".3;.8;.3" dur="2s" repeatCount="indefinite"/>
+        </text>
+        <text x="78" y="-10" font-family="Bangers" font-size="11" fill="#00aaff" opacity=".4">
+          z<animate attributeName="opacity" values=".2;.6;.2" dur="2.5s" repeatCount="indefinite"/>
+        </text>
+        <text x="90" y="-20" font-family="Bangers" font-size="8" fill="#00aaff" opacity=".3">
+          z<animate attributeName="opacity" values=".1;.5;.1" dur="3s" repeatCount="indefinite"/>
+        </text>
+      </g>
+      <!-- glowing tabs still open -->
+      <g transform="translate(150,20)">
+        <rect x="0" y="0" width="90" height="60" rx="3" fill="#0d1a15" stroke="#00ff88" stroke-width="1.5">
+          <animate attributeName="stroke-opacity" values="1;.3;1" dur="3s" repeatCount="indefinite"/>
+        </rect>
+        <text x="45" y="16" text-anchor="middle" font-family="JetBrains Mono" font-size="6" fill="#00ff88">phpinfo.php</text>
+        <text x="45" y="32" text-anchor="middle" font-family="JetBrains Mono" font-size="5" fill="#555">heartbeat 15s...</text>
+        <text x="45" y="46" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#00ff88">
+          #964
+          <animate attributeName="fill" values="#00ff88;#333;#00ff88" dur="1s" repeatCount="indefinite"/>
+        </text>
+      </g>
+      <g transform="translate(260,30)">
+        <rect x="0" y="0" width="80" height="50" rx="3" fill="#0d1a15" stroke="#ffaa00" stroke-width="1.5">
+          <animate attributeName="stroke-opacity" values="1;.3;1" dur="2.5s" repeatCount="indefinite"/>
+        </rect>
+        <text x="40" y="18" text-anchor="middle" font-family="JetBrains Mono" font-size="6" fill="#ffaa00">/blogs/.env</text>
+        <text x="40" y="36" text-anchor="middle" font-family="JetBrains Mono" font-size="5" fill="#555">still active</text>
+      </g>
+      <!-- honeypot with stopwatch, always watching -->
+      <g transform="translate(280,110)" class="float">
+        <ellipse cx="28" cy="35" rx="26" ry="20" fill="#ffaa00" opacity=".85"/>
+        <rect x="8" y="16" width="40" height="24" rx="5" fill="#ffaa00"/>
+        <rect x="14" y="8" width="28" height="14" rx="4" fill="#cc8800"/>
+        <text x="28" y="33" text-anchor="middle" font-size="16">&#128520;</text>
+        <!-- stopwatch -->
+        <circle cx="62" cy="18" r="12" fill="#1a1a2e" stroke="#ffaa00" stroke-width="1.5"/>
+        <text x="62" y="22" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#ffaa00">4:43</text>
+      </g>
+      <!-- service worker robot -->
+      <g transform="translate(140,120)">
+        <rect x="0" y="0" width="100" height="60" rx="5" fill="#0a1520" stroke="#00ddff" stroke-dasharray="4">
+          <animate attributeName="stroke-dashoffset" values="0;16" dur="2s" repeatCount="indefinite"/>
+        </rect>
+        <text x="50" y="18" text-anchor="middle" font-family="Bangers" font-size="8" fill="#00ddff">Service Worker</text>
+        <text x="50" y="38" text-anchor="middle" font-size="18">&#129302;</text>
+        <text x="50" y="54" text-anchor="middle" font-family="JetBrains Mono" font-size="6" fill="#00ddff">76 intercepts</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="terminal"><span class="dim">11:00</span> &mdash; <span class="highlight">355 entries</span> (tab masih terbuka, heartbeat setiap 15 detik)
+<span class="dim">11:33</span> &mdash; <span class="red">&#128680; Null byte injection lagi</span>: /hubungi?name=i%00admin
+<span class="dim">12:00</span> &mdash; <span class="highlight">298 entries</span> (masih terbuka...)
+<span class="dim">13:00</span> &mdash; <span class="highlight">145 entries</span> (mulai berkurang)
+<span class="dim">13:03</span> &mdash; <span class="red">&#128680; Null byte injection ke-3 kalinya!</span>
+<span class="dim">13:19</span> &mdash; Tab .env akhirnya ditutup (unload event)
+<span class="dim">14:09</span> &mdash; Heartbeat phpinfo terakhir</div>
+
+  <div class="bubble honeypot">
+    <span class="speaker">Si Honeypot (sabar menunggu):</span>
+    "Heartbeat #963... #964... #965... dia pergi tapi tab masih terbuka!"
+  </div>
+
+  <div class="info-box blue">
+    <strong>&#129302; SERVICE WORKER REPORT</strong><br>
+    SW masih jalan meskipun dia pergi! Merekam semua...<br>
+    &bull; 28 navigasi halaman<br>
+    &bull; 30 API calls (events, berita, hotels, venues, settings)<br>
+    &bull; XSS probe, null byte injections &mdash; semua tercatat!
+  </div>
+
+  <div class="narration">Total 4 jam 43 menit nonstop! Tab terbuka = data terus mengalir ke server kami.</div>
+  <span class="sfx cyan">WUZZZ!</span>
+</div>
+
+<!-- ========================================================================
+     PANEL 9: EVIDENCE ROOM
+     ======================================================================== -->
+<div class="panel" style="border-color:#ffaa00">
+  <div class="panel-title" style="color:#ffaa00">PANEL 9: EVIDENCE ROOM &mdash; APA YANG KITA DAPAT</div>
+
+  <div class="scene" style="justify-content:center">
+    <svg viewBox="0 0 400 120" width="100%" style="max-width:400px">
+      <rect width="400" height="120" fill="#0d0d1a" rx="6"/>
+      <!-- SOC team, 3 figures celebrating -->
+      <g transform="translate(40,8)">
+        <circle cx="30" cy="18" r="14" fill="#0a1520" stroke="#00aaff" stroke-width="1.5"/>
+        <circle cx="25" cy="16" r="2.5" fill="#00aaff"/><circle cx="35" cy="16" r="2.5" fill="#00aaff"/>
+        <path d="M24,23 Q30,29 36,23" fill="none" stroke="#00aaff" stroke-width="1.5"/>
+        <rect x="16" y="33" width="28" height="32" rx="5" fill="#0a1520" stroke="#00aaff"/>
+        <text x="52" y="50" font-size="16">&#127871;</text>
+      </g>
+      <g transform="translate(140,12)">
+        <circle cx="30" cy="18" r="14" fill="#0a1520" stroke="#00aaff" stroke-width="1.5"/>
+        <circle cx="25" cy="16" r="2.5" fill="#00aaff"/><circle cx="35" cy="16" r="2.5" fill="#00aaff"/>
+        <path d="M24,23 Q30,29 36,23" fill="none" stroke="#00aaff" stroke-width="1.5"/>
+        <rect x="16" y="33" width="28" height="32" rx="5" fill="#0a1520" stroke="#00aaff"/>
+        <text x="52" y="50" font-size="16">&#9749;</text>
+      </g>
+      <g transform="translate(240,8)">
+        <circle cx="30" cy="18" r="14" fill="#0a1520" stroke="#00aaff" stroke-width="1.5"/>
+        <circle cx="25" cy="16" r="2.5" fill="#00aaff"/><circle cx="35" cy="16" r="2.5" fill="#00aaff"/>
+        <path d="M24,23 Q30,29 36,23" fill="none" stroke="#00aaff" stroke-width="1.5"/>
+        <rect x="16" y="33" width="28" height="32" rx="5" fill="#0a1520" stroke="#00aaff"/>
+        <text x="52" y="50" font-size="16">&#128203;</text>
+      </g>
+      <!-- monitoring wall -->
+      <rect x="10" y="78" width="380" height="30" rx="4" fill="#1a1a2e" stroke="#2a2a44"/>
+      <rect x="16" y="83" width="55" height="20" rx="2" fill="#0d1a15"/>
+      <rect x="76" y="83" width="55" height="20" rx="2" fill="#0d1a15"/>
+      <rect x="136" y="83" width="55" height="20" rx="2" fill="#0d1a15"/>
+      <rect x="196" y="83" width="55" height="20" rx="2" fill="#0d1a15"/>
+      <rect x="256" y="83" width="55" height="20" rx="2" fill="#0d1a15"/>
+      <rect x="316" y="83" width="55" height="20" rx="2" fill="#0d1a15"/>
+      <text x="43" y="97" text-anchor="middle" font-family="JetBrains Mono" font-size="5" fill="#00ff88">logs</text>
+      <text x="103" y="97" text-anchor="middle" font-family="JetBrains Mono" font-size="5" fill="#ff3355">alerts</text>
+      <text x="163" y="97" text-anchor="middle" font-family="JetBrains Mono" font-size="5" fill="#ffaa00">fp</text>
+      <text x="223" y="97" text-anchor="middle" font-family="JetBrains Mono" font-size="5" fill="#00ddff">creds</text>
+      <text x="283" y="97" text-anchor="middle" font-family="JetBrains Mono" font-size="5" fill="#00ff88">sw</text>
+      <text x="343" y="97" text-anchor="middle" font-family="JetBrains Mono" font-size="5" fill="#ffaa00">cam</text>
+    </svg>
+  </div>
+
+  <div class="bubble soc">
+    <span class="speaker">Tim SOC:</span>
+    "Kita cuma duduk dan nonton. Semua data masuk otomatis &#127871;"
+  </div>
+
+  <div class="evidence-grid">
+    <div class="evidence-card">
+      <h4 style="color:#ffaa00">&#128202; STATISTIK TOTAL (2 HARI)</h4>
+      <ul>
+        <li>6 Mei: 682 entries, 2 VM devices, 4.5 jam</li>
+        <li>7 Mei: 1.463 entries, 5 devices, 4.7 jam</li>
+        <li style="color:#ff3355"><strong>TOTAL: 2.145 entries, 7 devices, 9+ jam</strong></li>
+      </ul>
+    </div>
+    <div class="evidence-card">
+      <h4 style="color:#00ddff">&#128270; FINGERPRINTS</h4>
+      <ul>
+        <li>3&times; audioFP 124.043475 (Chrome Windows)</li>
+        <li>2&times; audioFP 35.749972 (Firefox VM)</li>
+        <li>1&times; audioFP 35.738330 (Cyberfox)</li>
+        <li>Canvas FP: 6 unique values</li>
+        <li>Font sets: Windows full vs Linux minimal</li>
+      </ul>
+    </div>
+    <div class="evidence-card">
+      <h4 style="color:#ff3355">&#128680; SERANGAN</h4>
+      <ul>
+        <li>XSS Probe: 1&times; (di /promosi)</li>
+        <li>Null Byte Injection: 3&times; (di /hubungi)</li>
+        <li>Credential Attempt: 3&times; (dalam 24 detik)</li>
+      </ul>
+    </div>
+    <div class="evidence-card">
+      <h4 style="color:#00ff88">&#128273; DATA CAPTURED</h4>
+      <ul>
+        <li>Email: karokap669@inraud.com</li>
+        <li>Password: ber#651gfDhya@jhf</li>
+        <li>Clipboard: "Sistem Informasi..."</li>
+        <li>WebRTC IP: 103.140.36.37</li>
+        <li>Camera: 200+ attempts (all denied)</li>
+        <li>Service Worker: 76 intercepts</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="font-family:'Bangers',cursive;color:#ffaa00;font-size:1.1rem;margin-top:16px">&#128506; RECON MAP (Attack Paths)</div>
+  <div style="margin:10px 0">
+    <div class="recon-bar"><span class="path">/blogs/.env</span><div class="bar-h" style="width:100%;max-width:300px"></div><span class="count">963&times;</span></div>
+    <div class="recon-bar"><span class="path">/phpinfo.php</span><div class="bar-h" style="width:34%;max-width:300px"></div><span class="count">332&times;</span></div>
+    <div class="recon-bar"><span class="path">/wp-admin</span><div class="bar-h" style="width:7.8%;max-width:300px"></div><span class="count">75&times;</span></div>
+    <div class="recon-bar"><span class="path">/manager</span><div class="bar-h" style="width:1%;max-width:300px;min-width:6px"></div><span class="count">5&times;</span></div>
+    <div class="recon-bar"><span class="path">/cpanel</span><div class="bar-h" style="width:.8%;max-width:300px;min-width:5px"></div><span class="count">4&times;</span></div>
+    <div class="recon-bar"><span class="path">/server-status</span><div class="bar-h" style="width:.5%;max-width:300px;min-width:4px"></div><span class="count">3&times;</span></div>
+    <div class="recon-bar"><span class="path">/wp-login</span><div class="bar-h" style="width:.2%;max-width:300px;min-width:3px"></div><span class="count">1&times;</span></div>
   </div>
 </div>
 
-<!-- ==================== EPILOG ==================== -->
-<section class="chapter" id="epilog">
-  <div class="chapter-header ch-final fade-in">
-    <div class="chapter-num">Epilog</div>
-    <h2 class="chapter-title">Serpihan yang Tersisa, Keping yang Baru</h2>
-    <div class="chapter-subtitle">&ldquo;Kita tidak selalu bisa memilih apa yang terjadi pada kita,<br>tapi kita selalu bisa memilih bagaimana kita bangkit.&rdquo;</div>
-    <div class="chapter-line"></div>
+<!-- ========================================================================
+     PANEL 10: EPILOG — SKOR AKHIR
+     ======================================================================== -->
+<div class="panel" style="border-color:#00ff88;box-shadow:6px 6px 0 #000,0 0 40px rgba(0,255,136,.1)">
+  <div class="panel-title green">PANEL 10: EPILOG &mdash; SKOR AKHIR</div>
+
+  <div class="scene" style="justify-content:center">
+    <svg viewBox="0 0 420 160" width="100%" style="max-width:420px">
+      <rect width="420" height="160" fill="#0d0d1a" rx="6"/>
+      <!-- celebrating SOC, arms raised -->
+      <g transform="translate(20,10)">
+        <circle cx="32" cy="22" r="16" fill="#0a1520" stroke="#00aaff" stroke-width="2"/>
+        <circle cx="26" cy="20" r="2.5" fill="#00aaff"/><circle cx="38" cy="20" r="2.5" fill="#00aaff"/>
+        <path d="M24,27 Q32,35 40,27" fill="none" stroke="#00aaff" stroke-width="2"/>
+        <rect x="18" y="40" width="28" height="38" rx="5" fill="#0a1520" stroke="#00aaff"/>
+        <!-- raised arm -->
+        <line x1="46" y1="45" x2="62" y2="22" stroke="#00aaff" stroke-width="2.5"/>
+        <text x="60" y="18" font-size="18">&#127871;</text>
+      </g>
+      <g transform="translate(110,15)">
+        <circle cx="32" cy="22" r="16" fill="#0a1520" stroke="#00aaff" stroke-width="2"/>
+        <circle cx="26" cy="20" r="2.5" fill="#00aaff"/><circle cx="38" cy="20" r="2.5" fill="#00aaff"/>
+        <path d="M24,27 Q32,35 40,27" fill="none" stroke="#00aaff" stroke-width="2"/>
+        <rect x="18" y="40" width="28" height="38" rx="5" fill="#0a1520" stroke="#00aaff"/>
+        <text x="54" y="58" font-size="18">&#9749;</text>
+      </g>
+      <!-- wall of 6 monitors -->
+      <rect x="200" y="5" width="210" height="105" rx="5" fill="#1a1a2e" stroke="#2a2a44"/>
+      <rect x="206" y="10" width="60" height="40" rx="2" fill="#0d1a15"/>
+      <rect x="272" y="10" width="60" height="40" rx="2" fill="#0d1a15"/>
+      <rect x="338" y="10" width="60" height="40" rx="2" fill="#0d1a15"/>
+      <rect x="206" y="56" width="60" height="40" rx="2" fill="#0d1a15"/>
+      <rect x="272" y="56" width="60" height="40" rx="2" fill="#0d1a15"/>
+      <rect x="338" y="56" width="60" height="40" rx="2" fill="#0d1a15"/>
+      <text x="236" y="35" text-anchor="middle" font-family="JetBrains Mono" font-size="6" fill="#00ff88">2,145</text>
+      <text x="302" y="35" text-anchor="middle" font-family="JetBrains Mono" font-size="6" fill="#ff3355">ALERT</text>
+      <text x="368" y="35" text-anchor="middle" font-family="JetBrains Mono" font-size="6" fill="#ffaa00">CRED</text>
+      <text x="236" y="80" text-anchor="middle" font-family="JetBrains Mono" font-size="6" fill="#00ddff">FP</text>
+      <text x="302" y="80" text-anchor="middle" font-family="JetBrains Mono" font-size="6" fill="#00ff88">SW</text>
+      <text x="368" y="80" text-anchor="middle" font-family="JetBrains Mono" font-size="6" fill="#ffaa00">CAM</text>
+      <!-- defeated tiny hacker in corner -->
+      <g transform="translate(355,118)">
+        <circle cx="15" cy="12" r="9" fill="#1a1a2e" stroke="#333"/>
+        <circle cx="12" cy="11" r="1.5" fill="#00ff88" opacity=".25"/>
+        <circle cx="18" cy="11" r="1.5" fill="#00ff88" opacity=".25"/>
+        <path d="M11,16 Q15,13 19,16" fill="none" stroke="#555" stroke-width="1"/>
+        <text x="15" y="2" text-anchor="middle" font-family="Bangers" font-size="7" fill="#ff3355">Game Over</text>
+      </g>
+    </svg>
   </div>
-  <div class="content">
-    <div class="epigraph fade-in">
-      <p>&ldquo;Hidup adalah keseimbangan antara menahan dan melepaskan.&rdquo;</p>
-      <cite>&mdash; Jalaluddin Rumi</cite>
-    </div>
 
-    <p class="no-indent fade-in">Malam itu, setelah percakapan berakhir, Raka berbaring di tempat tidurnya dan menatap langit-langit kamar kostnya yang retak-retak. Hujan sudah berhenti, tapi udara masih lembap dan dingin.</p>
-
-    <p class="fade-in">Ia memikirkan Nisa. Bukan dengan cara yang romantis&mdash;setidaknya belum&mdash;tapi dengan rasa kagum yang tulus. Kagum pada keberaniannya untuk memilih dirinya sendiri di tengah masyarakat yang masih menganggap perceraian sebagai aib. Kagum pada kejernihan pikirannya dalam menimbang setiap aspek sebelum mengambil keputusan terberat dalam hidupnya. Kagum pada kemampuannya untuk tetap berdiri tegak, bahkan sambil menggendong seorang anak kecil di pundaknya.</p>
-
-    <p class="fade-in">Raka juga memikirkan dirinya sendiri. Tentang ibunya yang sudah pergi tujuh tahun lalu. Tentang ayahnya yang sekarang tinggal sendiri. Tentang hidup jauh dari rumah sejak usia dua belas tahun dan bagaimana itu membentuk cara pandangnya tentang keluarga, tentang kehadiran, tentang apa artinya &ldquo;ada.&rdquo;</p>
-
-    <div class="sep fade-in">&bull; &bull; &bull;</div>
-
-    <p class="fade-in">Di sisi lain kota, Nisa juga masih terjaga. Raffa bergerak sedikit dalam tidurnya, dan Nisa otomatis membenarkan selimutnya. Gerakan yang sudah menjadi refleks seorang ibu.</p>
-
-    <p class="fade-in">Ia memikirkan percakapan tadi malam. Sudah lama ia tidak bercerita sebebas itu. Teman-temannya tahu tentang perceraiannya, tentu saja. Tapi mereka tahu versi yang sudah disaring, yang sudah dipoles, yang sudah diterima secara sosial. Bukan versi lengkap dengan semua kekecewaan, pengkhianatan, dan keputusasaan yang menyertainya.</p>
-
-    <div class="epigraph fade-in">
-      <p>&ldquo;Perpisahan hanya ada bagi mereka yang mencintai dengan mata. Karena bagi mereka yang mencintai dengan hati dan jiwa, tidak ada yang namanya perpisahan.&rdquo;</p>
-      <cite>&mdash; Jalaluddin Rumi</cite>
-    </div>
-
-    <p class="fade-in">Tapi Raka... Raka bertanya dengan cara yang membuat Nisa merasa aman untuk jujur. Bukan karena ia sempurna dalam bertanya&mdash;ia sendiri mengaku tidak sopan&mdash;tapi karena motivasinya murni: ia ingin memahami, bukan menghakimi.</p>
-
-    <div class="sep fade-in">&bull; &bull; &bull;</div>
-
-    <p class="fade-in">Mungkin itulah yang paling dibutuhkan oleh orang-orang yang sedang terluka: bukan solusi, bukan nasihat, bukan &ldquo;sabar ya, ini ujian.&rdquo;</p>
-
-    <p class="fade-in">Tapi seseorang yang mau duduk diam, mendengarkan, dan berkata:</p>
-
-    <p class="center fade-in"><em>&ldquo;Aku melihatmu. Aku mendengarmu. Dan aku menghargai keberanianmu.&rdquo;</em></p>
-
-    <div class="sep fade-in">&bull; &bull; &bull;</div>
-
-    <p class="fade-in">Nisa tersenyum sambil menatap layar ponselnya untuk terakhir kali malam itu. Besok pagi ia akan bangun, mempersiapkan Raffa untuk sekolah, berangkat kerja, menjalani hidup sebagai perempuan mandiri yang telah memilih jalannya sendiri.</p>
-
-    <div class="epigraph fade-in">
-      <p>&ldquo;Kau terlahir dengan sayap. Mengapa kau memilih merangkak melewati hidup?&rdquo;</p>
-      <cite>&mdash; Jalaluddin Rumi</cite>
-    </div>
-
-    <p class="fade-in">Dan serpihan-serpihan dari pernikahan yang hancur itu? Mereka tidak hilang. Mereka masih ada&mdash;dalam bentuk pelajaran, dalam bentuk kekuatan, dalam bentuk kebijaksanaan yang hanya bisa didapat oleh mereka yang pernah melewati api dan keluar sebagai baja.</p>
-
-    <p class="fade-in">Nisa bukanlah korban. Ia adalah penyintas.</p>
-
-    <p class="fade-in">Dan kisahnya&mdash;kisah mereka&mdash;masih belum selesai.</p>
-
-    <p class="center fade-in" style="margin-top:3em;font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--gold-dim);letter-spacing:.1em">&mdash; TAMAT &mdash;</p>
+  <div class="scoreboard">
+    <div class="score-line score-heker">HEKER: 0</div>
+    <div style="font-family:'Bangers',cursive;font-size:1.4rem;color:#ffaa00">VS</div>
+    <div class="score-line score-honey">HONEYPOT: 2.145</div>
   </div>
-</section>
 
-<!-- ==================== CATATAN PENULIS ==================== -->
-<div class="rumi-interlude rumi-warm" id="catatan">
-  <div class="rumi-inner fade-in">
-    <div class="rumi-label">Jalaluddin Rumi</div>
-    <div class="rumi-text">&ldquo;Ketika kau melakukan sesuatu dari jiwamu, kau merasakan sebuah sungai bergerak di dalam dirimu, sebuah sukacita.&rdquo;</div>
-    <div class="rumi-source">&mdash; Masnavi-i Ma'navi</div>
+  <div class="bubble soc">
+    <span class="speaker">Tim SOC:</span>
+    "Data lengkap, tinggal bikin laporan~ &#128202;"
+  </div>
+
+  <div class="moral">
+    <strong>MORAL:</strong> Jangan iseng ke website pemerintah.<br>
+    Kamu pikir sedang hacking, padahal kami sedang menonton &#127871;
+  </div>
+
+  <div class="comic-footer">
+    Generated by Honeypot Intelligence System<br>
+    EventByIndonesia Security Operations &mdash; Mei 2026<br>
+    CLASSIFICATION: INTERNAL USE ONLY
   </div>
 </div>
 
-<section>
-  <div class="author-note">
-    <h3>Catatan Penulis</h3>
+<!-- ========================================================================
+     DATA APPENDIX
+     ======================================================================== -->
+<div class="appendix">
+  <h2>&#128218; DATA APPENDIX &mdash; Full Technical Details</h2>
 
-    <p class="no-indent">Novel ini ditulis berdasarkan percakapan nyata yang terjadi pada suatu malam antara dua orang yang baru saling mengenal. Nama-nama dan beberapa detail telah diubah untuk menghormati privasi, namun esensi dari percakapan&mdash;kejujurannya, kerentanannya, dan keberaniannya&mdash;dipertahankan seutuhnya.</p>
+  <h3>Attacker Profile</h3>
+  <table>
+    <tr><th>Field</th><th>Value</th></tr>
+    <tr><td>IP Address</td><td>103.140.36.10</td></tr>
+    <tr><td>WebRTC Leaked IP</td><td>103.140.36.37 (Device 5, Day 2)</td></tr>
+    <tr><td>Location</td><td>Cimahi, Jawa Barat</td></tr>
+    <tr><td>Organization</td><td>Sekolah Tinggi Pariwisata (STP) Bandung</td></tr>
+    <tr><td>Activity Period</td><td>6&ndash;7 Mei 2026</td></tr>
+    <tr><td>Total Duration</td><td>~9 jam 8 menit (4h25m + 4h43m)</td></tr>
+    <tr><td>Total Entries</td><td>2.145 (682 + 1.463)</td></tr>
+    <tr><td>Total Devices</td><td>7 unique (2 VM Day 1 + 5 mixed Day 2)</td></tr>
+  </table>
 
-    <p>Saya menulis ini bukan sebagai seseorang yang menghakimi keputusan siapa pun&mdash;baik yang memilih bertahan maupun yang memilih pergi. Setiap rumah tangga memiliki dinamikanya sendiri, dan tidak ada yang benar-benar tahu apa yang terjadi di balik pintu tertutup kecuali mereka yang tinggal di dalamnya.</p>
+  <h3>Day 1 &mdash; 6 Mei 2026 (09:19 ~ 13:44 WIB)</h3>
+  <table>
+    <tr><th>Device</th><th>OS</th><th>Browser</th><th>GPU</th><th>Resolution</th><th>AudioFP</th><th>TZ</th><th>Entries</th></tr>
+    <tr>
+      <td>VM #1 <span class="tag red">VM</span></td>
+      <td>Linux x86_64</td><td>Firefox 128</td><td>llvmpipe</td><td>1920&times;1080</td>
+      <td>35.749972</td><td>America/New_York <span class="tag red">FAKE</span></td><td>624</td>
+    </tr>
+    <tr>
+      <td>VM #2 <span class="tag red">VM</span></td>
+      <td>Linux x86_64</td><td>Firefox 128</td><td>llvmpipe</td><td>1543&times;874</td>
+      <td>35.749972</td><td>America/New_York <span class="tag red">FAKE</span></td><td>58</td>
+    </tr>
+  </table>
 
-    <p>Yang saya tahu adalah ini: dibutuhkan keberanian yang luar biasa bagi seorang perempuan di Indonesia untuk memilih berpisah. Bukan karena hukumnya yang sulit, tapi karena stigma sosialnya yang masih sangat kuat. Label &ldquo;janda,&rdquo; bisikan tetangga, pandangan miring di arisan&mdash;semua itu adalah harga yang harus dibayar oleh perempuan yang berani mengatakan &ldquo;cukup.&rdquo;</p>
+  <h3>Day 1 &mdash; Hourly Breakdown</h3>
+  <table>
+    <tr><th>Hour (WIB)</th><th>Entries</th><th>Note</th></tr>
+    <tr><td>09:00</td><td>79</td><td>Initial reconnaissance</td></tr>
+    <tr><td>10:00</td><td>346</td><td><span class="tag red">PEAK HOUR</span></td></tr>
+    <tr><td>11:00</td><td>222</td><td>Continued scanning</td></tr>
+    <tr><td>12:00</td><td>30</td><td>Slowing down</td></tr>
+    <tr><td>13:00</td><td>5</td><td>Leaving</td></tr>
+  </table>
 
-    <p>Tapi ada harga yang lebih mahal dari itu semua: harga dari tetap bertahan di lingkungan yang meracuni, harga dari anak-anak yang tumbuh menyaksikan pertengkaran dan ketidakpercayaan, harga dari kehilangan diri sendiri demi label &ldquo;keluarga utuh.&rdquo;</p>
+  <h3>Day 2 &mdash; 7 Mei 2026 (09:26 ~ 14:09 WIB) &mdash; 5 Devices</h3>
+  <table>
+    <tr><th>#</th><th>Nickname</th><th>OS</th><th>Browser</th><th>GPU</th><th>Res</th><th>Cores/RAM</th><th>AudioFP</th><th>Battery</th><th>Active</th><th>Entries</th><th>Flags</th></tr>
+    <tr>
+      <td>1</td><td>Si Windows Besar</td><td>Win32</td><td>Chrome 147</td><td>Intel UHD (A721)</td><td>1536&times;864</td>
+      <td>12C/16GB</td><td>124.043475</td><td>77% dis</td><td>09:26&ndash;10:59</td><td>&ndash;</td><td>&ndash;</td>
+    </tr>
+    <tr>
+      <td>2</td><td>Si Privacy Browser</td><td>Win64</td><td>Cyberfox 52.9.1</td><td>ERROR</td><td>1366&times;768</td>
+      <td>4C/0</td><td>35.738330</td><td>&ndash;</td><td>09:42&ndash;13:19</td><td>&ndash;</td>
+      <td><span class="tag yellow">PRIVACY</span></td>
+    </tr>
+    <tr>
+      <td>3</td><td>Si Pekerja Keras</td><td>Win32</td><td>Chrome 147</td><td>Intel HD 520</td><td>1366&times;768</td>
+      <td>4C/16GB</td><td>124.043475</td><td>58% chg</td><td>09:43&ndash;14:09</td><td>448</td>
+      <td><span class="tag red">MOST ENTRIES</span></td>
+    </tr>
+    <tr>
+      <td>4</td><td>Si Virtual Machine</td><td>Linux x86_64</td><td>Firefox 128</td><td>llvmpipe</td><td>1920&times;1080</td>
+      <td>4C/&ndash;</td><td>35.749972</td><td>&ndash;</td><td>10:24&ndash;10:51</td><td>&ndash;</td>
+      <td><span class="tag red">VM</span> <span class="tag red">FAKE TZ</span></td>
+    </tr>
+    <tr>
+      <td>5</td><td>Si Touchscreen</td><td>Win32</td><td>Chrome 147</td><td>Intel Iris Xe</td><td>1024&times;641</td>
+      <td>16C/16GB</td><td>124.043475</td><td>&ndash;</td><td>10:27&ndash;10:29</td><td>&ndash;</td>
+      <td><span class="tag yellow">WEBRTC LEAK</span> <span class="tag green">SW</span></td>
+    </tr>
+  </table>
 
-    <p>Seperti yang Rumi katakan, <em>&ldquo;Luka adalah tempat di mana Cahaya masuk ke dalam dirimu.&rdquo;</em> Mungkin dari setiap luka yang terbuka, ada cahaya yang menunggu untuk masuk. Dan mungkin dari setiap rumah tangga yang runtuh, ada fondasi baru yang lebih kuat yang siap dibangun.</p>
+  <h3>Full Attack Timeline (Day 2)</h3>
+  <table>
+    <tr><th>Time (WIB)</th><th>Event</th><th>Type</th></tr>
+    <tr><td>09:26</td><td>/wp-admin (first trap hit)</td><td><span class="tag yellow">RECON</span></td></tr>
+    <tr><td>09:33</td><td>/mice (legitimate page browse)</td><td><span class="tag green">BROWSE</span></td></tr>
+    <tr><td>09:42</td><td>Device 2 (Cyberfox) appears</td><td><span class="tag yellow">NEW DEVICE</span></td></tr>
+    <tr><td>09:43</td><td>/blogs/.env &times;5 (env file probe)</td><td><span class="tag red">PROBE</span></td></tr>
+    <tr><td>09:44</td><td>Clipboard copy: &ldquo;Sistem Informasi Kepariwisataan...&rdquo;</td><td><span class="tag red">EXFIL</span></td></tr>
+    <tr><td>09:44</td><td>/wp-login</td><td><span class="tag yellow">RECON</span></td></tr>
+    <tr><td>09:45</td><td>/wp-admin &times;3</td><td><span class="tag yellow">RECON</span></td></tr>
+    <tr><td>09:53</td><td>/promosi?s=&lt;i&gt;CSIRT Kemenpar&lt;/i&gt;'KEMENPAR</td><td><span class="tag red">XSS</span></td></tr>
+    <tr><td>10:25</td><td>/phpinfo.php trap entered</td><td><span class="tag red">TRAP HIT</span></td></tr>
+    <tr><td>10:26</td><td>/hubungi?name=i%00admin (null byte #1)</td><td><span class="tag red">INJECTION</span></td></tr>
+    <tr><td>10:27</td><td>Device 5 appears (touchscreen, WebRTC leak)</td><td><span class="tag yellow">NEW DEVICE</span></td></tr>
+    <tr><td>10:28</td><td>Credential attempt &times;3 (karokap669@inraud.com)</td><td><span class="tag red">CREDENTIAL</span></td></tr>
+    <tr><td>10:50</td><td>/manager, /info.php, /hyper probes</td><td><span class="tag yellow">RECON</span></td></tr>
+    <tr><td>10:51</td><td>/cpanel probe</td><td><span class="tag yellow">RECON</span></td></tr>
+    <tr><td>11:33</td><td>/hubungi?name=i%00admin (null byte #2)</td><td><span class="tag red">INJECTION</span></td></tr>
+    <tr><td>13:03</td><td>/hubungi?name=i%00admin (null byte #3)</td><td><span class="tag red">INJECTION</span></td></tr>
+    <tr><td>13:19</td><td>.env tab closed (unload event)</td><td><span class="tag green">LEAVE</span></td></tr>
+    <tr><td>14:09</td><td>Last phpinfo heartbeat</td><td><span class="tag green">END</span></td></tr>
+  </table>
 
-    <p>Untuk Nisa&mdash;dan untuk semua perempuan yang pernah berdiri di persimpangan itu&mdash;saya ingin kalian tahu bahwa pilihan kalian terlihat. Keberanian kalian terlihat. Dan kalian layak mendapat lebih dari sekadar bertahan.</p>
+  <h3>Captured Credentials</h3>
+  <table>
+    <tr><th>Field</th><th>Value</th><th>Analysis</th></tr>
+    <tr><td>Email</td><td>karokap669@inraud.com</td><td>Disposable email service (inraud.com)</td></tr>
+    <tr><td>Password</td><td>ber#651gfDhya@jhf</td><td>Complex, likely auto-generated</td></tr>
+    <tr><td>OTP</td><td>(empty)</td><td>Not provided</td></tr>
+    <tr><td>Attempts</td><td>3 (10:28:01, 10:28:17, 10:28:25)</td><td>24-second window, all same credentials</td></tr>
+  </table>
 
-    <p>Kalian layak bahagia.</p>
+  <h3>Service Worker Intercepts (Device 5)</h3>
+  <table>
+    <tr><th>Category</th><th>Count</th><th>Details</th></tr>
+    <tr><td>Page Navigations</td><td>28</td><td>Various public pages</td></tr>
+    <tr><td>API Calls</td><td>30</td><td>events, berita, hotels, venues, settings</td></tr>
+    <tr><td>Attack Payloads</td><td>4</td><td>1&times; XSS probe, 3&times; null byte injection</td></tr>
+    <tr><td><strong>Total Intercepts</strong></td><td><strong>76</strong></td><td>All logged with timestamps</td></tr>
+  </table>
 
-    <p class="sign">
-      Surabaya, Maret 2026
-      <strong>masgus</strong>
-    </p>
+  <h3>Camera Attempt Summary</h3>
+  <table>
+    <tr><th>Trap Page</th><th>Attempts</th><th>Result</th></tr>
+    <tr><td>/phpinfo.php</td><td>200+</td><td>ALL DENIED</td></tr>
+    <tr><td>/wp-admin</td><td>50+</td><td>ALL DENIED</td></tr>
+    <tr><td>/manager</td><td>10+</td><td>ALL DENIED</td></tr>
+    <tr><td>/cpanel</td><td>5+</td><td>ALL DENIED</td></tr>
+  </table>
+
+  <h3>Honeypot Trap Pages Hit</h3>
+  <table>
+    <tr><th>Path</th><th>Hits</th><th>Data Collected</th></tr>
+    <tr><td>/blogs/.env</td><td>963</td><td>Heartbeat fingerprints (15s interval)</td></tr>
+    <tr><td>/phpinfo.php</td><td>332</td><td>Fake PHP config bait + camera + credential form</td></tr>
+    <tr><td>/wp-admin</td><td>75</td><td>Fingerprint + camera attempt</td></tr>
+    <tr><td>/manager</td><td>5</td><td>Fingerprint + camera attempt</td></tr>
+    <tr><td>/cpanel</td><td>4</td><td>Fingerprint + camera attempt</td></tr>
+    <tr><td>/server-status</td><td>3</td><td>Fingerprint</td></tr>
+    <tr><td>/wp-login</td><td>1</td><td>Fingerprint</td></tr>
+  </table>
+
+  <h3>Audio Fingerprint Correlation</h3>
+  <table>
+    <tr><th>AudioFP Value</th><th>Devices</th><th>Platform</th></tr>
+    <tr><td>124.043475</td><td>Device 1, 3, 5 (Day 2)</td><td>Chrome on Windows (real hardware)</td></tr>
+    <tr><td>35.749972</td><td>VM #1, VM #2 (Day 1), Device 4 (Day 2)</td><td>Firefox on Linux VM (llvmpipe)</td></tr>
+    <tr><td>35.738330</td><td>Device 2 (Day 2)</td><td>Cyberfox privacy browser</td></tr>
+  </table>
+
+  <div style="margin-top:24px;padding:14px;border:1px dashed #333;border-radius:6px;text-align:center;color:#555;font-size:.7rem">
+    End of Appendix &mdash; Honeypot Intelligence System v2.0<br>
+    EventByIndonesia Security Operations &mdash; Mei 2026<br>
+    CLASSIFICATION: INTERNAL USE ONLY
   </div>
-</section>
+</div>
 
-<!-- ==================== COLOPHON ==================== -->
-<!-- ==================== MUSIC PLAYER ==================== -->
-<audio id="bgMusic" loop preload="auto">
-  <source src="https://archive.org/download/PianoBackgroundMusic/09%20Sadness.mp3" type="audio/mpeg">
-</audio>
+</div><!-- end comic-container -->
 
-<button id="musicBtn" class="music-btn" aria-label="Toggle Music" title="Putar/Hentikan Musik">
-  <span class="music-icon" id="musicIcon">
-    <svg class="icon-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-    <svg class="icon-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-  </span>
-  <span class="music-bars" id="musicBars">
-    <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
-  </span>
-  <span class="music-label" id="musicLabel">Putar Musik</span>
-</button>
-
-<footer class="colophon">
-  <div class="end-mark">&loz;</div>
-  <p>S E R P I H A N &ensp; Y A N G &ensp; T E R S I S A</p>
-  <p style="margin-top:8px;font-size:.75rem">Terinspirasi dari kisah nyata &middot; 2026</p>
-  <p style="margin-top:4px;font-size:.7rem">Puisi oleh Jalaluddin Rumi &amp; Kahlil Gibran</p>
-</footer>
-
+<!-- ==================== JAVASCRIPT ==================== -->
 <script>
-// Preloader
-window.addEventListener('load', () => {
-  setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 1500);
+// Loading screen dismiss
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    document.getElementById('loading-screen').classList.add('hide');
+  }, 2400);
 });
 
-// Scroll progress
-window.addEventListener('scroll', () => {
-  const h = document.documentElement;
-  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
-  document.getElementById('progress').style.width = pct + '%';
-  // Nav title visibility
-  document.getElementById('navTitle').classList.toggle('visible', window.scrollY > window.innerHeight * 0.8);
+// Intersection Observer: fade-in panels on scroll
+var panelObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, {
+  threshold: 0.08,
+  rootMargin: '0px 0px -40px 0px'
 });
 
-// Intersection Observer for fade-in
-const obs = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+document.querySelectorAll('.panel:not(.cover-panel), .appendix').forEach(function(el) {
+  panelObserver.observe(el);
+});
 
-// TOC
-function toggleTOC() {
-  const o = document.getElementById('tocOverlay');
-  o.classList.toggle('active');
-  document.body.style.overflow = o.classList.contains('active') ? 'hidden' : '';
-}
+// Animate bar chart heights on scroll
+var barChartObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      var bars = entry.target.querySelectorAll('.bar');
+      bars.forEach(function(bar) {
+        var h = bar.style.height;
+        bar.style.height = '0';
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            bar.style.height = h;
+          });
+        });
+      });
+      barChartObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
 
-// TOC items stagger
-document.getElementById('tocOverlay').addEventListener('transitionend', () => {
-  const items = document.querySelectorAll('.toc-item');
-  items.forEach((item, i) => { item.style.transitionDelay = (i * 0.06) + 's'; });
+document.querySelectorAll('.bar-chart').forEach(function(el) {
+  barChartObserver.observe(el);
+});
+
+// Animate recon bars on scroll
+var reconObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      var bars = entry.target.querySelectorAll('.bar-h');
+      bars.forEach(function(bar) {
+        var w = bar.style.width;
+        bar.style.width = '0';
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            bar.style.width = w;
+          });
+        });
+      });
+      reconObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.recon-bar').forEach(function(el) {
+  reconObserver.observe(el);
 });
 
 // ===== MUSIC PLAYER =====
-(() => {
-  const audio = document.getElementById('bgMusic');
-  const btn = document.getElementById('musicBtn');
-  const label = document.getElementById('musicLabel');
-  const TARGET_VOL = 0.35;
+(function(){
+  var audio = document.getElementById('bgMusic');
+  var btn = document.getElementById('musicBtn');
+  var label = document.getElementById('musicLabel');
+  if(!audio || !btn) return;
 
-  audio.volume = 0;
+  var sources = [
+    'https://archive.org/download/jamendo-593973/01-2233691-AlexZavesa-Dark%20Cyberpunk%20Electro%20_Short%20Version_.mp3',
+    'https://archive.org/download/jamendo-566866/01-2171330-AlexZavesa-Cyberpunk%20Electro%20_Main%20Version_.mp3',
+    'https://archive.org/download/CyberpunkMoonlightSonata/Cyberpunk%20Moonlight%20Sonata.mp3'
+  ];
+  var idx = 0;
+  audio.src = sources[idx];
+  audio.volume = 0.55;
 
-  function fadeIn(duration) {
-    audio.volume = 0;
-    audio.play().then(() => {
-      const step = TARGET_VOL / (duration / 50);
-      const fade = setInterval(() => {
-        if (audio.volume + step >= TARGET_VOL) { audio.volume = TARGET_VOL; clearInterval(fade); }
-        else audio.volume += step;
-      }, 50);
-      setPlaying(true);
-    }).catch(() => {
-      // Browser blocked - wait for next interaction
-      setPlaying(false);
-    });
+  audio.addEventListener('error', function(){
+    idx++;
+    if(idx < sources.length){
+      audio.src = sources[idx];
+      if(btn.classList.contains('playing')) audio.play().catch(function(){});
+    }
+  });
+
+  function setPlaying(p){
+    btn.classList.toggle('playing', p);
+    if(label) label.textContent = p ? 'Playing' : 'Play OST';
   }
 
-  function setPlaying(isPlaying) {
-    btn.classList.toggle('playing', isPlaying);
-    label.textContent = isPlaying ? 'Sedang Diputar' : 'Putar Musik';
-  }
-
-  function toggleMusic() {
-    if (audio.paused) {
-      fadeIn(2000);
+  btn.addEventListener('click', function(){
+    if(audio.paused){
+      audio.play().then(function(){ setPlaying(true); }).catch(function(){
+        setPlaying(false);
+      });
     } else {
       audio.pause();
       setPlaying(false);
     }
-  }
+  });
 
-  btn.addEventListener('click', toggleMusic);
-
-  // Auto-play on first real user gesture (click/touch only, NOT scroll)
-  let autoStarted = false;
-  function autoStart(e) {
-    if (autoStarted || e.target.closest('#musicBtn')) return;
-    autoStarted = true;
-    if (audio.paused) fadeIn(3000);
-    cleanup();
-  }
-  function cleanup() {
-    document.removeEventListener('click', autoStart);
-    document.removeEventListener('touchstart', autoStart);
-  }
-  document.addEventListener('click', autoStart);
-  document.addEventListener('touchstart', autoStart, { passive: true });
+  audio.addEventListener('play', function(){ setPlaying(true); });
+  audio.addEventListener('pause', function(){ setPlaying(false); });
 })();
 </script>
+
+<!-- ==================== MUSIC PLAYER ==================== -->
+<audio id="bgMusic" loop preload="none"></audio>
+<button id="musicBtn" class="music-btn" aria-label="Toggle background music" title="Putar/Hentikan musik">
+  <span class="m-led"></span>
+  <span class="m-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9z"/></svg>
+  </span>
+  <span class="m-bars" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+  <span class="m-label" id="musicLabel">Play OST</span>
+</button>
 
 </body>
 </html>
