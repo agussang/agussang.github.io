@@ -659,8 +659,8 @@ img,svg{max-width:100%;height:auto}
   <div class="enter-warn">⚠ HONEYPOT INTELLIGENCE BRIEFING</div>
   <h1 class="enter-title">KISAH SI HEKER SIAL</h1>
   <p class="enter-sub">Rekonstruksi 7 hari serangan, lengkap dengan jejak digital pelaku.<br>Tap tombol di bawah untuk masuk.</p>
-  <button class="enter-btn" id="enterBtn" type="button">▶ ENTER &amp; PLAY OST</button>
-  <button class="enter-skip" id="enterSkip" type="button">masuk tanpa musik</button>
+  <button class="enter-btn" id="enterBtn" type="button" onclick="window.__startOST&amp;&amp;window.__startOST(event)">▶ ENTER &amp; PLAY OST</button>
+  <button class="enter-skip" id="enterSkip" type="button" onclick="window.__skipOST&amp;&amp;window.__skipOST(event)">masuk tanpa musik</button>
   <div class="enter-status" id="enterStatus"></div>
 </div>
 
@@ -1772,9 +1772,19 @@ document.querySelectorAll('.recon-bar').forEach(function(el) {
   reconObserver.observe(el);
 });
 
-// ===== MUSIC PLAYER v4 (mandatory enter gesture) =====
+// ===== MUSIC PLAYER v5 (verbose step-by-step debugging) =====
+window.__MUSIC_LOG = [];
+function _mlog(msg){
+  window.__MUSIC_LOG.push(new Date().toISOString().slice(11,19) + ' ' + msg);
+  var st = document.getElementById('enterStatus');
+  if(st) st.textContent = '> ' + msg;
+}
+
+_mlog('script:start');
+
 (function(){
   try { sessionStorage.removeItem('ostPaused'); } catch(e){}
+  _mlog('cleanup:done');
 
   var audio = document.getElementById('bgMusic');
   var btn = document.getElementById('musicBtn');
@@ -1782,14 +1792,17 @@ document.querySelectorAll('.recon-bar').forEach(function(el) {
   var overlay = document.getElementById('enter-overlay');
   var enterBtn = document.getElementById('enterBtn');
   var enterSkip = document.getElementById('enterSkip');
-  var enterStatus = document.getElementById('enterStatus');
-  if(!audio || !btn || !overlay || !enterBtn) return;
+
+  if(!audio){ _mlog('FAIL: no audio element'); return; }
+  if(!enterBtn){ _mlog('FAIL: no enterBtn'); return; }
+  if(!overlay){ _mlog('FAIL: no overlay'); return; }
+  _mlog('elements:found, ready');
 
   var TARGET_VOL = 0.45;
 
   function setLabel(text, isPlaying){
     if(label) label.textContent = text;
-    btn.classList.toggle('playing', !!isPlaying);
+    if(btn) btn.classList.toggle('playing', !!isPlaying);
   }
 
   function dismissOverlay(){
@@ -1797,63 +1810,66 @@ document.querySelectorAll('.recon-bar').forEach(function(el) {
     setTimeout(function(){ overlay.style.display = 'none'; }, 900);
   }
 
-  function startMusic(){
-    audio.volume = TARGET_VOL;
-    audio.muted = false;
-    if(enterStatus) enterStatus.textContent = '> loading audio...';
-    var p = audio.play();
-    if(p && p.then){
-      p.then(function(){
-        if(enterStatus) enterStatus.textContent = '> ost: playing';
+  // Expose to global so inline onclick can call it (bulletproof)
+  window.__startOST = function(ev){
+    _mlog('click:received via ' + (ev && ev.type || 'unknown'));
+    try {
+      audio.volume = TARGET_VOL;
+      audio.muted = false;
+      _mlog('audio:configured');
+      var p = audio.play();
+      _mlog('play:invoked type=' + (p && typeof p.then === 'function' ? 'Promise' : typeof p));
+      if(p && p.then){
+        p.then(function(){
+          _mlog('play:RESOLVED — playing');
+          setLabel('Playing', true);
+          setTimeout(dismissOverlay, 400);
+        }).catch(function(err){
+          _mlog('play:REJECTED ' + (err && err.name) + ': ' + (err && err.message));
+          setLabel('Play OST');
+          setTimeout(dismissOverlay, 2500);
+        });
+      } else {
+        _mlog('play:non-promise (old browser)');
         setLabel('Playing', true);
-        setTimeout(dismissOverlay, 250);
-      }).catch(function(err){
-        // Synchronous user click → this should NOT happen, but just in case
-        if(enterStatus){
-          enterStatus.textContent = '> error: ' + (err.name || 'unknown') + ' — tap PLAY OST after entering';
-        }
-        setLabel('Play OST');
-        setTimeout(dismissOverlay, 1500);
-      });
-    } else {
-      setLabel('Playing', true);
-      dismissOverlay();
+        setTimeout(dismissOverlay, 400);
+      }
+    } catch(err){
+      _mlog('THREW: ' + err.message);
+      setTimeout(dismissOverlay, 2500);
     }
-  }
+  };
 
-  // ENTER button: start music + dismiss overlay (synchronous user gesture)
-  enterBtn.addEventListener('click', startMusic);
-  enterBtn.addEventListener('touchend', function(e){
-    e.preventDefault();
-    startMusic();
-  }, { passive: false });
-
-  // SKIP button: just dismiss overlay, no music
-  enterSkip.addEventListener('click', function(){
+  window.__skipOST = function(ev){
+    _mlog('skip:clicked');
     setLabel('Play OST');
     dismissOverlay();
-  });
+  };
 
-  // Floating button: pause/resume after entering
-  btn.addEventListener('click', function(){
-    if(audio.paused){
-      audio.volume = TARGET_VOL;
-      audio.play().then(function(){ setLabel('Playing', true); }).catch(function(){
+  // Also bind via addEventListener as redundant backup
+  enterBtn.addEventListener('click', window.__startOST, false);
+  enterSkip.addEventListener('click', window.__skipOST, false);
+
+  if(btn){
+    btn.addEventListener('click', function(){
+      if(audio.paused){
+        audio.volume = TARGET_VOL;
+        audio.play().then(function(){ setLabel('Playing', true); }).catch(function(){ setLabel('Play OST'); });
+      } else {
+        audio.pause();
         setLabel('Play OST');
-      });
-    } else {
-      audio.pause();
-      setLabel('Play OST');
-    }
-  });
+      }
+    }, false);
+  }
 
   audio.addEventListener('play', function(){ setLabel('Playing', true); });
   audio.addEventListener('pause', function(){ if(!audio.ended) setLabel('Play OST'); });
   audio.addEventListener('error', function(){
-    if(audio.networkState === 3 && enterStatus){
-      enterStatus.textContent = '> error: all audio sources failed';
-    }
+    if(audio.networkState === 3) _mlog('audio:NETWORK_NO_SOURCE all failed');
   });
+  audio.addEventListener('canplay', function(){ _mlog('audio:canplay (' + (audio.currentSrc||'').slice(-40) + ')'); });
+
+  _mlog('init:complete, click ENTER');
 })();
 </script>
 
