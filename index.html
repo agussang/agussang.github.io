@@ -1701,6 +1701,21 @@ img,svg{max-width:100%;height:auto}
 
 </div><!-- end comic-container -->
 
+<!-- ==================== MUSIC PLAYER ==================== -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="./audio/cyberpunk-ost.mp3" type="audio/mpeg">
+  <source src="./audio/cyberpunk-alt.mp3" type="audio/mpeg">
+  <source src="https://archive.org/download/jamendo-593973/01-2233691-AlexZavesa-Dark%20Cyberpunk%20Electro%20_Short%20Version_.mp3" type="audio/mpeg">
+</audio>
+<button id="musicBtn" class="music-btn" aria-label="Toggle background music" title="Putar/Hentikan musik">
+  <span class="m-led"></span>
+  <span class="m-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9z"/></svg>
+  </span>
+  <span class="m-bars" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+  <span class="m-label" id="musicLabel">Play OST</span>
+</button>
+
 <!-- ==================== JAVASCRIPT ==================== -->
 <script>
 // Loading screen dismiss
@@ -1872,21 +1887,6 @@ _mlog('script:start');
   _mlog('init:complete, click ENTER');
 })();
 </script>
-
-<!-- ==================== MUSIC PLAYER ==================== -->
-<audio id="bgMusic" loop preload="auto">
-  <source src="./audio/cyberpunk-ost.mp3" type="audio/mpeg">
-  <source src="./audio/cyberpunk-alt.mp3" type="audio/mpeg">
-  <source src="https://archive.org/download/jamendo-593973/01-2233691-AlexZavesa-Dark%20Cyberpunk%20Electro%20_Short%20Version_.mp3" type="audio/mpeg">
-</audio>
-<button id="musicBtn" class="music-btn" aria-label="Toggle background music" title="Putar/Hentikan musik">
-  <span class="m-led"></span>
-  <span class="m-icon" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9z"/></svg>
-  </span>
-  <span class="m-bars" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
-  <span class="m-label" id="musicLabel">Play OST</span>
-</button>
 
 </body>
 </html>
