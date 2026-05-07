@@ -546,13 +546,48 @@ body::before{
 }
 
 /* ========== EXTRA RESPONSIVE TWEAKS ========== */
+html,body{max-width:100vw;overflow-x:hidden}
+img,svg{max-width:100%;height:auto}
+.bubble,.terminal,.appendix table,pre,code{max-width:100%}
+.appendix{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.appendix table{scrollbar-color:#ffaa00 #1a1a2e}
+.appendix table::-webkit-scrollbar{height:8px}
+.appendix table::-webkit-scrollbar-track{background:#1a1a2e;border-radius:4px}
+.appendix table::-webkit-scrollbar-thumb{background:#ffaa00;border-radius:4px}
+.scene>*{max-width:100%}
+.terminal{word-break:break-word}
+
+@media(max-width:600px){
+  .comic-container{padding:16px 10px 100px}
+  .scene{gap:12px}
+  .bubble{font-size:.88rem;padding:10px 14px}
+  .terminal{font-size:.7rem;padding:10px 12px}
+  .device-grid{grid-template-columns:1fr;gap:10px}
+  .appendix{padding:14px 10px}
+  .appendix th,.appendix td{padding:5px 8px;font-size:.7rem}
+  /* hint for table scroll */
+  .appendix table::after{content:'⇄ scroll';display:block}
+}
 @media(max-width:480px){
-  .comic-container{padding:14px 8px 90px}
+  .comic-container{padding:14px 8px 100px}
+  .panel{margin:32px 0 32px 36px;padding:16px 12px}
+  .panel::before{left:-26px;width:12px;height:12px}
+  .panel-title{font-size:1.4rem;letter-spacing:1px}
+  .cover-panel{padding:28px 16px}
+  .stamp{padding:4px 12px;font-size:.85rem}
 }
 @media(max-width:380px){
-  .comic-container{padding:12px 6px 100px}
-  .panel{margin-left:24px;padding:14px 12px}
+  .comic-container{padding:10px 6px 110px}
+  .panel{margin-left:24px;padding:14px 10px}
   .panel::before{left:-20px;width:10px;height:10px}
+  .bubble{font-size:.82rem;padding:9px 12px}
+  .terminal{font-size:.65rem;line-height:1.6}
+  .appendix th,.appendix td{padding:4px 6px;font-size:.65rem}
+}
+/* landscape phones — keep panels readable */
+@media(max-height:500px) and (orientation:landscape){
+  .music-btn{bottom:8px;right:8px;padding:6px 10px;font-size:.65rem}
+  .panel{margin:24px 0 24px 36px}
 }
 </style>
 </head>
@@ -1666,7 +1701,7 @@ document.querySelectorAll('.recon-bar').forEach(function(el) {
   reconObserver.observe(el);
 });
 
-// ===== MUSIC PLAYER =====
+// ===== MUSIC PLAYER (with soft-autoplay) =====
 (function(){
   var audio = document.getElementById('bgMusic');
   var btn = document.getElementById('musicBtn');
@@ -1680,12 +1715,17 @@ document.querySelectorAll('.recon-bar').forEach(function(el) {
   ];
   var idx = 0;
   audio.src = sources[idx];
-  audio.volume = 0.55;
+  audio.volume = 0.5;
+  audio.preload = 'auto';
+
+  // user opted out (persisted across reloads)
+  var userPaused = sessionStorage.getItem('ostPaused') === '1';
 
   audio.addEventListener('error', function(){
     idx++;
     if(idx < sources.length){
       audio.src = sources[idx];
+      audio.load();
       if(btn.classList.contains('playing')) audio.play().catch(function(){});
     }
   });
@@ -1695,19 +1735,56 @@ document.querySelectorAll('.recon-bar').forEach(function(el) {
     if(label) label.textContent = p ? 'Playing' : 'Play OST';
   }
 
-  btn.addEventListener('click', function(){
-    if(audio.paused){
-      audio.play().then(function(){ setPlaying(true); }).catch(function(){
-        setPlaying(false);
+  function tryPlay(){
+    if(userPaused) return Promise.reject();
+    return audio.play().then(function(){
+      setPlaying(true);
+    }).catch(function(err){
+      setPlaying(false);
+      throw err;
+    });
+  }
+
+  // 1) Try autoplay immediately
+  tryPlay().catch(function(){
+    // 2) Blocked — arm one-shot listeners on first user gesture
+    var armed = true;
+    function gestureHandler(){
+      if(!armed) return;
+      armed = false;
+      tryPlay().catch(function(){});
+      cleanup();
+    }
+    function cleanup(){
+      ['click','touchstart','keydown','scroll','pointerdown'].forEach(function(ev){
+        window.removeEventListener(ev, gestureHandler);
       });
+    }
+    ['click','touchstart','keydown','scroll','pointerdown'].forEach(function(ev){
+      window.addEventListener(ev, gestureHandler, { once:false, passive:true });
+    });
+  });
+
+  // Manual toggle via button
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    if(audio.paused){
+      userPaused = false;
+      sessionStorage.removeItem('ostPaused');
+      tryPlay().catch(function(){});
     } else {
+      userPaused = true;
+      sessionStorage.setItem('ostPaused','1');
       audio.pause();
       setPlaying(false);
     }
   });
 
   audio.addEventListener('play', function(){ setPlaying(true); });
-  audio.addEventListener('pause', function(){ setPlaying(false); });
+  audio.addEventListener('pause', function(){
+    // only reflect pause from user — autoplay-block won't trigger pause event
+    if(!audio.ended) setPlaying(false);
+  });
 })();
 </script>
 
